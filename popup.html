@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="assets/css/popup.css">
+		<script type="text/javascript" src="assets/js/popup.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<img src="icon64.png" alt="Trello Ergo Logo">
+			<h1>Trello Ergo</h1>
+
+			<div class="settings">
+				<ul class="settings-values">
+					<!-- Minimal Dark Theme -->
+					<li>
+						<input type="checkbox" name="minimalDark" id="minimalDark" checked>
+						<label for="minimalDark">Minimal Dark</label>
+					</li>
+
+					<!-- Background Gradients -->
+					<li>
+						<input type="checkbox" name="backgroundGradients" id="backgroundGradients" checked>
+						<label for="backgroundGradients">Background Gradients</label>
+					</li>
+
+					<!-- Card Counting -->
+					<li>
+						<input type="checkbox" name="cardCounting" id="cardCounting" checked>
+						<label for="cardCounting">Card Counting</label>
+					</li>
+
+					<!-- Action Snapping -->
+					<li class="with-hint">
+						<input type="checkbox" name="actionSnapping" id="actionSnapping" checked>
+						<label for="actionSnapping">Action Snapping</label>
+						<p class="hint">Snap card actions to top when scrolling</p>
+					</li>
+
+					<!-- Skip Boards Page -->
+					<!--
+					<li class="with-hint js-slide-down" data-slide="skip-boards-url">
+						<input type="checkbox" name="skipBoards" id="skipBoards">
+						<label for="skipBoards">Skip Boards Page</label>
+						<p class="hint">Go straight to a specific board instead</p>
+					</li>
+					<input id="skip-boards-url" type="text" name="skip-boards-url" placeholder="Enter board URL">
+
+					
+					<li class="with-hint js-slide-down" data-slide="colored-lists-values">
+						<input type="checkbox" name="coloredLists" id="coloredLists">
+						<label for="coloredLists">Colored Lists</label>
+						<p class="hint">Color code lists containing certain words</p>
+					</li>
+					<ul id="colored-lists-values">
+						<li class="empty">
+							<input type="text" placeholder="Enter filter value">
+							<input type="text" placeholder="Enter color value">
+						</li>
+						<p id="add-new-filter">Add new filter</p>
+					</ul>
+					-->
+				</ul>
+				<p class="refresh-hint">Refresh page for changes to take effect</p>
+			</div>
+		</div>
+	</body>
+</html>
