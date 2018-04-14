@@ -1,3 +1,12 @@
+<p align="center">
+  <a href="">
+    <img src="https://img.shields.io/github/release/Sepshun/trello-ergo.svg?style=for-the-badge" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/issues/detail/last-update/Sepshun/trello-ergo/979.svg?style=for-the-badge" />
+  </a>
+</p>
+
 <h1 align="center">Trello Ergo</h1>
 <p align="center">Improve your Trello experience with dark themes, gradients, and general UX improvements</p>
 
