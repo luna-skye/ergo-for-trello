@@ -651,7 +651,7 @@ $colors: rgb(0, 121, 191), rgb(210, 144, 52), rgb(81, 152, 57), rgb(176, 70, 50)
 @each $item in $colors {
 	$col: str-insert(str-insert(str-slice(quote(rgba($item, 0.9)), 5, str-length(quote(rgba($item, 0.9))) - 6), ')', str-length(quote(rgba($item, 0.9))) - 5), 'rgb', 0);
 	#classic-body[style*="background-color: #{$col}"] {
-		background: $item;
+		// background: $item;
 		.checklist-progress-bar-current,
 		.u-fancy-scrollbar::-webkit-scrollbar-thumb { background: lighten($item, 20) !important; }
 		.checklist-item .icon-check:before,

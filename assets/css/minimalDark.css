@@ -458,8 +458,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 .shortcut-list-item .keyboard-key { background: #333333; color: white; border-radius: 0; }
 
-#classic-body[style*="background-color: rgb(0, 121, 191)"] { background: #0079bf; }
-
 #classic-body[style*="background-color: rgb(0, 121, 191)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(0, 121, 191)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #26afff !important; }
 
 #classic-body[style*="background-color: rgb(0, 121, 191)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(0, 121, 191)"] .window-sidebar .button-link:hover { color: #0079bf !important; }
@@ -467,8 +465,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(0, 121, 191)"] .badge.is-complete { background-color: #0079bf; }
 
 #classic-body[style*="background-color: rgb(0, 121, 191)"] pre::-webkit-scrollbar-thumb { background: rgba(0, 121, 191, 0.7) !important; }
-
-#classic-body[style*="background-color: rgb(210, 144, 52)"] { background: #d29034; }
 
 #classic-body[style*="background-color: rgb(210, 144, 52)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(210, 144, 52)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #e5be87 !important; }
 
@@ -478,8 +474,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(210, 144, 52)"] pre::-webkit-scrollbar-thumb { background: rgba(210, 144, 52, 0.7) !important; }
 
-#classic-body[style*="background-color: rgb(81, 152, 57)"] { background: #519839; }
-
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(81, 152, 57)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #85c96e !important; }
 
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(81, 152, 57)"] .window-sidebar .button-link:hover { color: #519839 !important; }
@@ -487,8 +481,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .badge.is-complete { background-color: #519839; }
 
 #classic-body[style*="background-color: rgb(81, 152, 57)"] pre::-webkit-scrollbar-thumb { background: rgba(81, 152, 57, 0.7) !important; }
-
-#classic-body[style*="background-color: rgb(176, 70, 50)"] { background: #b04632; }
 
 #classic-body[style*="background-color: rgb(176, 70, 50)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(176, 70, 50)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #d78171 !important; }
 
@@ -498,8 +490,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(176, 70, 50)"] pre::-webkit-scrollbar-thumb { background: rgba(176, 70, 50, 0.7) !important; }
 
-#classic-body[style*="background-color: rgb(137, 96, 158)"] { background: #89609e; }
-
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(137, 96, 158)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #b89fc5 !important; }
 
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(137, 96, 158)"] .window-sidebar .button-link:hover { color: #89609e !important; }
@@ -507,8 +497,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .badge.is-complete { background-color: #89609e; }
 
 #classic-body[style*="background-color: rgb(137, 96, 158)"] pre::-webkit-scrollbar-thumb { background: rgba(137, 96, 158, 0.7) !important; }
-
-#classic-body[style*="background-color: rgb(205, 90, 145)"] { background: #cd5a91; }
 
 #classic-body[style*="background-color: rgb(205, 90, 145)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(205, 90, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #e5a8c5 !important; }
 
@@ -518,8 +506,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(205, 90, 145)"] pre::-webkit-scrollbar-thumb { background: rgba(205, 90, 145, 0.7) !important; }
 
-#classic-body[style*="background-color: rgb(75, 191, 107)"] { background: #4bbf6b; }
-
 #classic-body[style*="background-color: rgb(75, 191, 107)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(75, 191, 107)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #96daa9 !important; }
 
 #classic-body[style*="background-color: rgb(75, 191, 107)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(75, 191, 107)"] .window-sidebar .button-link:hover { color: #4bbf6b !important; }
@@ -528,8 +514,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(75, 191, 107)"] pre::-webkit-scrollbar-thumb { background: rgba(75, 191, 107, 0.7) !important; }
 
-#classic-body[style*="background-color: rgb(0, 174, 204)"] { background: #00aecc; }
-
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(0, 174, 204)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #33e1ff !important; }
 
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(0, 174, 204)"] .window-sidebar .button-link:hover { color: #00aecc !important; }
@@ -537,8 +521,6 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .badge.is-complete { background-color: #00aecc; }
 
 #classic-body[style*="background-color: rgb(0, 174, 204)"] pre::-webkit-scrollbar-thumb { background: rgba(0, 174, 204, 0.7) !important; }
-
-#classic-body[style*="background-color: rgb(131, 140, 145)"] { background: #838c91; }
 
 #classic-body[style*="background-color: rgb(131, 140, 145)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(131, 140, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #b9bec1 !important; }
 

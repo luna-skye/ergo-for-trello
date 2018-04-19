@@ -14,5 +14,10 @@
 		"default_icon": "icon16.png",
 		"default_popup": "popup.html"
 	},
-	"permissions": [ "activeTab", "storage" ]
+	"permissions": [ "activeTab", "storage" ],
+	"web_accessible_resources": [
+		"assets/css/minimalDark.css",
+		"assets/css/cardCount.css",
+		"assets/css/gradients.css"
+	]
 }
