@@ -30,9 +30,10 @@
 <h2 align="center">Installation</h2>
 <ol width="500px">
   <li>Download as ZIP/Clone the Repository</li>
+  <li>Extract ZIP to a safe location (like Documents)</li>
   <li>Open Chrome's extension manager</li>
   <li>Make sure Developer mode is enabled</li>
   <li>Choose to "load unpacked extension"</li>
-  <li>Locate the downloaded root directory and select it</li>
+  <li>Locate the downloaded/extracted root directory and select it</li>
   <li>Customize the options in the popup menu and refresh/open Trello</li>
 </ol>
