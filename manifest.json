@@ -3,7 +3,7 @@
 
 	"name": "Trello Ergo",
 	"description": "",
-	"version": "0.7",
+	"version": "1.0",
 
 	"icons": { "16": "icon16.png", "64": "icon64.png", "128": "icon128.png" },
 	"author": "Sepshun",

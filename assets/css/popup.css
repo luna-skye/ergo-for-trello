@@ -79,7 +79,7 @@ ul.settings-values:not(#colored-lists-values) {
       left: 16px;
       border-radius: 0;
       opacity: 1;
-      border: 2px solid #1BB6D3;
+      border: 2px solid #7741C9;
       border-top-color: transparent;
       border-left-color: transparent;
       -webkit-transform: rotate(45deg);
@@ -92,7 +92,7 @@ ul.settings-values:not(#colored-lists-values) {
     padding: 6px 12px; }
     ul.settings-values:not(#colored-lists-values) input:focus {
       outline: none;
-      background: #c3eff7; }
+      background: #e9e0f6; }
   ul.settings-values:not(#colored-lists-values) #skip-boards-url {
     display: block;
     margin-top: -4px;

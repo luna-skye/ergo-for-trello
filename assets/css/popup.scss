@@ -5,6 +5,8 @@ html {
 	height: 390px;
 }
 
+$brand-color: #7741C9;
+
 img, h1 { display: inline-block; margin: 5px 6px; }
 img { height: 32px; }
 h1 { vertical-align: top; font-weight: lighter; margin: 5px 0; }
@@ -66,7 +68,7 @@ ul.settings-values:not(#colored-lists-values) {
 			left: 16px;
 			border-radius: 0;
 			opacity: 1;
-			border: 2px solid #1BB6D3;
+			border: 2px solid $brand-color;
 			border-top-color: transparent;
 			border-left-color: transparent;
 			transform: rotate(45deg);
@@ -77,7 +79,7 @@ ul.settings-values:not(#colored-lists-values) {
 		border: none;
 		background: hsl(0,0%,95%);
 		padding: 6px 12px;
-		&:focus { outline: none; background: lighten(#1BB6D3, 40%); }
+		&:focus { outline: none; background: lighten($brand-color, 40%); }
 	}
 
 
