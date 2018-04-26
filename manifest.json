@@ -3,7 +3,7 @@
 
 	"name": "Trello Ergo",
 	"description": "Optimize your Trello experience and boost productivity!",
-	"version": "1.0.1",
+	"version": "1.0.2",
 
 	"icons": { "16": "icon16.png", "64": "icon64.png", "128": "icon128.png" },
 	"author": "Sepshun",
