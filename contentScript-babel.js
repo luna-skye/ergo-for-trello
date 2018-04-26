@@ -76,13 +76,16 @@ window.addEventListener('load', () => {
 					list.children[0].children[4].children[0].innerText = count;
 				});
 
-				document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+
+				if (document.getElementById('total-card-count')) {
+					document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+				}
 			}
 		}
 
 		// Update The Counters
 		updateCounter();
-		setInterval(() => { updateCounter(); }, 1000)
+		setInterval(() => { updateCounter(); }, 1000);
 	}
 
 	// Action Snapping

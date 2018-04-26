@@ -86,7 +86,9 @@ window.addEventListener('load', function () {
 					list.children[0].children[4].children[0].innerText = count;
 				});
 
-				document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+				if (document.getElementById('total-card-count')) {
+					document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+				}
 			}
 		};
 
