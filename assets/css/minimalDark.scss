@@ -1,3 +1,10 @@
+// Variable
+$dark        : hsl(0,0%,10%);
+$light-dark  : hsl(0,0%,20%);
+$brand-bright: #972ED8;
+$brand-dull  : #5152B1;
+
+// Import Font
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 * { font-family: 'Open Sans', sans-serif; }
 
@@ -35,30 +42,33 @@ u.bottom, p { padding: 6px; }
 
 // Popover Fixes
 .pop-over-content .phenom-creator { margin-left: 4px !important; }
-.pop-over-content .inline-member { color: black; }
-.pop-over-content .comment-container p { color: black; }
-.pop-over-content .tip-text { color: black; }
 .pop-over-content h4 { padding: 6px; }
+.pop-over-content .inline-member,
+.pop-over-content .comment-container p,
+.pop-over-content .tip-text { color: black; }
 
 // Tabbed Pages
 .body-tabbed-page { background: linear-gradient(hsl(0,0%,15%), hsl(0,0%,10%)) !important; }
-hr { color: hsla(0,0%,100%,0.5) !important; background: hsla(0,0%,100%,0.5) !important; }
+hr {
+	color: hsla(0,0%,100%,0.5) !important;
+	background: hsla(0,0%,100%,0.5) !important;
+}
 .tabbed-pane-header,
 .tabbed-pane-header-details-content p,
 .tabbed-pane-header-details-content p a { color: hsl(0,0%,70%); padding: 6px 0; }
 
 // Background 1
 .tabbed-pane-nav,
-.tabbed-pane-main-col,
 .tabbed-pane-header,
-.list-card-edit-title.js-edit-card-title { background: hsl(0,0%,10%) !important; }
+.tabbed-pane-main-col,
+.list-card-edit-title.js-edit-card-title { background: $dark !important; }
 
 // Background 2
 #content .member-login,
-.bc-active-status { background: hsla(0,0%,20%,0.2) !important; }
+.bc-active-status { background: transparentize($light-dark, 0.8) !important; }
 
 // Partial Transparent Background
-.quick-card-editor-buttons { background: hsla(0,0%,10%,0.95) !important; }
+.quick-card-editor-buttons { background: transparentize($dark, 0.05) !important; }
 
 
 // No Background
@@ -93,7 +103,7 @@ form label,
 
 .markeddown ul>li { color: hsl(0,0%,60%); }
 pre {
-	background-color: hsla(0,0%,20%,0.5) !important;
+	background-color: transparentize($light-dark, 0.5) !important;
 	border-color: transparent !important;
 	code { background-color: transparent !important; color: hsl(0,0%,70%); }
 }

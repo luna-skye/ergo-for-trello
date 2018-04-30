@@ -30,13 +30,9 @@ u.bottom, p { padding: 6px; }
 /* Fix for Card Labels */
 .pop-over-content .phenom-creator { margin-left: 4px !important; }
 
-.pop-over-content .inline-member { color: black; }
-
-.pop-over-content .comment-container p { color: black; }
-
-.pop-over-content .tip-text { color: black; }
-
 .pop-over-content h4 { padding: 6px; }
+
+.pop-over-content .inline-member, .pop-over-content .comment-container p, .pop-over-content .tip-text { color: black; }
 
 .body-tabbed-page { background: -webkit-gradient(linear, left top, left bottom, from(#262626), to(#1a1a1a)) !important; background: -webkit-linear-gradient(#262626, #1a1a1a) !important; background: -o-linear-gradient(#262626, #1a1a1a) !important; background: linear-gradient(#262626, #1a1a1a) !important; }
 
@@ -44,7 +40,7 @@ hr { color: rgba(255, 255, 255, 0.5) !important; background: rgba(255, 255, 255,
 
 .tabbed-pane-header, .tabbed-pane-header-details-content p, .tabbed-pane-header-details-content p a { color: #b3b3b3; padding: 6px 0; }
 
-.tabbed-pane-nav, .tabbed-pane-main-col, .tabbed-pane-header, .list-card-edit-title.js-edit-card-title { background: #1a1a1a !important; }
+.tabbed-pane-nav, .tabbed-pane-header, .tabbed-pane-main-col, .list-card-edit-title.js-edit-card-title { background: #1a1a1a !important; }
 
 #content .member-login, .bc-active-status { background: rgba(51, 51, 51, 0.2) !important; }
 
