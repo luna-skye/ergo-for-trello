@@ -200,7 +200,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .search-result-card-highlight-card .search-result-card-container .list-card { -webkit-box-shadow: 0 3px 0px rgba(0, 0, 0, 0.3); box-shadow: 0 3px 0px rgba(0, 0, 0, 0.3); border-radius: none; }
 
-.header-search-icon { color: white; }
+.header-search-icon { color: white !important; }
 
 .header-user { top: 0; }
 
@@ -248,7 +248,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .board-header .board-header-btn-name-with-org-logo span { padding-left: 3pc !important; }
 
-.board-header .board-header-btn { padding-top: 6px !important; padding-bottom: 6px !important; border-radius: 0; height: 42px; margin-right: 0; -webkit-transition: background 0.1s ease; -o-transition: background 0.1s ease; transition: background 0.1s ease; }
+.board-header .board-header-btn { padding-top: 6px !important; padding-bottom: 6px !important; border-radius: 0; height: 42px; margin-right: 0; margin-top: 0 !important; -webkit-transition: background 0.1s ease; -o-transition: background 0.1s ease; transition: background 0.1s ease; }
 
 .board-header .board-header-btn:hover { background: rgba(255, 255, 255, 0.3) !important; }
 
@@ -269,6 +269,8 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 .board-header .card-count { display: inline-block; float: left; padding: 4px 2px; font-size: 12px; }
 
 .board-header .board-header-btn-divider { display: none; }
+
+.body-gray-board-background .board-header-btn { background: rgba(0, 0, 0, 0.2) !important; }
 
 .list-wrapper { margin: 0 2px; }
 
