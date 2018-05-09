@@ -10,9 +10,9 @@
 <h1 align="center">Trello Ergo</h1>
 <p align="center">Improve your Trello experience with dark themes, gradients, and general UX improvements</p>
 
-<p align="center">If you've ever used Trello, you'll notice a lot of things that are far from optimized.</p> <br>
-<p align="center">From the moderately out of date styling, to long comment lists rendering the actions panel useless, and many other things.</p>
-<p align="center">Trello Ergo is an attempt to fix this. Giving Trello a complete facelift with a sleek, modern design, shiny gradients, and some small features that just make this day-to-day tool easier.</p>
+<p align="center">As amazing as Trello is, there are a few areas that could use some tweaking</p> <br>
+<p align="center">Whether you think that be a visible card counter, a minimal dark theme, gradient background, etc</p>
+<p align="center">Trello Ergo is an attempt to do just that. Giving Trello a complete facelift with a sleek, modern design, shiny gradients, and some small features that just make this day-to-day tool easier.</p>
 
 <br>
 
