@@ -9,16 +9,16 @@ $brand-dull  : #5152B1;
 * { font-family: 'Open Sans', sans-serif; }
 
 // Input Defaults
-input[type='text']   { border-radius: 0; border: none; }
-input[type='submit'] { border-radius: 0; }
-input[type='submit'][disabled] { background: transparent; }
-input[type='submit'][disabled]:hover { background: transparent; }
+input[type='text']                   { border-radius: 0; border: none; }
+input[type='submit']                 { border-radius: 0;               }
+input[type='submit'][disabled]       { background: transparent;        }
+input[type='submit'][disabled]:hover { background: transparent;        }
 
 // MISC
-label { padding: 0 6px; }
+label         { padding: 0 6px;   }
 button.negate { border-radius: 0; }
-u.bottom, p { padding: 6px; }
-.header-woof { display: none; }
+u.bottom, p   { padding: 6px;     }
+.header-woof  { display: none;    }
 .js-palette-color {
 	margin: 0 6px 10px 6px !important;
 	border-radius: 0;
@@ -61,6 +61,7 @@ hr {
 .tabbed-pane-nav,
 .tabbed-pane-header,
 .tabbed-pane-main-col,
+.member-boards-view.super-home,
 .list-card-edit-title.js-edit-card-title { background: $dark !important; }
 
 // Background 2
@@ -88,7 +89,8 @@ form h3,
 #content .window-module .card-detail-window .big-link:hover,
 #content .window-module .card-detail-window .quiet-button:hover,
 #content .window-module .card-detail-window .member-applications-list-item-details,
-.list-card-edit-title.js-edit-card-title { color: white; }
+.list-card-edit-title.js-edit-card-title,
+.home-tab-container .home-tab { color: white; }
 .board-menu-container .phenom-desc span span { color: hsl(0,0%,50%); }
 
 // COLOR LIGHT GRAY
@@ -226,6 +228,88 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		padding: 8px !important;
 		border-radius: 20px 0 0 20px !important;
 		background: #61BD4F !important;
+	}
+}
+
+
+
+// -------------------------------------
+// HOME PAGE ---------------------------
+// Home Tabs
+.home-tab-container .home-tab {
+	border-radius: 0px !important;
+	span { color: hsl(0, 0%, 70%) !important; }
+	&:hover {
+		background: transparent !important;
+		span { color: white !important; }
+	}
+	&.selected {
+		background: hsla(0, 0%, 100%, 0.1) !important;
+		span { color: lighten($brand-bright, 20%) !important; }
+	}
+
+	.home-tab-link {
+		padding: 7px 10px 7px 0 !important;
+	}
+	.home-tab-icon {
+		&:not(.icon-sm) { margin-top: -3px !important; }
+		width: 24px !important;
+		height: 24px !important;
+		border-radius: 0 !important;
+	}
+}
+.home-board-section-item {
+	border-radius: 0 !important;
+	background: transparent !important;
+	&:hover { background: hsla(0,0%,100%,0.1) !important; }
+	.home-board-tile-link-thumbnail, .home-board-link-icon {
+		border-radius: 0 !important;
+		height: 32px !important;
+	}
+	.home-board-link-icon.with-background {
+		background: hsla(0,0%,100%,0.1) !important;
+		box-shadow: none !important;
+		-webkit-box-shadow: none !important;
+	}
+	.home-board-tile-link-text-name, .home-board-link-text { color: hsl(0,0%,60%) !important; }
+	a:active { background: transparent !important; .home-board-tile-link-text-name, .home-board-link-text { color: white !important; } }
+}
+
+// Content
+// Main highlight container
+.lellDz {
+	background: transparent !important;
+
+	// Text content container
+	.dhmfCv {
+		background: hsla(0,0%,100%,0.05) !important;
+		border-radius: 0 !important;
+
+		// Username
+		.hibaZt { color: white !important; }
+		// Text content
+		.cxsCJo {
+			color: hsl(0,0%,60%) !important;
+			a { color: #999999 !important; }
+			a:hover { color: white !important; }
+		}
+	}
+
+	// Card
+	.deRXfE {
+		background: hsla(0,0%,15%,0.9) !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+		&:hover { background: hsla(0,0%,20%,0.9) !important; }
+
+		// Card title
+		.jwdbeE { color: white !important; }
+	}
+
+	// Board & List Titles
+	.home-activity div[title] {
+		h1 { opacity: 0.7; }
+		h2 { opacity: 0.5; }
 	}
 }
 
@@ -530,6 +614,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		.u-inline-block.u-bottom { padding: 6px 0; }
 		.card-detail-item-header.js-show-with-desc, .card-detail-item-header, h3 { color: white; }
 		.description-content { color: hsl(0,0%,70%); }
+		.description-content a { color: hsl(0,0%,60%); }
 		.js-card-desc p { padding: 6px 0; }
 		.card-detail-edit.edit textarea.field {
 			background: hsla(0,0%,100%,0.1) !important;
@@ -609,6 +694,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 			.current-comment { padding: 6px 0; }
 			p { color: hsla(0,0%,100%,0.5); padding: 2px 0; }
+
 			.comment-box-input { background: hsla(0,0%,100%,0.05) !important; border-radius: 0 !important; }
 		}
 		.phenom-meta.quiet { padding: 6px 0; }
@@ -670,6 +756,7 @@ $colors: rgb(0, 121, 191), rgb(210, 144, 52), rgb(81, 152, 57), rgb(176, 70, 50)
 		.u-fancy-scrollbar::-webkit-scrollbar-thumb { background: lighten($item, 20) !important; }
 		.checklist-item .icon-check:before,
 		.window-sidebar .button-link:hover { color: $item !important; }
+		.action-comment a {color: desaturate($item, 30%) !important; }
 		.badge.is-complete { background-color: $item; }
 		pre::-webkit-scrollbar-thumb { background: transparentize($item, 0.3) !important; }
 	}

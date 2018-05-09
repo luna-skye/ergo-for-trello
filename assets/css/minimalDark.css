@@ -40,7 +40,7 @@ hr { color: rgba(255, 255, 255, 0.5) !important; background: rgba(255, 255, 255,
 
 .tabbed-pane-header, .tabbed-pane-header-details-content p, .tabbed-pane-header-details-content p a { color: #b3b3b3; padding: 6px 0; }
 
-.tabbed-pane-nav, .tabbed-pane-header, .tabbed-pane-main-col, .list-card-edit-title.js-edit-card-title { background: #1a1a1a !important; }
+.tabbed-pane-nav, .tabbed-pane-header, .tabbed-pane-main-col, .member-boards-view.super-home, .list-card-edit-title.js-edit-card-title { background: #1a1a1a !important; }
 
 #content .member-login, .bc-active-status { background: rgba(51, 51, 51, 0.2) !important; }
 
@@ -48,7 +48,7 @@ hr { color: rgba(255, 255, 255, 0.5) !important; background: rgba(255, 255, 255,
 
 a.quick-card-editor-buttons-item { background: transparent !important; }
 
-form h3, .billing-summary h3, .billing-plan-title, .subscribe-title span, .icon-business-class-color, .billing-intro-list-item h3, .billing-intro-header-title span, #content .window-module .card-detail-window .phenom-desc, #content .window-module .card-detail-window .phenom-desc a:hover, #content .window-module .card-detail-window .phenom-meta.quiet a:hover, #content .window-module .card-detail-window .big-link:hover, #content .window-module .card-detail-window .quiet-button:hover, #content .window-module .card-detail-window .member-applications-list-item-details, .list-card-edit-title.js-edit-card-title { color: white; }
+form h3, .billing-summary h3, .billing-plan-title, .subscribe-title span, .icon-business-class-color, .billing-intro-list-item h3, .billing-intro-header-title span, #content .window-module .card-detail-window .phenom-desc, #content .window-module .card-detail-window .phenom-desc a:hover, #content .window-module .card-detail-window .phenom-meta.quiet a:hover, #content .window-module .card-detail-window .big-link:hover, #content .window-module .card-detail-window .quiet-button:hover, #content .window-module .card-detail-window .member-applications-list-item-details, .list-card-edit-title.js-edit-card-title, .home-tab-container .home-tab { color: white; }
 
 .board-menu-container .phenom-desc span span { color: gray; }
 
@@ -155,6 +155,60 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 .card-detail-badge .card-detail-badge-due-date-complete-box { border: 1px solid white !important; border-radius: 50% !important; background: transparent !important; }
 
 .card-detail-badge.is-due-complete { padding: 8px !important; border-radius: 20px 0 0 20px !important; background: #61BD4F !important; }
+
+.home-tab-container .home-tab { border-radius: 0px !important; }
+
+.home-tab-container .home-tab span { color: #b3b3b3 !important; }
+
+.home-tab-container .home-tab:hover { background: transparent !important; }
+
+.home-tab-container .home-tab:hover span { color: white !important; }
+
+.home-tab-container .home-tab.selected { background: rgba(255, 255, 255, 0.1) !important; }
+
+.home-tab-container .home-tab.selected span { color: #c284e8 !important; }
+
+.home-tab-container .home-tab .home-tab-link { padding: 7px 10px 7px 0 !important; }
+
+.home-tab-container .home-tab .home-tab-icon { width: 24px !important; height: 24px !important; border-radius: 0 !important; }
+
+.home-tab-container .home-tab .home-tab-icon:not(.icon-sm) { margin-top: -3px !important; }
+
+.home-board-section-item { border-radius: 0 !important; background: transparent !important; }
+
+.home-board-section-item:hover { background: rgba(255, 255, 255, 0.1) !important; }
+
+.home-board-section-item .home-board-tile-link-thumbnail, .home-board-section-item .home-board-link-icon { border-radius: 0 !important; height: 32px !important; }
+
+.home-board-section-item .home-board-link-icon.with-background { background: rgba(255, 255, 255, 0.1) !important; box-shadow: none !important; -webkit-box-shadow: none !important; }
+
+.home-board-section-item .home-board-tile-link-text-name, .home-board-section-item .home-board-link-text { color: #999999 !important; }
+
+.home-board-section-item a:active { background: transparent !important; }
+
+.home-board-section-item a:active .home-board-tile-link-text-name, .home-board-section-item a:active .home-board-link-text { color: white !important; }
+
+.lellDz { background: transparent !important; }
+
+.lellDz .dhmfCv { background: rgba(255, 255, 255, 0.05) !important; border-radius: 0 !important; }
+
+.lellDz .dhmfCv .hibaZt { color: white !important; }
+
+.lellDz .dhmfCv .cxsCJo { color: #999999 !important; }
+
+.lellDz .dhmfCv .cxsCJo a { color: #999999 !important; }
+
+.lellDz .dhmfCv .cxsCJo a:hover { color: white !important; }
+
+.lellDz .deRXfE { background: rgba(38, 38, 38, 0.9) !important; border-radius: 0 !important; -webkit-box-shadow: none !important; box-shadow: none !important; }
+
+.lellDz .deRXfE:hover { background: rgba(51, 51, 51, 0.9) !important; }
+
+.lellDz .deRXfE .jwdbeE { color: white !important; }
+
+.lellDz .home-activity div[title] h1 { opacity: 0.7; }
+
+.lellDz .home-activity div[title] h2 { opacity: 0.5; }
 
 #header { padding: 0; height: 42px; background: rgba(26, 26, 26, 0.8) !important; }
 
@@ -360,6 +414,8 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .window .card-detail-window .description-content { color: #b3b3b3; }
 
+.window .card-detail-window .description-content a { color: #999999; }
+
 .window .card-detail-window .js-card-desc p { padding: 6px 0; }
 
 .window .card-detail-window .card-detail-edit.edit textarea.field { background: rgba(255, 255, 255, 0.1) !important; color: white !important; }
@@ -460,6 +516,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(0, 121, 191)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(0, 121, 191)"] .window-sidebar .button-link:hover { color: #0079bf !important; }
 
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .action-comment a { color: #1d71a2 !important; }
+
 #classic-body[style*="background-color: rgb(0, 121, 191)"] .badge.is-complete { background-color: #0079bf; }
 
 #classic-body[style*="background-color: rgb(0, 121, 191)"] pre::-webkit-scrollbar-thumb { background: rgba(0, 121, 191, 0.7) !important; }
@@ -467,6 +525,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(210, 144, 52)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(210, 144, 52)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #e5be87 !important; }
 
 #classic-body[style*="background-color: rgb(210, 144, 52)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(210, 144, 52)"] .window-sidebar .button-link:hover { color: #d29034 !important; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .action-comment a { color: #ad8a59 !important; }
 
 #classic-body[style*="background-color: rgb(210, 144, 52)"] .badge.is-complete { background-color: #d29034; }
 
@@ -476,6 +536,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(81, 152, 57)"] .window-sidebar .button-link:hover { color: #519839 !important; }
 
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .action-comment a { color: #617958 !important; }
+
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .badge.is-complete { background-color: #519839; }
 
 #classic-body[style*="background-color: rgb(81, 152, 57)"] pre::-webkit-scrollbar-thumb { background: rgba(81, 152, 57, 0.7) !important; }
@@ -483,6 +545,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(176, 70, 50)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(176, 70, 50)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #d78171 !important; }
 
 #classic-body[style*="background-color: rgb(176, 70, 50)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(176, 70, 50)"] .window-sidebar .button-link:hover { color: #b04632 !important; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .action-comment a { color: #8e5d54 !important; }
 
 #classic-body[style*="background-color: rgb(176, 70, 50)"] .badge.is-complete { background-color: #b04632; }
 
@@ -492,6 +556,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(137, 96, 158)"] .window-sidebar .button-link:hover { color: #89609e !important; }
 
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .action-comment a { color: #7f7f7f !important; }
+
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .badge.is-complete { background-color: #89609e; }
 
 #classic-body[style*="background-color: rgb(137, 96, 158)"] pre::-webkit-scrollbar-thumb { background: rgba(137, 96, 158, 0.7) !important; }
@@ -499,6 +565,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(205, 90, 145)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(205, 90, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #e5a8c5 !important; }
 
 #classic-body[style*="background-color: rgb(205, 90, 145)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(205, 90, 145)"] .window-sidebar .button-link:hover { color: #cd5a91 !important; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .action-comment a { color: #ad7a92 !important; }
 
 #classic-body[style*="background-color: rgb(205, 90, 145)"] .badge.is-complete { background-color: #cd5a91; }
 
@@ -508,6 +576,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(75, 191, 107)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(75, 191, 107)"] .window-sidebar .button-link:hover { color: #4bbf6b !important; }
 
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .action-comment a { color: #709a7b !important; }
+
 #classic-body[style*="background-color: rgb(75, 191, 107)"] .badge.is-complete { background-color: #4bbf6b; }
 
 #classic-body[style*="background-color: rgb(75, 191, 107)"] pre::-webkit-scrollbar-thumb { background: rgba(75, 191, 107, 0.7) !important; }
@@ -516,6 +586,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(0, 174, 204)"] .window-sidebar .button-link:hover { color: #00aecc !important; }
 
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .action-comment a { color: #1f98ad !important; }
+
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .badge.is-complete { background-color: #00aecc; }
 
 #classic-body[style*="background-color: rgb(0, 174, 204)"] pre::-webkit-scrollbar-thumb { background: rgba(0, 174, 204, 0.7) !important; }
@@ -523,6 +595,8 @@ h2 { color: white; margin: 0 0 9px 10px; }
 #classic-body[style*="background-color: rgb(131, 140, 145)"] .checklist-progress-bar-current, #classic-body[style*="background-color: rgb(131, 140, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb { background: #b9bec1 !important; }
 
 #classic-body[style*="background-color: rgb(131, 140, 145)"] .checklist-item .icon-check:before, #classic-body[style*="background-color: rgb(131, 140, 145)"] .window-sidebar .button-link:hover { color: #838c91 !important; }
+
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .action-comment a { color: #8a8a8a !important; }
 
 #classic-body[style*="background-color: rgb(131, 140, 145)"] .badge.is-complete { background-color: #838c91; }
 
