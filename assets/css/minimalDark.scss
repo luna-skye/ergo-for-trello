@@ -90,7 +90,8 @@ form h3,
 #content .window-module .card-detail-window .quiet-button:hover,
 #content .window-module .card-detail-window .member-applications-list-item-details,
 .list-card-edit-title.js-edit-card-title,
-.home-tab-container .home-tab { color: white; }
+.home-tab-container .home-tab,
+.canonical-card h1 { color: white; }
 .board-menu-container .phenom-desc span span { color: hsl(0,0%,50%); }
 
 // COLOR LIGHT GRAY
@@ -235,15 +236,18 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 // -------------------------------------
 // HOME PAGE ---------------------------
+.home-container { background: $dark; }
 // Home Tabs
-.home-tab-container .home-tab {
+.home-left-sidebar-container div ul li { margin: 0; }
+.home-left-sidebar-container div ul li a,
+.home-left-sidebar-container div ul li button {
 	border-radius: 0px !important;
 	span { color: hsl(0, 0%, 70%) !important; }
 	&:hover {
-		background: transparent !important;
+		background: hsla(0, 0%, 100%, 0.05) !important;
 		span { color: white !important; }
 	}
-	&.selected {
+	&.app-scripts-views-home-presentational-tab__selected__1gsiC {
 		background: hsla(0, 0%, 100%, 0.1) !important;
 		span { color: lighten($brand-bright, 20%) !important; }
 	}
@@ -261,7 +265,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 .home-board-section-item {
 	border-radius: 0 !important;
 	background: transparent !important;
-	&:hover { background: hsla(0,0%,100%,0.1) !important; }
+	&:hover { background: hsla(0,0%,100%,0.05) !important; }
 	.home-board-tile-link-thumbnail, .home-board-link-icon {
 		border-radius: 0 !important;
 		height: 32px !important;
@@ -276,19 +280,26 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 }
 
 // Content
+.home-activity-feed {
+	.home-activity {
+
+	}
+}
+
+
 // Main highlight container
 .lellDz {
 	background: transparent !important;
 
 	// Text content container
-	.dhmfCv {
+	.hiqYnm {
 		background: hsla(0,0%,100%,0.05) !important;
 		border-radius: 0 !important;
 
 		// Username
-		.hibaZt { color: white !important; }
+		.bOrttA { color: white !important; }
 		// Text content
-		.cxsCJo {
+		.iZEorn {
 			color: hsl(0,0%,60%) !important;
 			a { color: #999999 !important; }
 			a:hover { color: white !important; }
@@ -296,6 +307,9 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	}
 
 	// Card
+	.sc-kpOJdX {
+		border-radius: 0 !important;
+	}
 	.deRXfE {
 		background: hsla(0,0%,15%,0.9) !important;
 		border-radius: 0 !important;
