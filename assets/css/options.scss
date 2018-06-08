@@ -1,0 +1,202 @@
+// Color Variables
+$dark        : hsl(0,0%,10%);
+$light-dark  : hsl(0,0%,20%);
+$brand-bright: #972ED8;
+$brand-dull  : #5152B1;
+
+// Import Font
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+* { font-family: 'Open Sans', sans-serif; }
+
+body {
+    background: $dark;
+    margin: 0;
+    overflow-x: hidden;
+    min-width: 990px;
+}
+
+// Landing Image/Header
+#header {
+    background: url('http://trelloergo.sepshun.io/assets/img/featuresGraphic.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+
+    width: 100%;
+    height: 256px;
+}
+
+// Content
+#content {
+    width: 960px;
+    height: 320px;
+    margin: auto;
+
+    display: flex;
+
+    .option-io {
+        position: relative;
+        width: 100%;
+        &.show-back { width: 320px; }
+        ul.settings { width: 320px; margin: auto; }
+        transition: 0.2s ease;
+
+        .title {
+            position: relative;
+            width: 320px;
+            margin: auto;
+            padding: 18px 0;
+
+            p {
+                color: white;
+                padding: 0;
+                margin: 0;
+                transition: 0.2s ease;
+            }
+
+            img.back-btn {
+                position: absolute;
+                padding: 20px 0;
+                top: 0;
+                left: 64px;
+                opacity: 0;
+                pointer-events: none;
+                cursor: pointer;
+                transition: 0.2s ease;
+            }
+        }
+        &.show-back .title {
+            p {
+                opacity: 0;
+                margin-right: 64px;
+            }
+            img.back-btn {
+                left: 0;
+                opacity: 0.5;
+                pointer-events: auto;
+                &:hover { opacity: 0.8; }
+            }
+        }
+    }
+    .option-details {
+        position: relative;
+        width: 0%;
+        opacity: 0;
+        transition: 0.2s ease;
+        &.show { width: 100%; opacity: 1; }
+
+        .detail-pane {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            margin-left: 64px;
+            width: 640px;
+            transition: 0.2s ease;
+            &.show {
+                margin-left: 0;
+                pointer-events: auto;
+                opacity: 1;
+            }
+
+            p.title { margin-bottom: 36px; }
+            p:not(.title) {
+                color: hsla(0,0%,100%,0.5);
+                font-size: 14px;
+            }
+
+            ul.settings {
+                margin: 0 0;
+            }
+        }
+    }
+
+
+    p {
+        color: white;
+        font-size: 16px;
+        font-weight: lighter;
+    }
+}
+
+
+// Settings List
+ul.settings {
+	width: 320px;
+	margin: auto;
+	list-style: none;
+	padding: 0;
+
+	li {
+		display: grid;
+		grid-template-columns: 64px auto;
+
+		div {
+			color: white;
+
+			&.checkbox {
+				label {
+					padding: 8px 0;
+					display: block;
+					position: relative;
+					width: 64px;
+					height: 32px;
+					cursor: pointer;
+				}
+				input[type="checkbox"] { display: none; }
+				input[type="checkbox"] + label:before {
+					content: '';
+					display: block;
+					width: 64px;
+					height: 32px;
+					position: absolute;
+					top: 8px;
+					left: 0;
+					transition: 0.1s ease;
+					border-radius: 32px;
+					background: transparentize(#fff, 0.95);
+				}
+				input[type="checkbox"]:checked + label:before {
+					background: transparentize(lighten(desaturate($brand-bright, 30%), 10%), 0.8);
+				}
+
+				input[type="checkbox"] + label:after {
+					content: '';
+					display: block;
+					width: 26px;
+					height: 26px;
+					position: absolute;
+					top: 11px;
+					left: 3px;
+					transition: 0.1s ease;
+					background: hsla(0,0%,100%,0.1);
+					border-radius: 27px;
+				}
+				input[type="checkbox"] + label:active:after { width: 32px; }
+
+				input[type="checkbox"]:checked + label:after {
+					left: 35px;
+					background: $brand-bright;
+				}
+				input[type="checkbox"]:checked + label:active:after { left: 29px; }
+			}
+			&.setting-label {
+				position: relative;
+				cursor: pointer;
+				p {
+					font-size: 16px;
+					margin-top: 13px;
+					margin-left: 24px;
+                    user-select: none;
+				}
+				img {
+					position: absolute;
+					top: 18px;
+					right: 24px;
+					opacity: 0.25;
+				}
+			}
+		}
+	}
+}

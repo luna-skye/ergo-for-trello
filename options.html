@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Settings | Ergo for Trello</title>
+
+        <link rel="stylesheet" href="/assets/css/options.css">
+        <script type="text/javascript" src="/assets/js/options.js"></script>
+    </head>
+    <body>
+        <div id="header">
+
+        </div>
+        <div id="content">
+            <div class="option-io">
+                <div class="title">
+                    <p>Settings</p>
+
+                    <img class="back-btn" src="/assets/img/backbtn.png" alt="Back">
+                </div>
+                <ul class="settings">
+                    <!-- Minimal Dark Theme -->
+					<li class="detailed-settings">
+                        <div class="checkbox">
+                			<input type="checkbox" name="minimalDark" id="minimalDark" checked>
+                			<label for="minimalDark"></label>
+                		</div>
+                		<div class="setting-label">
+                			<p>Minimal Dark</p>
+                			<img src="/assets/img/right-arrow.png" />
+                		</div>
+					</li>
+
+					<!-- Background Gradients -->
+					<li class="detailed-settings">
+                        <div class="checkbox">
+                			<input type="checkbox" name="backgroundGradients" id="backgroundGradients" checked>
+                			<label for="backgroundGradients"></label>
+                		</div>
+                		<div class="setting-label">
+                			<p>Background Gradients</p>
+                			<img src="/assets/img/right-arrow.png" />
+                		</div>
+					</li>
+
+					<!-- Card Counting -->
+					<li class="detailed-settings">
+                        <div class="checkbox">
+                			<input type="checkbox" name="cardCounter" id="cardCounter" checked>
+                			<label for="cardCounter"></label>
+                		</div>
+                		<div class="setting-label">
+                			<p>Card Counter</p>
+                			<img src="/assets/img/right-arrow.png" />
+                		</div>
+					</li>
+
+					<!-- Action Snapping -->
+					<li>
+                        <div class="checkbox">
+                			<input type="checkbox" name="actionSnapping" id="actionSnapping" checked>
+                			<label for="actionSnapping"></label>
+                		</div>
+                		<div class="setting-label">
+                			<p>Action Snapping</p>
+                		</div>
+					</li>
+
+                    <!-- List Colors -->
+					<li class="detailed-settings">
+                        <div class="checkbox">
+                			<input type="checkbox" name="listColors" id="listColors" checked>
+                			<label for="listColors"></label>
+                		</div>
+                		<div class="setting-label">
+                			<p>List Colors</p>
+                			<img src="/assets/img/right-arrow.png" />
+                		</div>
+					</li>
+                </ul>
+            </div>
+            <div class="option-details">
+                <!-- Minimal Dark Theme -->
+                <div id="minimalDark-settings" class="detail-pane">
+                    <p class="title">Minimal Dark</p>
+                    <p>Make the theme your own</p>
+
+                    <ul class="settings">
+                        <!-- Dotted Labels -->
+                        <li>
+                            <div class="checkbox">
+                    			<input type="checkbox" name="dottedLabels" id="dottedLabels" checked>
+                    			<label for="dottedLabels"></label>
+                    		</div>
+                    		<div class="setting-label">
+                    			<p>Dotted Labels</p>
+                    		</div>
+                        </li>
+
+                        <!-- Background Influence -->
+                        <li>
+                            <div class="checkbox">
+                    			<input type="checkbox" name="backgroundInfluence" id="backgroundInfluence" checked>
+                    			<label for="backgroundInfluence"></label>
+                    		</div>
+                    		<div class="setting-label">
+                    			<p>Background Influence</p>
+                    		</div>
+                        </li>
+
+                        <!-- Wide Card -->
+                        <li>
+                            <div class="checkbox">
+                    			<input type="checkbox" name="wideCard" id="wideCard" checked>
+                    			<label for="wideCard"></label>
+                    		</div>
+                    		<div class="setting-label">
+                    			<p>Wide Card</p>
+                    		</div>
+                        </li>
+
+                        <li>
+                            <div class="checkbox">
+                    			<input type="checkbox" name="hideExpandBtn" id="hideExpandBtn" checked>
+                    			<label for="hideExpandBtn"></label>
+                    		</div>
+                    		<div class="setting-label">
+                    			<p>Hide Expand Button</p>
+                    		</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Background Gradients -->
+                <div id="backgroundGradients-settings" class="detail-pane">
+                    <p class="title">Background Gradients</p>
+                    <p>Fully customize your Trello board with custom gradient color presets.</p>
+                    <p>Simply use the tools below to setup your gradient colors and
+                    use that color for your board background!</p>
+
+
+                </div>
+
+                <!-- Card Counter -->
+                <div id="cardCounter-settings" class="detail-pane">
+                    <p class="title">Card Counter</p>
+                    <p>Apply your own limitations to the cards within your lists.</p>
+                    <p>Feel free to limit the amount you can have with a harsh limit,
+or simply display a warning when reaching your limit.</p>
+                    <p>These can be customized per list when applying a limit!</p>
+
+                    <ul class="settings">
+                        <li>
+                            <div class="checkbox">
+                    			<input type="checkbox" name="warningColors" id="warningColors" checked>
+                    			<label for="warningColors"></label>
+                    		</div>
+                    		<div class="setting-label">
+                    			<p>Warning Colors</p>
+                    		</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- List Colors -->
+                <div id="listColors-settings" class="detail-pane">
+                    <p class="title">List Colors</p>
+                    <p>Setup some preset list colors for consistency in a color coded workflow</p>
+
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

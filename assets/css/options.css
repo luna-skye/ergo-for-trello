@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+* {
+  font-family: 'Open Sans', sans-serif; }
+
+body {
+  background: #1a1a1a;
+  margin: 0;
+  overflow-x: hidden;
+  min-width: 990px; }
+
+#header {
+  background: url("http://trelloergo.sepshun.io/assets/img/featuresGraphic.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  width: 100%;
+  height: 256px; }
+
+#content {
+  width: 960px;
+  height: 320px;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  #content .option-io {
+    position: relative;
+    width: 100%;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease; }
+    #content .option-io.show-back {
+      width: 320px; }
+    #content .option-io ul.settings {
+      width: 320px;
+      margin: auto; }
+    #content .option-io .title {
+      position: relative;
+      width: 320px;
+      margin: auto;
+      padding: 18px 0; }
+      #content .option-io .title p {
+        color: white;
+        padding: 0;
+        margin: 0;
+        -webkit-transition: 0.2s ease;
+        -o-transition: 0.2s ease;
+        transition: 0.2s ease; }
+      #content .option-io .title img.back-btn {
+        position: absolute;
+        padding: 20px 0;
+        top: 0;
+        left: 64px;
+        opacity: 0;
+        pointer-events: none;
+        cursor: pointer;
+        -webkit-transition: 0.2s ease;
+        -o-transition: 0.2s ease;
+        transition: 0.2s ease; }
+    #content .option-io.show-back .title p {
+      opacity: 0;
+      margin-right: 64px; }
+    #content .option-io.show-back .title img.back-btn {
+      left: 0;
+      opacity: 0.5;
+      pointer-events: auto; }
+      #content .option-io.show-back .title img.back-btn:hover {
+        opacity: 0.8; }
+  #content .option-details {
+    position: relative;
+    width: 0%;
+    opacity: 0;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease; }
+    #content .option-details.show {
+      width: 100%;
+      opacity: 1; }
+    #content .option-details .detail-pane {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      margin-left: 64px;
+      width: 640px;
+      -webkit-transition: 0.2s ease;
+      -o-transition: 0.2s ease;
+      transition: 0.2s ease; }
+      #content .option-details .detail-pane.show {
+        margin-left: 0;
+        pointer-events: auto;
+        opacity: 1; }
+      #content .option-details .detail-pane p.title {
+        margin-bottom: 36px; }
+      #content .option-details .detail-pane p:not(.title) {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 14px; }
+      #content .option-details .detail-pane ul.settings {
+        margin: 0 0; }
+  #content p {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter; }
+
+ul.settings {
+  width: 320px;
+  margin: auto;
+  list-style: none;
+  padding: 0; }
+  ul.settings li {
+    display: grid;
+    grid-template-columns: 64px auto; }
+    ul.settings li div {
+      color: white; }
+      ul.settings li div.checkbox label {
+        padding: 8px 0;
+        display: block;
+        position: relative;
+        width: 64px;
+        height: 32px;
+        cursor: pointer; }
+      ul.settings li div.checkbox input[type="checkbox"] {
+        display: none; }
+      ul.settings li div.checkbox input[type="checkbox"] + label:before {
+        content: '';
+        display: block;
+        width: 64px;
+        height: 32px;
+        position: absolute;
+        top: 8px;
+        left: 0;
+        -webkit-transition: 0.1s ease;
+        -o-transition: 0.1s ease;
+        transition: 0.1s ease;
+        border-radius: 32px;
+        background: rgba(255, 255, 255, 0.05); }
+      ul.settings li div.checkbox input[type="checkbox"]:checked + label:before {
+        background: rgba(165, 119, 194, 0.2); }
+      ul.settings li div.checkbox input[type="checkbox"] + label:after {
+        content: '';
+        display: block;
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: 11px;
+        left: 3px;
+        -webkit-transition: 0.1s ease;
+        -o-transition: 0.1s ease;
+        transition: 0.1s ease;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 27px; }
+      ul.settings li div.checkbox input[type="checkbox"] + label:active:after {
+        width: 32px; }
+      ul.settings li div.checkbox input[type="checkbox"]:checked + label:after {
+        left: 35px;
+        background: #972ED8; }
+      ul.settings li div.checkbox input[type="checkbox"]:checked + label:active:after {
+        left: 29px; }
+      ul.settings li div.setting-label {
+        position: relative;
+        cursor: pointer; }
+        ul.settings li div.setting-label p {
+          font-size: 16px;
+          margin-top: 13px;
+          margin-left: 24px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none; }
+        ul.settings li div.setting-label img {
+          position: absolute;
+          top: 18px;
+          right: 24px;
+          opacity: 0.25; }
