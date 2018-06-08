@@ -280,13 +280,6 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 }
 
 // Content
-.home-activity-feed {
-	.home-activity {
-
-	}
-}
-
-
 // Main highlight container
 .lellDz {
 	background: transparent !important;
@@ -307,9 +300,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	}
 
 	// Card
-	.sc-kpOJdX {
-		border-radius: 0 !important;
-	}
+	.sc-kpOJdX { border-radius: 0 !important; }
 	.deRXfE {
 		background: hsla(0,0%,15%,0.9) !important;
 		border-radius: 0 !important;
@@ -325,6 +316,10 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		h1 { opacity: 0.7; }
 		h2 { opacity: 0.5; }
 	}
+}
+.show-more:hover {
+	background: hsla(0,0%,100%,0.05);
+	color: white;
 }
 
 
@@ -498,10 +493,31 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	#total-card-count { padding: 6px; }
 	.card-count { display: inline-block; float: left; padding: 4px 2px; font-size: 12px; }
 	.board-header-btn-divider { display: none; }
+	.board-header-facepile {
+		height: 32px;
+		.member, .member-avatar {
+			width: 32px;
+			height: 32px;
+		}
+		.member-initials {
+			height: 32px;
+			line-height: 32px;
+		}
+	}
+	.board-header-btn.js-open-manage-board-members,
+	.board-header-btn.js-open-show-all-board-members {
+		&.board-header-btn.js-open-show-all-board-members { height: 32px; }
+		height: 24px;
+		padding-bottom: 18px !important;
+		background: transparent !important;
+		opacity: 0.5;
+		&:hover { opacity: 1; }
+	}
 }
 .body-gray-board-background .board-header-btn {
 	background: rgba(0,0,0,.2) !important;
 }
+
 
 
 // -------------------------------------
@@ -525,6 +541,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		max-height: none;
 		margin: 0 !important;
 		border-radius: 0 !important;
+		resize: none !important;
 		&.is-editing { background: hsla(0,0%,10%,0.3) !important; }
 	}
 	.list-header-name-assist { color: white !important; }
@@ -558,11 +575,13 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	&.active-card { background: hsla(0,0%,100%,0.15) !important; }
 
 	.list-card-title { color: white; }
+	.expanded-list-card-operation { background: transparent !important; }
 	.icon-sm {
-		background: transparent;
-		color: hsl(0,0%,50%);
+		background: transparent !important;
+		color: hsl(0,0%,50%) !important;
 		&:hover { color: white !important; }
 	}
+	.icon-expand { display: none; }
 	.list-card-composer-textarea { color: white; }
 
 	.card-label {
@@ -606,6 +625,10 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	border-radius: 0 !important;
 	background: hsla(0,0%,10%,0.95);
 	a:hover { color: white !important; }
+
+	.dialog-close-button {
+		color: hsl(0,0%,30%);
+	}
 
 	.card-detail-window {
 		.window-title { padding: 0; }
@@ -720,7 +743,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 }
 .list-name-input { color: white; }
 // Wide Card
-body.fixed-content #content{ width:890px !important; }
+body.fixed-content #content { width:890px !important; }
 div.window { width:890px !important; }
 div.window-main-col { width:672px !important; overflow-x: visible !important; overflow-y: visible !important; }
 .description-content-fade-button {

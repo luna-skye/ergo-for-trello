@@ -216,6 +216,8 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .lellDz .home-activity div[title] h2 { opacity: 0.5; }
 
+.show-more:hover { background: rgba(255, 255, 255, 0.05); color: white; }
+
 #header { padding: 0; height: 42px; background: rgba(26, 26, 26, 0.8) !important; }
 
 #header .header-btn { border-radius: 0; background: transparent; padding: 6px; margin-right: 0; }
@@ -330,6 +332,18 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .board-header .board-header-btn-divider { display: none; }
 
+.board-header .board-header-facepile { height: 32px; }
+
+.board-header .board-header-facepile .member, .board-header .board-header-facepile .member-avatar { width: 32px; height: 32px; }
+
+.board-header .board-header-facepile .member-initials { height: 32px; line-height: 32px; }
+
+.board-header .board-header-btn.js-open-manage-board-members, .board-header .board-header-btn.js-open-show-all-board-members { height: 24px; padding-bottom: 18px !important; background: transparent !important; opacity: 0.5; }
+
+.board-header .board-header-btn.js-open-manage-board-members.board-header-btn.js-open-show-all-board-members, .board-header .board-header-btn.js-open-show-all-board-members.board-header-btn.js-open-show-all-board-members { height: 32px; }
+
+.board-header .board-header-btn.js-open-manage-board-members:hover, .board-header .board-header-btn.js-open-show-all-board-members:hover { opacity: 1; }
+
 .body-gray-board-background .board-header-btn { background: rgba(0, 0, 0, 0.2) !important; }
 
 .list-wrapper { margin: 0 2px; }
@@ -340,7 +354,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .list .list-header { padding: 0; }
 
-.list .list-header-name { color: white !important; padding: 12px; max-height: none; margin: 0 !important; border-radius: 0 !important; }
+.list .list-header-name { color: white !important; padding: 12px; max-height: none; margin: 0 !important; border-radius: 0 !important; resize: none !important; }
 
 .list .list-header-name.is-editing { background: rgba(26, 26, 26, 0.3) !important; }
 
@@ -368,9 +382,13 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 .list-card .list-card-title { color: white; }
 
-.list-card .icon-sm { background: transparent; color: gray; }
+.list-card .expanded-list-card-operation { background: transparent !important; }
+
+.list-card .icon-sm { background: transparent !important; color: gray !important; }
 
 .list-card .icon-sm:hover { color: white !important; }
+
+.list-card .icon-expand { display: none; }
 
 .list-card .list-card-composer-textarea { color: white; }
 
@@ -405,6 +423,8 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 .window { border-radius: 0 !important; background: rgba(26, 26, 26, 0.95); }
 
 .window a:hover { color: white !important; }
+
+.window .dialog-close-button { color: #4d4d4d; }
 
 .window .card-detail-window .window-title { padding: 0; }
 
