@@ -8,9 +8,7 @@
         <script type="text/javascript" src="/assets/js/options.js"></script>
     </head>
     <body>
-        <div id="header">
-
-        </div>
+        <div id="header"></div>
         <div id="content">
             <div class="option-io">
                 <div class="title">
@@ -18,7 +16,7 @@
 
                     <img class="back-btn" src="/assets/img/backbtn.png" alt="Back">
                 </div>
-                <ul class="settings">
+                <ul class="settings grid-list">
                     <!-- Minimal Dark Theme -->
 					<li class="detailed-settings">
                         <div class="checkbox">
@@ -85,7 +83,7 @@
                     <p class="title">Minimal Dark</p>
                     <p>Make the theme your own</p>
 
-                    <ul class="settings">
+                    <ul class="settings grid-list">
                         <!-- Dotted Labels -->
                         <li>
                             <div class="checkbox">
@@ -119,6 +117,7 @@
                     		</div>
                         </li>
 
+                        <!-- Hide Expand Button -->
                         <li>
                             <div class="checkbox">
                     			<input type="checkbox" name="hideExpandBtn" id="hideExpandBtn" checked>
@@ -138,18 +137,88 @@
                     <p>Simply use the tools below to setup your gradient colors and
                     use that color for your board background!</p>
 
+                    <ul class="settings gradient-settings">
+                        <!-- BLUE -->
+                        <li id="blue" class="gradient-preset">
+                            <p class="gradient-title">Blue</p>
+                            <div class="gradient-display"></div>
 
+                            <div class="gradient-options">
+                                <div>
+                                    <!-- Gradient Stops -->
+                                    <div class="selector" data-for="gradientStops">
+                                        <select class="no-display" name="gradientStops">
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+
+                                        <p class="label">Gradient Stops</p>
+
+                                        <div class="selector-display">
+                                            <p>2</p>
+                                            <img src="/assets/img/right-arrow.png" alt="">
+                                        </div>
+
+                                        <ul class="selector-options">
+                                            <li data-value="2" class="active">2</li>
+                                            <li data-value="3">3</li>
+                                            <li data-value="4">4</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <!-- Orientation -->
+                                <div>
+
+                                    <div class="selector open" data-for="oreintation">
+                                        <select class="no-display" name="oreintation">
+                                            <option value="H">H</option>
+                                            <option value="V">V</option>
+                                        </select>
+
+                                        <p class="label">Orientation</p>
+
+                                        <div class="selector-display">
+                                            <p>H</p>
+                                            <img src="/assets/img/right-arrow.png" alt="">
+                                        </div>
+
+                                        <ul class="selector-options">
+                                            <li data-value="H" class="active">H</li>
+                                            <li data-value="V">V</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <!-- Colors -->
+                                <div class="colors">
+                                    <div class="color">
+                                        <p class="label">Color 1</p>
+                                        <div class="color-select"><input type="color" value="#0474B0"></div>
+                                    </div>
+                                    <div class="color">
+                                        <p class="label">Color 2</p>
+                                        <div class="color-select"><input type="color" value="#B5EFA1"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="close-btn"></div>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- Card Counter -->
                 <div id="cardCounter-settings" class="detail-pane">
                     <p class="title">Card Counter</p>
                     <p>Apply your own limitations to the cards within your lists.</p>
-                    <p>Feel free to limit the amount you can have with a harsh limit,
-or simply display a warning when reaching your limit.</p>
+                    <p>Feel free to limit the amount you can have with a harsh limit, or simply display a warning when reaching your limit.</p>
                     <p>These can be customized per list when applying a limit!</p>
 
-                    <ul class="settings">
+                    <ul class="settings grid-list">
                         <li>
                             <div class="checkbox">
                     			<input type="checkbox" name="warningColors" id="warningColors" checked>

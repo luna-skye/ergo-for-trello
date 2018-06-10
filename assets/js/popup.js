@@ -30,28 +30,14 @@ var restore_settings = function restore_settings() {
 	});
 };
 
-// JS Slide Menus
-var slide_menus = function slide_menus() {
-	Array.from(document.querySelectorAll('.js-slide-down')).forEach(function (el) {
-		setTimeout(function () {
-			if (el.children[0].checked) {
-				document.getElementById(el.getAttribute('data-slide')).classList.add('show');
-			} else {
-				document.getElementById(el.getAttribute('data-slide')).classList.remove('show');
-			}
-		}, 50);
-	});
-};
-
 window.addEventListener('load', function () {
 	// ON INPUT CHANGE
 	Array.from(document.querySelectorAll('input')).forEach(function (el) {
 		el.addEventListener('change', function () {
-			save_settings();slide_menus();
+			save_settings();
 		});
 	});
 
 	// Restore Settings
 	restore_settings();
-	slide_menus();
 });

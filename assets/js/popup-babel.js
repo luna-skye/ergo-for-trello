@@ -24,21 +24,10 @@ let restore_settings = () => {
 	});
 }
 
-// JS Slide Menus
-let slide_menus = () => {
-	Array.from(document.querySelectorAll('.js-slide-down')).forEach((el) => {
-		setTimeout(() => {
-			if (el.children[0].checked) { document.getElementById(el.getAttribute('data-slide')).classList.add('show'); }
-			else { document.getElementById(el.getAttribute('data-slide')).classList.remove('show'); }
-		}, 50);
-	});
-}
-
 window.addEventListener('load', () => {
 	// ON INPUT CHANGE
-	Array.from(document.querySelectorAll('input')).forEach((el) => { el.addEventListener('change', () => { save_settings(); slide_menus(); }); });
+	Array.from(document.querySelectorAll('input')).forEach((el) => { el.addEventListener('change', () => { save_settings(); }); });
 
 	// Restore Settings
 	restore_settings();
-	slide_menus();
 });

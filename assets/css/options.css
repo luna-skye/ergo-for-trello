@@ -2,6 +2,9 @@
 * {
   font-family: 'Open Sans', sans-serif; }
 
+.no-display {
+  display: none; }
+
 body {
   background: #1a1a1a;
   margin: 0;
@@ -17,8 +20,8 @@ body {
   height: 256px; }
 
 #content {
-  width: 960px;
-  height: 320px;
+  width: 970px;
+  height: calc(100vh - 256px - 16px);
   margin: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -72,10 +75,18 @@ body {
     opacity: 0;
     -webkit-transition: 0.2s ease;
     -o-transition: 0.2s ease;
-    transition: 0.2s ease; }
+    transition: 0.2s ease;
+    overflow-y: auto;
+    overflow-x: hidden; }
     #content .option-details.show {
       width: 100%;
       opacity: 1; }
+    #content .option-details::-webkit-scrollbar {
+      width: .5em; }
+    #content .option-details::-webkit-scrollbar-track {
+      background-color: transparent; }
+    #content .option-details::-webkit-scrollbar-thumb {
+      background-color: #262626; }
     #content .option-details .detail-pane {
       position: absolute;
       top: 0;
@@ -104,13 +115,18 @@ body {
     font-weight: lighter; }
 
 ul.settings {
-  width: 320px;
+  width: 100%;
   margin: auto;
   list-style: none;
   padding: 0; }
-  ul.settings li {
+  ul.settings.narrow-width {
+    width: 320px; }
+  ul.settings.grid-list li {
     display: grid;
     grid-template-columns: 64px auto; }
+  ul.settings li {
+    width: 100%;
+    position: relative; }
     ul.settings li div {
       color: white; }
       ul.settings li div.checkbox label {
@@ -173,3 +189,148 @@ ul.settings {
           top: 18px;
           right: 24px;
           opacity: 0.25; }
+      ul.settings li div.gradient-display {
+        width: 100%;
+        height: 32px;
+        background: #262626;
+        -webkit-transition: 0.2s ease;
+        -o-transition: 0.2s ease;
+        transition: 0.2s ease;
+        background: -webkit-gradient(linear, left top, right top, from(#0474B0), to(#B5EFA1));
+        background: -webkit-linear-gradient(left, #0474B0, #B5EFA1);
+        background: -o-linear-gradient(left, #0474B0, #B5EFA1);
+        background: linear-gradient(90deg, #0474B0, #B5EFA1);
+        cursor: pointer; }
+      ul.settings li div.gradient-options {
+        height: 66px;
+        background: rgba(20, 20, 20, 0.5);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        -webkit-transition: 0.2s ease;
+        -o-transition: 0.2s ease;
+        transition: 0.2s ease;
+        display: grid;
+        grid-template-columns: 93px 93px auto; }
+        ul.settings li div.gradient-options .selector .selector-display {
+          background: #262626;
+          position: relative;
+          padding: 6px; }
+          ul.settings li div.gradient-options .selector .selector-display p {
+            margin: 0;
+            text-align: center;
+            font-size: 18px !important;
+            width: calc(100% - 24px); }
+          ul.settings li div.gradient-options .selector .selector-display img {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            opacity: 0.2; }
+        ul.settings li div.gradient-options .selector .selector-options {
+          position: absolute;
+          bottom: 6px;
+          opacity: 0;
+          max-height: 0;
+          overflow: hidden;
+          -webkit-transition: 0.2s ease;
+          -o-transition: 0.2s ease;
+          transition: 0.2s ease;
+          background: #333333;
+          width: 81px;
+          list-style: none;
+          padding: 0;
+          text-align: center; }
+          ul.settings li div.gradient-options .selector .selector-options li {
+            padding: 7.5px 0;
+            opacity: 0.5; }
+            ul.settings li div.gradient-options .selector .selector-options li:hover {
+              background: rgba(0, 0, 0, 0.2);
+              opacity: 0.75; }
+            ul.settings li div.gradient-options .selector .selector-options li.active {
+              background: rgba(0, 0, 0, 0.3);
+              opacity: 1; }
+        ul.settings li div.gradient-options .selector.open .selector-options {
+          opacity: 1;
+          max-height: 140px;
+          -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4); }
+        ul.settings li div.gradient-options .colors {
+          display: grid;
+          grid-template-columns: repeat(4, 92px);
+          margin-left: 86px; }
+          ul.settings li div.gradient-options .colors .color {
+            margin: 6px; }
+            ul.settings li div.gradient-options .colors .color .color-select {
+              width: 80px;
+              height: 36px;
+              overflow: hidden; }
+              ul.settings li div.gradient-options .colors .color .color-select input[type="color"] {
+                cursor: pointer;
+                border: none;
+                border-color: transparent;
+                background: transparent;
+                height: 46px;
+                width: 88px;
+                padding: 0;
+                margin: 0;
+                margin-left: -4px;
+                margin-top: -5px;
+                -webkit-appearance: button; }
+      ul.settings li div.close-btn {
+        position: absolute;
+        top: 38px;
+        right: 0;
+        padding: 24px;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        -webkit-transition: 0.2s ease;
+        -o-transition: 0.2s ease;
+        transition: 0.2s ease; }
+        ul.settings li div.close-btn:after, ul.settings li div.close-btn:before {
+          content: '';
+          width: 28px;
+          height: 2px;
+          background: white;
+          position: absolute;
+          top: 24px;
+          right: 10px;
+          -webkit-transform-origin: center;
+          -ms-transform-origin: center;
+          transform-origin: center;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg); }
+        ul.settings li div.close-btn:after {
+          -webkit-transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg); }
+    ul.settings li .gradient-title {
+      display: block;
+      margin-top: 30px;
+      font-size: 16px !important; }
+    ul.settings li.show .gradient-display {
+      height: 320px; }
+    ul.settings li.show .gradient-options {
+      max-height: 128px;
+      opacity: 1; }
+    ul.settings li.show .close-btn {
+      opacity: 0.5;
+      pointer-events: auto; }
+      ul.settings li.show .close-btn:hover {
+        opacity: 1; }
+    ul.settings li#blue .gradient-title {
+      color: #0079BF !important; }
+    ul.settings li#orange .gradient-title {
+      color: #D29034 !important; }
+
+.label {
+  font-size: 12px !important;
+  margin: 0; }
+
+.selector {
+  margin: 6px;
+  cursor: pointer; }

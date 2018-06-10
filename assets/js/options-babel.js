@@ -1,4 +1,34 @@
+// SETTINGS CLASS
+// --------------
+const settings = {
+    "default": {
+        "minimalDark": true,
+        "backgroundGradients": true,
+        "cardCounter": true,
+        "actionSnapping": true
+    },
+    "save": () => {
+        let minimalDark = document.getElementById('minimalDark').checked;
+        chrome.storage.sync.set({
+            minimalDark,
+            backgroundGradients,
+            cardCounting,
+            actionSnapping
+        }, () => { console.log('Settings saved...'); });
+    },
+    "get": (callback) => {
+        chrome.storage.sync.get({
+            minimalDark: true,
+            backgroundGradients: true,
+            cardCounting: true,
+            actionSnapping: true
+        }, callback(items));
+    }
+};
+
 window.onload = () => {
+    // SETTINGS NAVIGATION
+    // -----------------------
     // Menu Button Interations
     let menuBtns       = document.querySelectorAll('.option-io li.detailed-settings .setting-label');
     let ioSettings     = document.querySelector('.option-io');
@@ -21,4 +51,47 @@ window.onload = () => {
         document.querySelectorAll('.option-details div.detail-pane').forEach((detailPane) => { detailPane.classList.remove('show'); });
         ioSettings.classList.remove('show-back');
     });
+
+
+
+    // CUSTOM SELECTS
+    // --------------
+    // Open Selector
+    let selectors = document.querySelectorAll('.selector');
+    selectors.forEach((selector) => {
+        // Click to Open Options
+        selector.children[2].addEventListener('click', () => { selector.classList.add('open'); });
+
+        // Option Selection Closes Menu & Applies
+        Array.from(selector.children[3].children).forEach((option) => {
+            option.addEventListener('click', () => {
+                selector.classList.remove('open');
+            });
+        });
+    });
+
+
+
+
+    // GRADIENTS
+    // -------------------
+    // Open Gradient Panel
+    let gradientPanels = document.querySelectorAll('.gradient-settings li.gradient-preset');
+    gradientPanels.forEach((panel) => {
+        // Clicking Panel
+        panel.children[1].addEventListener('click', () => { panel.classList.add('show');    });
+        // Closing Panel
+        panel.children[3].addEventListener('click', () => { panel.classList.remove('show'); });
+    });
+
+
+    // Gradient Generator
+    const gradients = {
+        "compile": () => {
+
+        },
+        "updateView": () => {
+
+        }
+    }
 }

@@ -8,6 +8,9 @@ $brand-dull  : #5152B1;
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 * { font-family: 'Open Sans', sans-serif; }
 
+// Misc Classes
+.no-display { display: none; }
+
 body {
     background: $dark;
     margin: 0;
@@ -28,8 +31,8 @@ body {
 
 // Content
 #content {
-    width: 960px;
-    height: 320px;
+    width: 970px;
+    height: calc(100vh - 256px - 16px);
     margin: auto;
 
     display: flex;
@@ -85,6 +88,12 @@ body {
         transition: 0.2s ease;
         &.show { width: 100%; opacity: 1; }
 
+        overflow-y: auto;
+        overflow-x: hidden;
+        &::-webkit-scrollbar { width: .5em; }
+        &::-webkit-scrollbar-track { background-color: transparent; }
+        &::-webkit-scrollbar-thumb { background-color: #262626;     }
+
         .detail-pane {
             position: absolute;
             top: 0;
@@ -106,12 +115,9 @@ body {
                 font-size: 14px;
             }
 
-            ul.settings {
-                margin: 0 0;
-            }
+            ul.settings { margin: 0 0; }
         }
     }
-
 
     p {
         color: white;
@@ -123,14 +129,16 @@ body {
 
 // Settings List
 ul.settings {
-	width: 320px;
+    width: 100%;
+    &.narrow-width { width: 320px; }
 	margin: auto;
 	list-style: none;
 	padding: 0;
 
+    &.grid-list li { display: grid; grid-template-columns: 64px auto; }
 	li {
-		display: grid;
-		grid-template-columns: 64px auto;
+        width: 100%;
+        position: relative;
 
 		div {
 			color: white;
@@ -197,6 +205,152 @@ ul.settings {
 					opacity: 0.25;
 				}
 			}
+
+            &.gradient-display {
+                width: 100%;
+                height: 32px;
+                background: hsl(0,0%,15%);
+                transition: 0.2s ease;
+                background: linear-gradient(90deg, #0474B0, #B5EFA1);
+                cursor: pointer;
+            }
+            &.gradient-options {
+                height: 66px;
+                background: hsla(0,0%,8%,0.5);
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: 0.2s ease;
+
+                display: grid;
+                grid-template-columns: 93px 93px auto;
+
+                // SELECTORS
+                .selector {
+                    .selector-display {
+                        background: hsl(0,0%,15%);
+                        position: relative;
+                        padding: 6px;
+
+                        p {
+                            margin: 0;
+                            text-align: center;
+                            font-size: 18px !important;
+
+                            width: calc(100% - 24px);
+                        }
+
+                        img {
+                            position: absolute;
+                            top: 9px;
+                            right: 9px;
+                            transform: rotate(90deg);
+                            opacity: 0.2;
+                        }
+                    }
+                    .selector-options {
+                        position: absolute;
+                        bottom: 6px;
+                        opacity: 0;
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: 0.2s ease;
+
+                        background: hsl(0,0%,20%);
+                        width: 81px;
+
+                        list-style: none;
+                        padding: 0;
+                        text-align: center;
+
+                        li {
+                            padding: 7.5px 0;
+                            opacity: 0.5;
+                            &:hover { background: hsla(0,0%,0%,0.2); opacity: 0.75; }
+                            &.active { background: hsla(0,0%,0%,0.3); opacity: 1; }
+                        }
+                    }
+                    &.open .selector-options {
+                        opacity: 1;
+                        max-height: 140px;
+                        box-shadow: 0 3px 10px hsla(0,0%,0%,0.4);
+                    }
+                }
+
+
+                // COLOR INPUTS
+                .colors {
+                    display: grid;
+                    grid-template-columns: repeat(4, 92px);
+                    margin-left: 86px;
+                    .color {
+                        margin: 6px;
+                        .color-select {
+                            width: 80px;
+                            height: 36px;
+                            overflow: hidden;
+                            input[type="color"] {
+                                cursor: pointer;
+                                border: none;
+                                border-color: transparent;
+                                background: transparent;
+                                height: 46px;
+                                width: 88px;
+                                padding: 0;
+                                margin: 0;
+                                margin-left: -4px;
+                                margin-top: -5px;
+                                -webkit-appearance: button;
+                            }
+                        }
+                    }
+                }
+            }
+            &.close-btn {
+                position: absolute;
+                top: 38px;
+                right: 0;
+                padding: 24px;
+                cursor: pointer;
+                opacity: 0;
+                pointer-events: none;
+                transition: 0.2s ease;
+
+                &:after, &:before {
+                    content: '';
+                    width: 28px;
+                    height: 2px;
+                    background: white;
+                    position: absolute;
+                    $offset: 10px;
+                    top: $offset + 14px;
+                    right: $offset;
+                    transform-origin: center;
+                    transform: rotate(45deg);
+                }
+                &:after { transform: rotate(-45deg); }
+            }
 		}
+        .gradient-title {
+            display: block;
+            margin-top: 30px;
+            font-size: 16px !important;
+        }
+        &.show {
+            .gradient-display { height    : 320px; }
+            .gradient-options { max-height: 128px; opacity: 1; }
+            .close-btn { opacity: 0.5; pointer-events: auto; &:hover { opacity: 1; } }
+        }
+
+        &#blue   { .gradient-title { color: #0079BF !important; } }
+        &#orange { .gradient-title { color: #D29034 !important; } }
 	}
 }
+
+
+// CUSTOM SELECTS
+.label {
+    font-size: 12px !important;
+    margin: 0;
+}
+.selector { margin: 6px; cursor: pointer; }
