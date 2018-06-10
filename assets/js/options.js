@@ -30,7 +30,35 @@ var settings = {
     }
 };
 
-window.onload = function () {
+// REMOVECLASSFROMALL
+// ------------------
+var removeClassFromAll = function removeClassFromAll(el, className) {
+    Array.from(el).forEach(function (element) {
+        element.classList.remove(className);
+    });
+};
+
+// CUSTOM SELECTS CLASS
+// --------------------
+var select = {
+    "update": function update(type, el, target, value) {
+        if (type === 'option') {
+            // Remove Class from all and set to clicked element
+            removeClassFromAll(el.parentNode.children, 'active');
+            el.classList.add('active');
+
+            // Change Display Div's text
+            el.parentNode.parentNode.children[2].children[0].innerText = el.innerHTML;
+
+            // Set the select
+            var _target = el.parentNode.parentNode.children[0];
+            _target.value = el.getAttribute('data-value');
+        }
+    }
+
+    // WINDOW ONLOAD
+    // -------------
+};window.onload = function () {
     // SETTINGS NAVIGATION
     // -----------------------
     // Menu Button Interations
@@ -64,17 +92,15 @@ window.onload = function () {
     // --------------
     // Open Selector
     var selectors = document.querySelectorAll('.selector');
+    var options = document.querySelectorAll('.selector li');
     selectors.forEach(function (selector) {
-        // Click to Open Options
-        selector.children[2].addEventListener('click', function () {
-            selector.classList.add('open');
+        selector.addEventListener('click', function () {
+            selector.classList.toggle('open');
         });
-
-        // Option Selection Closes Menu & Applies
-        Array.from(selector.children[3].children).forEach(function (option) {
-            option.addEventListener('click', function () {
-                selector.classList.remove('open');
-            });
+    });
+    options.forEach(function (option) {
+        option.addEventListener('click', function () {
+            select.update('option', option);
         });
     });
 

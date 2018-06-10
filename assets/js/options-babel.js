@@ -26,6 +26,37 @@ const settings = {
     }
 };
 
+
+// REMOVECLASSFROMALL
+// ------------------
+const removeClassFromAll = (el, className) => {
+	Array.from(el).forEach((element) => { element.classList.remove(className); });
+};
+
+
+// CUSTOM SELECTS CLASS
+// --------------------
+const select = {
+    "update": (type, el, target, value) => {
+        if (type === 'option') {
+            // Remove Class from all and set to clicked element
+            removeClassFromAll(el.parentNode.children, 'active');
+            el.classList.add('active');
+
+            // Change Display Div's text
+            el.parentNode.parentNode.children[2].children[0].innerText = el.innerHTML;
+
+            // Set the select
+            let target = el.parentNode.parentNode.children[0];
+            target.value = el.getAttribute('data-value');
+        }
+    }
+}
+
+
+
+// WINDOW ONLOAD
+// -------------
 window.onload = () => {
     // SETTINGS NAVIGATION
     // -----------------------
@@ -58,17 +89,11 @@ window.onload = () => {
     // --------------
     // Open Selector
     let selectors = document.querySelectorAll('.selector');
+    let options   = document.querySelectorAll('.selector li');
     selectors.forEach((selector) => {
-        // Click to Open Options
-        selector.children[2].addEventListener('click', () => { selector.classList.add('open'); });
-
-        // Option Selection Closes Menu & Applies
-        Array.from(selector.children[3].children).forEach((option) => {
-            option.addEventListener('click', () => {
-                selector.classList.remove('open');
-            });
-        });
+        selector.addEventListener('click', () => { selector.classList.toggle('open'); });
     });
+    options.forEach((option) => { option.addEventListener('click', () => { select.update('option', option); }); });
 
 
 
