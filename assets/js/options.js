@@ -5,12 +5,18 @@
 var settings = {
     "default": {
         "minimalDark": true,
+        "dottedLabels": true,
+        "backgroundInfluence": true,
+        "wideCard": true,
+        "hideExpandBtn": true,
         "backgroundGradients": true,
-        "cardCounter": true,
-        "actionSnapping": true
+        "gradients": "{}",
+        "cardCounting": true,
+        "warningColors": true,
+        "actionSnapping": true,
+        "listColors": "{}"
     },
     "save": function save() {
-        var minimalDark = document.getElementById('minimalDark').checked;
         chrome.storage.sync.set({
             minimalDark: minimalDark,
             backgroundGradients: backgroundGradients,
@@ -21,12 +27,9 @@ var settings = {
         });
     },
     "get": function get(callback) {
-        chrome.storage.sync.get({
-            minimalDark: true,
-            backgroundGradients: true,
-            cardCounting: true,
-            actionSnapping: true
-        }, callback(items));
+        chrome.storage.sync.get(settings.default, function (items) {
+            callback(items);
+        });
     }
 };
 
@@ -59,6 +62,10 @@ var select = {
     // WINDOW ONLOAD
     // -------------
 };window.onload = function () {
+    settings.get(function (options) {
+        console.log(options);
+    });
+
     // SETTINGS NAVIGATION
     // -----------------------
     // Menu Button Interations
@@ -88,25 +95,9 @@ var select = {
         ioSettings.classList.remove('show-back');
     });
 
-    // CUSTOM SELECTS
-    // --------------
-    // Open Selector
-    var selectors = document.querySelectorAll('.selector');
-    var options = document.querySelectorAll('.selector li');
-    selectors.forEach(function (selector) {
-        selector.addEventListener('click', function () {
-            selector.classList.toggle('open');
-        });
-    });
-    options.forEach(function (option) {
-        option.addEventListener('click', function () {
-            select.update('option', option);
-        });
-    });
-
     // GRADIENTS
-    // -------------------
-    // Open Gradient Panel
+    // ---------------
+    // Gradient Panels
     var gradientPanels = document.querySelectorAll('.gradient-settings li.gradient-preset');
     gradientPanels.forEach(function (panel) {
         // Clicking Panel
@@ -117,11 +108,35 @@ var select = {
         panel.children[3].addEventListener('click', function () {
             panel.classList.remove('show');
         });
+
+        // Rotation Change
+        panel.children[2].children[0].children[0].children[1].addEventListener('input', function () {
+            gradients.compile(panel.children[2]);
+        });
+        // Color Change
+        Array.from(panel.children[2].children[1].children).forEach(function (color) {
+            color.addEventListener('change', function () {
+                gradients.compile(panel.children[2]);
+            });
+        });
     });
 
     // Gradient Generator
     var gradients = {
-        "compile": function compile() {},
+        "compile": function compile(options) {
+            var rotation = options.children[0].children[0].children[1].value;
+
+            var colors = '';
+            options.querySelectorAll('.color:not(#addColor)').forEach(function (color) {
+                var hex = color.children[1].children[0].value;
+                colors += hex + ', ';
+            });
+
+            var gradient = "linear-gradient(" + rotation + "deg, " + colors.substring(0, colors.length - 2) + ")";
+
+            options.parentNode.querySelector('.gradient-display').style.background = gradient;
+            // console.log(options.parentNode.querySelector('.gradient-display').style.background = gradient);
+        },
         "updateView": function updateView() {}
     };
 };

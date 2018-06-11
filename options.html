@@ -144,51 +144,11 @@
                             <div class="gradient-display"></div>
 
                             <div class="gradient-options">
+                                <!-- Rotation Slider -->
                                 <div>
-                                    <!-- Gradient Stops -->
-                                    <div class="selector" data-for="gradientStops">
-                                        <select class="no-display" name="gradientStops">
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-
-                                        <p class="label">Gradient Stops</p>
-
-                                        <div class="selector-display">
-                                            <p>2</p>
-                                            <img src="/assets/img/right-arrow.png" alt="">
-                                        </div>
-
-                                        <ul class="selector-options">
-                                            <li data-value="2" class="active">2</li>
-                                            <li data-value="3">3</li>
-                                            <li data-value="4">4</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-
-                                <!-- Orientation -->
-                                <div>
-
-                                    <div class="selector" data-for="oreintation">
-                                        <select class="no-display" name="oreintation">
-                                            <option value="H">H</option>
-                                            <option value="V">V</option>
-                                        </select>
-
-                                        <p class="label">Orientation</p>
-
-                                        <div class="selector-display">
-                                            <p>H</p>
-                                            <img src="/assets/img/right-arrow.png" alt="">
-                                        </div>
-
-                                        <ul class="selector-options">
-                                            <li data-value="H" class="active">H</li>
-                                            <li data-value="V">V</li>
-                                        </ul>
+                                    <div class="slider">
+                                        <p class="label">Rotation</p>
+                                        <input type="range" name="rotation" value="180" min="0" max="360" step="15">
                                     </div>
                                 </div>
 
@@ -202,6 +162,12 @@
                                     <div class="color">
                                         <p class="label">Color 2</p>
                                         <div class="color-select"><input type="color" value="#B5EFA1"></div>
+                                    </div>
+
+                                    <!-- ADD COLOR BUTTON -->
+                                    <div id="addColor" class="color">
+                                        <p class="label" style="height: 17px;"></p>
+                                        <div id="addColorBtn" class="color-select"></div>
                                     </div>
                                 </div>
                             </div>

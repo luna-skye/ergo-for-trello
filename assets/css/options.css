@@ -211,74 +211,63 @@ ul.settings {
         -o-transition: 0.2s ease;
         transition: 0.2s ease;
         display: grid;
-        grid-template-columns: 93px 93px auto; }
-        ul.settings li div.gradient-options .selector .selector-display {
-          background: #262626;
-          position: relative;
-          padding: 6px; }
-          ul.settings li div.gradient-options .selector .selector-display p {
-            margin: 0;
-            text-align: center;
-            font-size: 18px !important;
-            width: calc(100% - 24px); }
-          ul.settings li div.gradient-options .selector .selector-display img {
-            position: absolute;
-            top: 9px;
-            right: 9px;
-            -webkit-transform: rotate(90deg);
-            -ms-transform: rotate(90deg);
-            transform: rotate(90deg);
-            opacity: 0.2; }
-        ul.settings li div.gradient-options .selector .selector-options {
-          position: absolute;
-          bottom: 6px;
-          opacity: 0;
-          max-height: 0;
-          overflow: hidden;
-          -webkit-transition: 0.2s ease;
-          -o-transition: 0.2s ease;
-          transition: 0.2s ease;
-          background: #333333;
-          width: 81px;
-          list-style: none;
-          padding: 0;
-          text-align: center; }
-          ul.settings li div.gradient-options .selector .selector-options li {
-            padding: 7.5px 0;
-            opacity: 0.5; }
-            ul.settings li div.gradient-options .selector .selector-options li:hover {
-              background: rgba(0, 0, 0, 0.2);
-              opacity: 0.75; }
-            ul.settings li div.gradient-options .selector .selector-options li.active {
-              background: rgba(0, 0, 0, 0.3);
-              opacity: 1; }
-        ul.settings li div.gradient-options .selector.open .selector-options {
-          opacity: 1;
-          max-height: 140px;
-          -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4); }
+        grid-template-columns: 256px auto; }
         ul.settings li div.gradient-options .colors {
           display: grid;
           grid-template-columns: repeat(4, 92px);
-          margin-left: 86px; }
-          ul.settings li div.gradient-options .colors .color {
-            margin: 6px; }
-            ul.settings li div.gradient-options .colors .color .color-select {
-              width: 80px;
-              height: 36px;
-              overflow: hidden; }
-              ul.settings li div.gradient-options .colors .color .color-select input[type="color"] {
-                cursor: pointer;
-                border: none;
-                border-color: transparent;
-                background: transparent;
-                height: 46px;
-                width: 88px;
-                padding: 0;
-                margin: 0;
-                margin-left: -4px;
-                margin-top: -5px;
-                -webkit-appearance: button; }
+          margin-left: 26px; }
+          ul.settings li div.gradient-options .colors .color .color-select {
+            width: 80px;
+            height: 30px;
+            overflow: hidden;
+            background: #222;
+            position: relative; }
+            ul.settings li div.gradient-options .colors .color .color-select:after {
+              content: '';
+              height: 100%;
+              width: 18px;
+              background: rgba(13, 13, 13, 0.5);
+              position: absolute;
+              top: 0;
+              right: -18px;
+              -webkit-transition: 0.2s ease;
+              -o-transition: 0.2s ease;
+              transition: 0.2s ease; }
+            ul.settings li div.gradient-options .colors .color .color-select:hover:after {
+              right: 0px; }
+            ul.settings li div.gradient-options .colors .color .color-select input[type="color"] {
+              cursor: pointer;
+              border: none;
+              border-color: transparent;
+              background: transparent;
+              height: 46px;
+              width: 88px;
+              padding: 0;
+              margin: 0;
+              margin-left: -4px;
+              margin-top: -5px;
+              -webkit-appearance: button; }
+            ul.settings li div.gradient-options .colors .color .color-select#addColorBtn {
+              position: relative;
+              cursor: pointer; }
+              ul.settings li div.gradient-options .colors .color .color-select#addColorBtn:before, ul.settings li div.gradient-options .colors .color .color-select#addColorBtn:after {
+                content: '';
+                background: #414141;
+                position: absolute;
+                width: 16px;
+                height: 2px;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%); }
+              ul.settings li div.gradient-options .colors .color .color-select#addColorBtn:after {
+                -webkit-transform: translate(-50%, -50%) rotate(90deg);
+                -ms-transform: translate(-50%, -50%) rotate(90deg);
+                transform: translate(-50%, -50%) rotate(90deg);
+                -webkit-transform-origin: center;
+                -ms-transform-origin: center;
+                transform-origin: center; }
       ul.settings li div.close-btn {
         position: absolute;
         top: 38px;
@@ -329,8 +318,29 @@ ul.settings {
 
 .label {
   font-size: 12px !important;
-  margin: 0; }
+  margin: 0;
+  padding: 6px 0; }
 
-.selector {
-  margin: 6px;
-  cursor: pointer; }
+.slider {
+  padding-left: 6px; }
+  .slider input[type="range"] {
+    margin: 0;
+    -webkit-appearance: none;
+    width: 256px;
+    position: relative; }
+    .slider input[type="range"]:focus {
+      outline: none; }
+    .slider input[type="range"]::-webkit-slider-runnable-track {
+      background: url("https://i.imgur.com/X68iIhs.png");
+      height: 30px; }
+    .slider input[type="range"]::-webkit-slider-thumb {
+      width: 14px;
+      height: 100%;
+      border: none;
+      -webkit-appearance: none;
+      background-color: rgba(255, 255, 255, 0.5);
+      z-index: 99;
+      position: relative;
+      -webkit-transition: 0.5s all ease;
+      -o-transition: 0.5s all ease;
+      transition: 0.5s all ease; }

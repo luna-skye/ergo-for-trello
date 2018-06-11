@@ -3,12 +3,18 @@
 const settings = {
     "default": {
         "minimalDark": true,
+        "dottedLabels": true,
+        "backgroundInfluence": true,
+        "wideCard": true,
+        "hideExpandBtn": true,
         "backgroundGradients": true,
-        "cardCounter": true,
-        "actionSnapping": true
+        "gradients": "{}",
+        "cardCounting": true,
+        "warningColors": true,
+        "actionSnapping": true,
+        "listColors": "{}"
     },
     "save": () => {
-        let minimalDark = document.getElementById('minimalDark').checked;
         chrome.storage.sync.set({
             minimalDark,
             backgroundGradients,
@@ -17,22 +23,15 @@ const settings = {
         }, () => { console.log('Settings saved...'); });
     },
     "get": (callback) => {
-        chrome.storage.sync.get({
-            minimalDark: true,
-            backgroundGradients: true,
-            cardCounting: true,
-            actionSnapping: true
-        }, callback(items));
+        chrome.storage.sync.get(settings.default, (items) => { callback(items); });
     }
 };
-
 
 // REMOVECLASSFROMALL
 // ------------------
 const removeClassFromAll = (el, className) => {
 	Array.from(el).forEach((element) => { element.classList.remove(className); });
 };
-
 
 // CUSTOM SELECTS CLASS
 // --------------------
@@ -58,6 +57,12 @@ const select = {
 // WINDOW ONLOAD
 // -------------
 window.onload = () => {
+    settings.get(options => {
+        console.log(options);
+    });
+
+
+
     // SETTINGS NAVIGATION
     // -----------------------
     // Menu Button Interations
@@ -84,36 +89,39 @@ window.onload = () => {
     });
 
 
-
-    // CUSTOM SELECTS
-    // --------------
-    // Open Selector
-    let selectors = document.querySelectorAll('.selector');
-    let options   = document.querySelectorAll('.selector li');
-    selectors.forEach((selector) => {
-        selector.addEventListener('click', () => { selector.classList.toggle('open'); });
-    });
-    options.forEach((option) => { option.addEventListener('click', () => { select.update('option', option); }); });
-
-
-
-
     // GRADIENTS
-    // -------------------
-    // Open Gradient Panel
+    // ---------------
+    // Gradient Panels
     let gradientPanels = document.querySelectorAll('.gradient-settings li.gradient-preset');
     gradientPanels.forEach((panel) => {
         // Clicking Panel
         panel.children[1].addEventListener('click', () => { panel.classList.add('show');    });
         // Closing Panel
         panel.children[3].addEventListener('click', () => { panel.classList.remove('show'); });
+
+        // Rotation Change
+        panel.children[2].children[0].children[0].children[1].addEventListener('input', () => { gradients.compile(panel.children[2]); });
+        // Color Change
+        Array.from(panel.children[2].children[1].children).forEach((color) => { color.addEventListener('change', () => { gradients.compile(panel.children[2]); }); });
+
     });
 
 
     // Gradient Generator
     const gradients = {
-        "compile": () => {
+        "compile": (options) => {
+            let rotation = options.children[0].children[0].children[1].value;
 
+            let colors = '';
+            options.querySelectorAll('.color:not(#addColor)').forEach((color) => {
+                let hex = color.children[1].children[0].value;
+                colors += hex+', ';
+            });
+
+            let gradient = "linear-gradient("+rotation+"deg, "+colors.substring(0, colors.length - 2)+")";
+
+            options.parentNode.querySelector('.gradient-display').style.background = gradient;
+            // console.log(options.parentNode.querySelector('.gradient-display').style.background = gradient);
         },
         "updateView": () => {
 
