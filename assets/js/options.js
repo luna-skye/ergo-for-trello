@@ -101,14 +101,12 @@ var gradients = {
             preset.container.append(preset.display);
 
             // OPTIONS
-            // Something odd is going on with the event
-            // listeners on inputs within these settings
             preset.options = document.createElement('div');
             preset.options.classList.add('gradient-options');
 
             // Rotation
             preset.rotation = document.createElement('div');
-            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="180" min="0" max="360" step="15"><input type="number" name="rot" value="' + gradient.rotation + '"></div>';
+            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="' + gradient.rotation + '" min="0" max="360" step="15"><input type="number" name="rot" value="' + gradient.rotation + '"></div>';
             preset.rotation.children[0].children[1].addEventListener('input', function () {
                 gradients.updateView(preset.options);
             });

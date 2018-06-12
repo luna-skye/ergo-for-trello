@@ -291,7 +291,7 @@ ul.settings {
                 position: absolute;
                 top: 38px;
                 right: 0;
-                padding: 24px;
+                padding: 18px;
                 cursor: pointer;
                 opacity: 0;
                 pointer-events: none;
@@ -299,12 +299,12 @@ ul.settings {
 
                 &:after, &:before {
                     content: '';
-                    width: 28px;
+                    width: 18px;
                     height: 2px;
                     background: white;
                     position: absolute;
                     $offset: 10px;
-                    top: $offset + 14px;
+                    top: $offset + 8px;
                     right: $offset;
                     transform-origin: center;
                     transform: rotate(45deg);
