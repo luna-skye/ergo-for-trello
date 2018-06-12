@@ -22,6 +22,137 @@ const settings = {
     }
 };
 
+
+// GRADIENT CLASS
+// --------------
+// Gradient Generator
+const gradients = {
+    "create": (gradients) => {
+        gradients.forEach((gradient) => {
+            // PRESET PANEL
+            let preset = {};
+            preset.container = document.createElement('li')
+            preset.container.id = gradient.name;
+            preset.container.classList.add('gradient-preset');
+
+
+            // GRADIENT LABEL
+            preset.label = document.createElement('p');
+            preset.label.classList.add('gradient-title');
+            preset.label.innerText = gradient.name;
+            preset.container.append(preset.label);
+
+
+            // GRADIENT DISPLAY
+            preset.display = document.createElement('div');
+            preset.display.classList.add('gradient-display');
+            preset.display.addEventListener('click', () => { preset.container.classList.add('show'); });
+            preset.container.append(preset.display);
+
+
+            // OPTIONS
+            // Something odd is going on with the event
+            // listeners on inputs within these settings
+            preset.options = document.createElement('div');
+            preset.options.classList.add('gradient-options');
+
+            // Rotation
+            preset.rotation = document.createElement('div');
+            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="180" min="0" max="360" step="15"><input type="number" name="pos" value="180"></div>';
+            preset.rotation.children[0].children[1].addEventListener('input', () => { gradients.updateView(preset.options); });
+            preset.options.append(preset.rotation);
+
+            // Colors
+            preset.colors = document.createElement('div');
+            preset.colors.classList.add('colors');
+            for (let i = 0; i < gradient.colors.length; i++) {
+                // Color Div
+                let color = document.createElement('div');
+                color.classList.add('color');
+
+                // Color Label
+                color.label = document.createElement('p');
+                color.label.classList.add('label');
+                color.label.innerText = "Color " + (i + 1);
+                color.append(color.label);
+
+                // Color Select & Input
+                color.select = document.createElement('div');
+                color.select.classList.add('color-select');
+                color.input = document.createElement('input');
+                color.input.type = "color";
+                color.input.setAttribute('value', gradient.colors[i].hex);
+                color.input.addEventListener('change', () => { gradients.updateView(preset.options); });
+                color.select.append(color.input);
+                color.append(color.select);
+
+                // Color Position
+                color.pos = document.createElement('input');
+                color.pos.type = 'number';
+                color.pos.setAttribute('value', gradient.colors[i].pos);
+                color.append(color.pos);
+
+                // Append Color
+                preset.colors.append(color);
+            }
+            // Append Colors
+            preset.options.append(preset.colors);
+
+            // Append All Options
+            preset.container.append(preset.options);
+
+
+            // Close Button
+            preset.close = document.createElement('div');
+            preset.close.classList.add('close-btn');
+            preset.close.addEventListener('click', () => { preset.container.classList.remove('show'); });
+            preset.container.append(preset.close);
+
+
+            // Finish
+            document.getElementById('backgroundGradients-settings').children[3].append(preset.container);
+        });
+    },
+    "compile": (options) => {
+        let rotation = options.children[0].children[0].children[1].value;
+
+        let colors = '';
+        options.querySelectorAll('.color:not(#addColor)').forEach((color) => {
+            let hex = color.children[1].children[0].value;
+            colors += hex+', ';
+        });
+
+        let gradient = "linear-gradient("+rotation+"deg, "+colors.substring(0, colors.length - 2)+")";
+
+        return gradient;
+    },
+    "updateView": (options) => {
+        options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
+        settings.save({ gradients: gradients.setting() });
+    },
+    "setting": () => {
+        let setting = [];
+
+        document.querySelectorAll('.gradient-preset').forEach((preset) => {
+            let piece = {
+                name: preset.id,
+                rotation: preset.children[2].children[0].children[0].children[1].value,
+                gradient: gradients.compile(preset.children[2])
+            }
+
+            let colors = [];
+            Array.from(preset.children[2].children[1].children).forEach((color) => {
+                if (!color.id) { colors.push({ hex: color.querySelector('input[type="color"]').value, pos: 180 }); }
+            });
+            piece.colors = colors;
+
+            setting.push(piece);
+        });
+
+        return setting;
+    }
+}
+
 // REMOVECLASSFROMALL
 // ------------------
 const removeClassFromAll = (el, className) => {
@@ -36,6 +167,8 @@ window.onload = () => {
     settings.get(options => {
         console.log("Initialized with settings...", options);
         for (var key in options) { if (key !== 'gradients') { document.getElementById(key).checked = options[key]; } }
+
+        gradients.create(options.gradients);
     });
 
 
@@ -76,70 +209,4 @@ window.onload = () => {
             settings.save(options);
         });
     });
-
-
-    // GRADIENTS
-    // ---------------
-    // Gradient Panels
-    let gradientPanels = document.querySelectorAll('.gradient-settings li.gradient-preset');
-    gradientPanels.forEach((panel) => {
-        // Clicking Panel
-        panel.children[1].addEventListener('click', () => { panel.classList.add('show');    });
-        // Closing Panel
-        panel.children[3].addEventListener('click', () => { panel.classList.remove('show'); });
-
-        // Rotation Change
-        panel.children[2].children[0].children[0].children[1].addEventListener('input', () => {
-            gradients.updateView(panel.children[2]);
-        });
-        // Color Change
-        Array.from(panel.children[2].children[1].children).forEach((color) => {
-            color.addEventListener('change', () => {
-                gradients.updateView(panel.children[2]);
-            });
-        });
-    });
-
-
-    // Gradient Generator
-    const gradients = {
-        "compile": (options) => {
-            let rotation = options.children[0].children[0].children[1].value;
-
-            let colors = '';
-            options.querySelectorAll('.color:not(#addColor)').forEach((color) => {
-                let hex = color.children[1].children[0].value;
-                colors += hex+', ';
-            });
-
-            let gradient = "linear-gradient("+rotation+"deg, "+colors.substring(0, colors.length - 2)+")";
-
-            return gradient;
-        },
-        "updateView": (options) => {
-            options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
-            settings.save({gradients: gradients.setting()});
-        },
-        "setting": () => {
-            let setting = [];
-
-            document.querySelectorAll('.gradient-preset').forEach((preset) => {
-                let piece = {
-                    name: preset.id,
-                    rotation: preset.children[2].children[0].children[0].children[1].value,
-                    gradient: gradients.compile(preset.children[2])
-                }
-
-                let colors = [];
-                Array.from(preset.children[2].children[1].children).forEach((color) => {
-                    if (!color.id) { colors.push({ hex: color.querySelector('input[type="color"]').value, pos: 180 }); }
-                });
-                piece.colors = colors;
-
-                setting.push(piece);
-            });
-
-            return setting;
-        }
-    }
 }
