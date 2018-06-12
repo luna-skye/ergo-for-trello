@@ -9,18 +9,13 @@ const settings = {
         "hideExpandBtn": true,
         "backgroundGradients": true,
         "gradients": "{}",
-        "cardCounting": true,
+        "cardCounter": true,
         "warningColors": true,
         "actionSnapping": true,
         "listColors": "{}"
     },
-    "save": () => {
-        chrome.storage.sync.set({
-            minimalDark,
-            backgroundGradients,
-            cardCounting,
-            actionSnapping
-        }, () => { console.log('Settings saved...'); });
+    "save": (options) => {
+        chrome.storage.sync.set(options, () => { console.log('Settings saved...', options); });
     },
     "get": (callback) => {
         chrome.storage.sync.get(settings.default, (items) => { callback(items); });
@@ -33,34 +28,15 @@ const removeClassFromAll = (el, className) => {
 	Array.from(el).forEach((element) => { element.classList.remove(className); });
 };
 
-// CUSTOM SELECTS CLASS
-// --------------------
-const select = {
-    "update": (type, el, target, value) => {
-        if (type === 'option') {
-            // Remove Class from all and set to clicked element
-            removeClassFromAll(el.parentNode.children, 'active');
-            el.classList.add('active');
-
-            // Change Display Div's text
-            el.parentNode.parentNode.children[2].children[0].innerText = el.innerHTML;
-
-            // Set the select
-            let target = el.parentNode.parentNode.children[0];
-            target.value = el.getAttribute('data-value');
-        }
-    }
-}
-
 
 
 // WINDOW ONLOAD
 // -------------
 window.onload = () => {
     settings.get(options => {
-        console.log(options);
+        console.log("Initialized with settings...", options);
+        for (var key in options) { if (key !== 'gradients') { document.getElementById(key).checked = options[key]; } }
     });
-
 
 
     // SETTINGS NAVIGATION
@@ -89,6 +65,19 @@ window.onload = () => {
     });
 
 
+    // SETTINGS CHANGES
+    // ----------------
+    // Checkbox
+    document.querySelectorAll('.checkbox').forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            let setting = checkbox.children[0].getAttribute('name');
+            let options = {};
+            options[setting] = checkbox.children[0].checked;
+            settings.save(options);
+        });
+    });
+
+
     // GRADIENTS
     // ---------------
     // Gradient Panels
@@ -100,10 +89,15 @@ window.onload = () => {
         panel.children[3].addEventListener('click', () => { panel.classList.remove('show'); });
 
         // Rotation Change
-        panel.children[2].children[0].children[0].children[1].addEventListener('input', () => { gradients.compile(panel.children[2]); });
+        panel.children[2].children[0].children[0].children[1].addEventListener('input', () => {
+            gradients.updateView(panel.children[2]);
+        });
         // Color Change
-        Array.from(panel.children[2].children[1].children).forEach((color) => { color.addEventListener('change', () => { gradients.compile(panel.children[2]); }); });
-
+        Array.from(panel.children[2].children[1].children).forEach((color) => {
+            color.addEventListener('change', () => {
+                gradients.updateView(panel.children[2]);
+            });
+        });
     });
 
 
@@ -120,11 +114,32 @@ window.onload = () => {
 
             let gradient = "linear-gradient("+rotation+"deg, "+colors.substring(0, colors.length - 2)+")";
 
-            options.parentNode.querySelector('.gradient-display').style.background = gradient;
-            // console.log(options.parentNode.querySelector('.gradient-display').style.background = gradient);
+            return gradient;
         },
-        "updateView": () => {
+        "updateView": (options) => {
+            options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
+            settings.save({gradients: gradients.setting()});
+        },
+        "setting": () => {
+            let setting = [];
 
+            document.querySelectorAll('.gradient-preset').forEach((preset) => {
+                let piece = {
+                    name: preset.id,
+                    rotation: preset.children[2].children[0].children[0].children[1].value,
+                    gradient: gradients.compile(preset.children[2])
+                }
+
+                let colors = [];
+                Array.from(preset.children[2].children[1].children).forEach((color) => {
+                    if (!color.id) { colors.push({ hex: color.querySelector('input[type="color"]').value, pos: 180 }); }
+                });
+                piece.colors = colors;
+
+                setting.push(piece);
+            });
+
+            return setting;
         }
     }
 }
