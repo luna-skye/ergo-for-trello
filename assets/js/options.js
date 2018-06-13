@@ -106,9 +106,10 @@ var gradients = {
 
             // Rotation
             preset.rotation = document.createElement('div');
-            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="' + gradient.rotation + '" min="0" max="360" step="15"><input type="number" name="rot" value="' + gradient.rotation + '"></div>';
+            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="' + gradient.rotation + '" min="0" max="360" step="15"><input type="number" name="rot" min="0" max="100" value="' + gradient.rotation + '"><div class="symbol">&deg;</div></div>';
             preset.rotation.children[0].children[1].addEventListener('input', function () {
                 gradients.updateView(preset.options);
+                preset.rotation.children[0].children[2].value = preset.rotation.children[0].children[1].value;
             });
             preset.options.append(preset.rotation);
 
@@ -123,7 +124,9 @@ var gradients = {
                 // Color Label
                 color.label = document.createElement('p');
                 color.label.classList.add('label');
-                color.label.innerText = "Color " + (i + 1);
+                if (i === 0) {
+                    color.label.innerText = "Colors";
+                }
                 color.append(color.label);
 
                 // Color Select & Input
@@ -142,7 +145,15 @@ var gradients = {
                 color.pos = document.createElement('input');
                 color.pos.type = 'number';
                 color.pos.setAttribute('value', gradient.colors[i].pos);
+                color.pos.addEventListener('input', function () {
+                    gradients.updateView(preset.options);
+                });
                 color.append(color.pos);
+
+                color.posSymbol = document.createElement('div');
+                color.posSymbol.classList.add('symbol');
+                color.posSymbol.innerHTML = '&percnt;';
+                color.append(color.posSymbol);
 
                 // Append Color
                 preset.colors.append(color);
@@ -170,8 +181,9 @@ var gradients = {
 
         var colors = '';
         options.querySelectorAll('.color:not(#addColor)').forEach(function (color) {
-            var hex = color.children[1].children[0].value;
-            colors += hex + ', ';
+            var hex = color.querySelector('input[type="color"]').value;
+            var pos = color.querySelector('input[type="number"]').value;
+            colors += hex + ' ' + pos + '%, ';
         });
 
         var gradient = "linear-gradient(" + rotation + "deg, " + colors.substring(0, colors.length - 2) + ")";
@@ -195,7 +207,7 @@ var gradients = {
             var colors = [];
             Array.from(preset.children[2].children[1].children).forEach(function (color) {
                 if (!color.id) {
-                    colors.push({ hex: color.querySelector('input[type="color"]').value, pos: 180 });
+                    colors.push({ hex: color.querySelector('input[type="color"]').value, pos: color.querySelector('input[type="number"]').value });
                 }
             });
             piece.colors = colors;
@@ -224,7 +236,6 @@ window.onload = function () {
                 document.getElementById(key).checked = options[key];
             }
         }
-
         gradients.create(options.gradients);
     });
 

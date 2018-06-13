@@ -71,12 +71,12 @@ body {
         opacity: 0.8; }
   #content .option-details {
     position: relative;
+    height: 100%;
     width: 0%;
     opacity: 0;
     -webkit-transition: 0.2s ease;
     -o-transition: 0.2s ease;
     transition: 0.2s ease;
-    overflow-y: auto;
     overflow-x: hidden; }
     #content .option-details.show {
       width: 100%;
@@ -95,10 +95,15 @@ body {
       pointer-events: none;
       margin-left: 64px;
       width: 640px;
-      -webkit-transition: 0.2s ease;
-      -o-transition: 0.2s ease;
-      transition: 0.2s ease; }
+      height: 0;
+      -webkit-transition: 0.2s ease, height 0s ease 0s;
+      -o-transition: 0.2s ease, height 0s ease 0s;
+      transition: 0.2s ease, height 0s ease 0s; }
       #content .option-details .detail-pane.show {
+        height: auto;
+        -webkit-transition: 0.2s ease, height 0s ease 0.2s;
+        -o-transition: 0.2s ease, height 0s ease 0.2s;
+        transition: 0.2s ease, height 0s ease 0.2s;
         margin-left: 0;
         pointer-events: auto;
         opacity: 1; }
@@ -211,7 +216,9 @@ ul.settings {
         -o-transition: 0.2s ease;
         transition: 0.2s ease;
         display: grid;
-        grid-template-columns: 256px auto; }
+        grid-template-columns: 262px auto; }
+        ul.settings li div.gradient-options div {
+          position: relative; }
         ul.settings li div.gradient-options .colors {
           display: grid;
           grid-template-columns: repeat(4, 92px);
@@ -268,6 +275,49 @@ ul.settings {
                 -webkit-transform-origin: center;
                 -ms-transform-origin: center;
                 transform-origin: center; }
+          ul.settings li div.gradient-options .colors .color input[type="number"] {
+            right: 12px !important;
+            padding: 0 14px 0 2px !important; }
+          ul.settings li div.gradient-options .colors .color .symbol {
+            right: 18px;
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+            top: 1px; }
+        ul.settings li div.gradient-options .symbol {
+          position: absolute;
+          top: 0;
+          right: 2px;
+          width: 6px;
+          line-height: 29px;
+          opacity: 0.4; }
+        ul.settings li div.gradient-options input[type="number"] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 29px;
+          max-width: 42px;
+          border: none;
+          background: -webkit-gradient(linear, left top, right top, from(rgba(38, 38, 38, 0)), to(#262626));
+          background: -webkit-linear-gradient(left, rgba(38, 38, 38, 0), #262626);
+          background: -o-linear-gradient(left, rgba(38, 38, 38, 0), #262626);
+          background: linear-gradient(90deg, rgba(38, 38, 38, 0), #262626);
+          text-align: right;
+          color: gray;
+          padding: 0 10px 0 6px; }
+          ul.settings li div.gradient-options input[type="number"]:focus {
+            outline: none; }
+          ul.settings li div.gradient-options input[type="number"]::-webkit-outer-spin-button, ul.settings li div.gradient-options input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            background: none;
+            width: 0;
+            border-left: none;
+            opacity: .5;
+            /* shows Spin Buttons per default (Chrome >= 39) */
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0; }
       ul.settings li div.close-btn {
         position: absolute;
         top: 38px;
@@ -319,10 +369,12 @@ ul.settings {
 .label {
   font-size: 12px !important;
   margin: 0;
-  padding: 6px 0; }
+  padding: 6px 0;
+  min-height: 17px; }
 
 .slider {
-  padding-left: 6px; }
+  padding-left: 6px;
+  padding-right: 6px; }
   .slider input[type="range"] {
     margin: 0;
     -webkit-appearance: none;

@@ -139,8 +139,11 @@ const gradients = {
 
             // Rotation
             preset.rotation = document.createElement('div');
-            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="'+gradient.rotation+'" min="0" max="360" step="15"><input type="number" name="rot" value="'+gradient.rotation+'"></div>';
-            preset.rotation.children[0].children[1].addEventListener('input', () => { gradients.updateView(preset.options); });
+            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="'+gradient.rotation+'" min="0" max="360" step="15"><input type="number" name="rot" min="0" max="100" value="'+gradient.rotation+'"><div class="symbol">&deg;</div></div>';
+            preset.rotation.children[0].children[1].addEventListener('input', () => {
+                gradients.updateView(preset.options);
+                preset.rotation.children[0].children[2].value = preset.rotation.children[0].children[1].value;
+            });
             preset.options.append(preset.rotation);
 
             // Colors
@@ -154,7 +157,7 @@ const gradients = {
                 // Color Label
                 color.label = document.createElement('p');
                 color.label.classList.add('label');
-                color.label.innerText = "Color " + (i + 1);
+                if (i === 0) { color.label.innerText = "Colors"; }
                 color.append(color.label);
 
                 // Color Select & Input
@@ -171,7 +174,13 @@ const gradients = {
                 color.pos = document.createElement('input');
                 color.pos.type = 'number';
                 color.pos.setAttribute('value', gradient.colors[i].pos);
+                color.pos.addEventListener('input', () => { gradients.updateView(preset.options); });
                 color.append(color.pos);
+
+                color.posSymbol = document.createElement('div');
+                color.posSymbol.classList.add('symbol');
+                color.posSymbol.innerHTML = '&percnt;';
+                color.append(color.posSymbol);
 
                 // Append Color
                 preset.colors.append(color);
@@ -199,8 +208,9 @@ const gradients = {
 
         let colors = '';
         options.querySelectorAll('.color:not(#addColor)').forEach((color) => {
-            let hex = color.children[1].children[0].value;
-            colors += hex+', ';
+            let hex = color.querySelector('input[type="color"]').value;
+            let pos = color.querySelector('input[type="number"]').value;
+            colors += hex+' '+pos+'%, ';
         });
 
         let gradient = "linear-gradient("+rotation+"deg, "+colors.substring(0, colors.length - 2)+")";
@@ -223,7 +233,7 @@ const gradients = {
 
             let colors = [];
             Array.from(preset.children[2].children[1].children).forEach((color) => {
-                if (!color.id) { colors.push({ hex: color.querySelector('input[type="color"]').value, pos: 180 }); }
+                if (!color.id) { colors.push({ hex: color.querySelector('input[type="color"]').value, pos: color.querySelector('input[type="number"]').value }); }
             });
             piece.colors = colors;
 
@@ -248,7 +258,6 @@ window.onload = () => {
     settings.get(options => {
         console.log("Initialized with settings...", options);
         for (var key in options) { if (key !== 'gradients') { document.getElementById(key).checked = options[key]; } }
-
         gradients.create(options.gradients);
     });
 

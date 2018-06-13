@@ -83,12 +83,12 @@ body {
     }
     .option-details {
         position: relative;
+        height: 100%;
         width: 0%;
         opacity: 0;
         transition: 0.2s ease;
         &.show { width: 100%; opacity: 1; }
 
-        overflow-y: auto;
         overflow-x: hidden;
         &::-webkit-scrollbar { width: .5em; }
         &::-webkit-scrollbar-track { background-color: transparent; }
@@ -102,8 +102,11 @@ body {
             pointer-events: none;
             margin-left: 64px;
             width: 640px;
-            transition: 0.2s ease;
+            height: 0;
+            transition: 0.2s ease, height 0s ease 0s;
             &.show {
+                height: auto;
+                transition: 0.2s ease, height 0s ease 0.2s;
                 margin-left: 0;
                 pointer-events: auto;
                 opacity: 1;
@@ -223,7 +226,9 @@ ul.settings {
                 transition: 0.2s ease;
 
                 display: grid;
-                grid-template-columns: 256px auto;
+                grid-template-columns: 262px auto;
+
+                div { position: relative; }
 
                 // COLOR INPUTS
                 .colors {
@@ -284,6 +289,53 @@ ul.settings {
                                 }
                             }
                         }
+                        input[type="number"] { right: 12px !important; padding: 0 14px 0 2px !important; }
+
+                        .symbol {
+                            right: 18px;
+                            transform: scale(1);
+                            top: 1px;
+                        }
+                    }
+                }
+                .symbol {
+                    position: absolute;
+                    top: 0;
+                    right: 2px;
+                    width: 6px;
+                    line-height: 29px;
+                    opacity: 0.4;
+                }
+
+
+                // Number Inputs
+                input[type="number"] {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+
+                    height: 29px;
+                    max-width: 42px;
+                    border: none;
+
+                    background: linear-gradient(90deg, transparentize(#262626, 1), #262626);
+                    text-align: right;
+                    color: hsl(0,0%,50%);
+                    padding: 0 10px 0 6px;
+
+                    &:focus { outline: none; }
+
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        background: none;
+                        width: 0;
+                        border-left: none;
+                        opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
                     }
                 }
             }
@@ -334,9 +386,11 @@ ul.settings {
     font-size: 12px !important;
     margin: 0;
     padding: 6px 0;
+    min-height: 17px;
 }
 .slider {
     padding-left: 6px;
+    padding-right: 6px;
     input[type="range"] {
         margin: 0;
         -webkit-appearance: none;
