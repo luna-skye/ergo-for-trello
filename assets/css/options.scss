@@ -103,10 +103,11 @@ body {
             margin-left: 64px;
             width: 640px;
             height: 0;
-            transition: 0.2s ease, height 0s ease 0s;
+            overflow: hidden;
+            transition: 0.2s ease;
             &.show {
                 height: auto;
-                transition: 0.2s ease, height 0s ease 0.2s;
+                transition: 0.2s ease;
                 margin-left: 0;
                 pointer-events: auto;
                 opacity: 1;
