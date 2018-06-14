@@ -1,33 +1,13 @@
-// Save Settings Function
-let save_settings = () => {
-	let minimalDark    = document.getElementById('minimalDark').checked,
-		backgroundGradients = document.getElementById('backgroundGradients').checked,
-		cardCounting   = document.getElementById('cardCounting').checked,
-		actionSnapping = document.getElementById('actionSnapping').checked;
-	chrome.storage.sync.set({
-		minimalDark,
-		backgroundGradients,
-		cardCounting,
-		actionSnapping
-	}, () => { console.log('Settings saved...'); });
+window.onload = function() {
+    let popupLinks = document.querySelectorAll('.popup-link');
+    popupLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            if (link.getAttribute('link') !== 'options') {
+                chrome.tabs.create({url: link.getAttribute('link')});
+            } else {
+                if (chrome.runtime.openOptionsPage) { chrome.runtime.openOptionsPage(); }
+                else { window.open(chrome.runtime.getURL('options.html')); }
+            }
+        });
+    });
 };
-
-// Restore Settings Function
-let restore_settings = () => {
-	chrome.storage.sync.get({
-		minimalDark: true,
-		backgroundGradients: true,
-		cardCounting: true,
-		actionSnapping: true
-	}, (items) => {
-		Object.keys(items).forEach(function(key) { document.getElementById(key).checked = items[key]; });
-	});
-}
-
-window.addEventListener('load', () => {
-	// ON INPUT CHANGE
-	Array.from(document.querySelectorAll('input')).forEach((el) => { el.addEventListener('change', () => { save_settings(); }); });
-
-	// Restore Settings
-	restore_settings();
-});

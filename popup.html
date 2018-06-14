@@ -2,43 +2,36 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 		<link rel="stylesheet" href="assets/css/popup.css">
+
 		<script type="text/javascript" src="assets/js/popup.js"></script>
 	</head>
 	<body>
 		<div class="container">
-			<img src="icon64.png" alt="Ergo for Trello Logo">
-			<h1>Ergo for Trello</h1>
-
-			<div class="settings">
-				<ul class="settings-values">
-					<!-- Minimal Dark Theme -->
-					<li>
-						<input type="checkbox" name="minimalDark" id="minimalDark" checked>
-						<label for="minimalDark">Minimal Dark</label>
-					</li>
-
-					<!-- Background Gradients -->
-					<li>
-						<input type="checkbox" name="backgroundGradients" id="backgroundGradients" checked>
-						<label for="backgroundGradients">Background Gradients</label>
-					</li>
-
-					<!-- Card Counting -->
-					<li>
-						<input type="checkbox" name="cardCounting" id="cardCounting" checked>
-						<label for="cardCounting">Card Counting</label>
-					</li>
-
-					<!-- Action Snapping -->
-					<li class="with-hint">
-						<input type="checkbox" name="actionSnapping" id="actionSnapping" checked>
-						<label for="actionSnapping">Action Snapping</label>
-						<p class="hint">Snap card actions to top when scrolling</p>
-					</li>
-				</ul>
-				<p class="refresh-hint">Refresh page for changes to take effect</p>
+			<div id="header">
+				<img src="/assets/img/ergoLogo_white-transparent_24px.png" alt="Ergo Logo">
+				<p>Ergo for Trello</p>
 			</div>
+
+			<ul class="links">
+				<li>
+					<i class="fas fa-cog"></i>
+					<a class="popup-link" link="options">Settings</a>
+				</li>
+				<li>
+					<i class="fas fa-gift"></i>
+					<a class="popup-link" link="http://ergo.sepshun.io/#donate">Donate</a>
+				</li>
+				<li>
+					<i class="fas fa-question-circle"></i>
+					<a class="popup-link" link="http://ergo.sepshun.io/#faq">FAQ</a>
+				</li>
+				<li>
+					<i class="fas fa-info-circle"></i>
+					<a class="popup-link" link="http://ergo.sepshun.io/#about">About</a>
+				</li>
+			</ul>
 		</div>
 	</body>
 </html>
