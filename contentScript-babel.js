@@ -129,25 +129,105 @@ const settings = {
 				document.body.appendChild(styleEl);
 			}
 		},
-		"minimalDark": (piece) => {
-			piece = piece ? piece : 'core';
-			settings.apply.styles('minimalDark', piece);
+		"minimalDark": (options) => {
+			settings.apply.styles('minimalDark', 'core');
+
+			for (var sub in options.subsettings) { if (options.subsettings[sub] == true) { settings.apply.styles('minimalDark', sub); } }
 
 			// Fix List Headers
 			let listHeaders = Array.from(document.querySelectorAll('.list-header-name'));
 			listHeaders.forEach((el) => { el.style.height = '40px'; });
-			setInterval(() => {
-				listHeaders.forEach((el) => { el.style.height = '40px'; });
-			}, 2000);
+			setInterval(() => { listHeaders.forEach((el) => { el.style.height = '40px'; }); }, 2000);
 		},
 		"backgroundGradients": () => {
 
 		},
 		"cardCounter": () => {
+			let styleEl = document.createElement('style');
+			styleEl.innerText = '#total-card-count { padding: 0 6px; } .card-count { position: absolute; right: 28px; top: 3px; }';
+			document.body.appendChild(styleEl);
+
+			// Update Counter Function
+			let updateCounter = () => {
+				let totalCount = 0;
+				if (!document.getElementById('total-card-count')) {
+					let divider = document.createElement('span');
+					divider.classList.add('board-header-btn-divider');
+
+					let totalCardCount = document.createElement('div');
+					totalCardCount.id = 'total-card-count';
+					totalCardCount.classList.add('board-header-btn');
+					totalCardCount.appendChild(document.createTextNode('0 total cards'));
+
+					let container = document.querySelector('.board-header-btns.mod-left');
+					if (container) {
+						container.appendChild(divider);
+						container.appendChild(totalCardCount);
+					}
+
+				}
+
+
+				let list = document.querySelectorAll('.list');
+				if (list) {
+					Array.from(list).forEach((list) => {
+						if (!list.children[0].children[4].children[0].classList.contains('card-count')) {
+							let countEl = document.createElement('div');
+							countEl.classList.add('card-count');
+							countEl.appendChild(document.createTextNode('0'));
+							list.children[0].children[4].prepend(countEl);
+						};
+
+						let count = 0;
+						Array.from(list.children[1].children).forEach((card) => {
+							if (!card.classList.contains('card-composer')) { count++; totalCount++; }
+						});
+						list.children[0].children[4].children[0].innerText = count;
+					});
+
+
+					if (document.getElementById('total-card-count')) {
+						document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+					}
+				}
+
+			}
+
+			// Update The Counters
+			updateCounter();
+			setInterval(() => { updateCounter(); }, 1000);
+
+
+			// Additional Limits functions
 
 		},
 		"actionSnapping": () => {
+			// Create Snapped Class
+			let styleEl = document.createElement('style');
+			styleEl.innerText = '.snapped { position: absolute; right: 0; }';
+			document.body.appendChild(styleEl);
 
+			// Functions
+			let overlay = document.getElementsByClassName('window-overlay')[0];
+			let actionSnap = () => {
+				let actions = document.getElementsByClassName('window-sidebar')[0];
+				let scrollPos = overlay.scrollTop;
+
+				if (document.querySelector('.window-cover')) {
+					if (scrollPos >= (128 + document.querySelector('.window-cover').offsetHeight)) {
+						actions.style.top = (scrollPos - 40) + 'px';
+						actions.classList.add('snapped');
+					}
+					else { actions.classList.remove('snapped'); }
+				} else {
+					if (scrollPos >= 128) {
+						actions.style.top = (scrollPos - 40) + 'px';
+						actions.classList.add('snapped');
+					}
+					else { actions.classList.remove('snapped'); }
+				}
+			}
+			overlay.addEventListener('scroll', (e) => { window.requestAnimationFrame(() => { actionSnap(); }); });
 		},
 		"listColors": () => {
 
@@ -158,22 +238,9 @@ const settings = {
 window.addEventListener('load', () => {
 	// Initial Load
 	settings.get(options => {
-		// For each setting
 		for (var key in options) {
-
-			// If it's true, continue
 			if (options[key].state == true) {
-				// Apply the setting
-				settings.apply[key]();
-
-				// Subsettings
-				for (var sub in options[key].subsettings) {
-					// minimalDark
-
-					if (key == 'minimalDark' && options[key].subsettings[sub] == true) {
-						settings.apply[key](sub);
-					}
-				}
+				settings.apply[key](options[key]);
 			}
 		}
 	});
