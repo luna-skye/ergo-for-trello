@@ -1,0 +1,154 @@
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #0099f2 !important; }
+
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .window-sidebar .button-link:hover {
+  color: #0079bf !important; }
+
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .action-comment a {
+  color: #1d71a2 !important; }
+
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .badge.is-complete {
+  background-color: #0079bf; }
+
+#classic-body[style*="background-color: rgb(0, 121, 191)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(0, 121, 191, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #dba75e !important; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .window-sidebar .button-link:hover {
+  color: #d29034 !important; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .action-comment a {
+  color: #ad8a59 !important; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .badge.is-complete {
+  background-color: #d29034; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(210, 144, 52, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #66bb49 !important; }
+
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .window-sidebar .button-link:hover {
+  color: #519839 !important; }
+
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .action-comment a {
+  color: #617958 !important; }
+
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .badge.is-complete {
+  background-color: #519839; }
+
+#classic-body[style*="background-color: rgb(81, 152, 57)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(81, 152, 57, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #cb5e4a !important; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .window-sidebar .button-link:hover {
+  color: #b04632 !important; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .action-comment a {
+  color: #8e5d54 !important; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .badge.is-complete {
+  background-color: #b04632; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(176, 70, 50, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #a17fb2 !important; }
+
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .window-sidebar .button-link:hover {
+  color: #89609e !important; }
+
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .action-comment a {
+  color: #7f7f7f !important; }
+
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .badge.is-complete {
+  background-color: #89609e; }
+
+#classic-body[style*="background-color: rgb(137, 96, 158)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(137, 96, 158, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #d981ab !important; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .window-sidebar .button-link:hover {
+  color: #cd5a91 !important; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .action-comment a {
+  color: #ad7a92 !important; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .badge.is-complete {
+  background-color: #cd5a91; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(205, 90, 145, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #71cc8a !important; }
+
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .window-sidebar .button-link:hover {
+  color: #4bbf6b !important; }
+
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .action-comment a {
+  color: #709a7b !important; }
+
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .badge.is-complete {
+  background-color: #4bbf6b; }
+
+#classic-body[style*="background-color: rgb(75, 191, 107)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(75, 191, 107, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #00daff !important; }
+
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .window-sidebar .button-link:hover {
+  color: #00aecc !important; }
+
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .action-comment a {
+  color: #1f98ad !important; }
+
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .badge.is-complete {
+  background-color: #00aecc; }
+
+#classic-body[style*="background-color: rgb(0, 174, 204)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(0, 174, 204, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .checklist-progress-bar-current,
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #9ea5a9 !important; }
+
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .checklist-item .icon-check:before,
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .window-sidebar .button-link:hover {
+  color: #838c91 !important; }
+
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .action-comment a {
+  color: #8a8a8a !important; }
+
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .badge.is-complete {
+  background-color: #838c91; }
+
+#classic-body[style*="background-color: rgb(131, 140, 145)"] pre::-webkit-scrollbar-thumb {
+  background: rgba(131, 140, 145, 0.7) !important; }
+
+/*# sourceMappingURL=backgroundInfluence.css.map */

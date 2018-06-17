@@ -1,0 +1,17 @@
+// -------------------------------------
+// COLOR INFLUENCE ---------------------
+$colors: rgb(0, 121, 191), rgb(210, 144, 52), rgb(81, 152, 57), rgb(176, 70, 50), rgb(137, 96, 158), rgb(205, 90, 145), rgb(75, 191, 107), rgb(0, 174, 204), rgb(131, 140, 145);
+
+@each $item in $colors {
+	$col: str-insert(str-insert(str-slice(quote(rgba($item, 0.9)), 5, str-length(quote(rgba($item, 0.9))) - 6), ')', str-length(quote(rgba($item, 0.9))) - 5), 'rgb', 0);
+	#classic-body[style*="background-color: #{$col}"] {
+		// background: $item;
+		.checklist-progress-bar-current,
+		.u-fancy-scrollbar::-webkit-scrollbar-thumb { background: lighten($item, 10) !important; }
+		.checklist-item .icon-check:before,
+		.window-sidebar .button-link:hover { color: $item !important; }
+		.action-comment a {color: desaturate($item, 30%) !important; }
+		.badge.is-complete { background-color: $item; }
+		pre::-webkit-scrollbar-thumb { background: transparentize($item, 0.3) !important; }
+	}
+}

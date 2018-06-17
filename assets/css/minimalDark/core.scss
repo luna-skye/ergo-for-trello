@@ -581,14 +581,9 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		color: hsl(0,0%,50%) !important;
 		&:hover { color: white !important; }
 	}
-	.icon-expand { display: none; }
+	
 	.list-card-composer-textarea { color: white; }
 
-	.card-label {
-		width: 8px !important;
-		min-width: 0 !important;
-		border-radius : 32px !important;
-	}
 	.open-card-composer { border-radius: 0; }
 	.list-card-composer-textarea { color: white; }
 }
@@ -742,10 +737,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	border-radius: 0 !important;
 }
 .list-name-input { color: white; }
-// Wide Card
-body.fixed-content #content { width:890px !important; }
-div.window { width:890px !important; }
-div.window-main-col { width:672px !important; overflow-x: visible !important; overflow-y: visible !important; }
+
 .description-content-fade-button {
 	background: linear-gradient(180deg, hsla(0,0%,10%,0), hsla(0,0%,10%,0) 370px, hsla(0,0%,10%,0.9) 400px) !important;
 
@@ -776,25 +768,5 @@ h2 {
 		background: hsl(0,0%,20%);
 		color: white;
 		border-radius: 0;
-	}
-}
-
-
-
-// -------------------------------------
-// COLOR INFLUENCE ---------------------
-$colors: rgb(0, 121, 191), rgb(210, 144, 52), rgb(81, 152, 57), rgb(176, 70, 50), rgb(137, 96, 158), rgb(205, 90, 145), rgb(75, 191, 107), rgb(0, 174, 204), rgb(131, 140, 145);
-
-@each $item in $colors {
-	$col: str-insert(str-insert(str-slice(quote(rgba($item, 0.9)), 5, str-length(quote(rgba($item, 0.9))) - 6), ')', str-length(quote(rgba($item, 0.9))) - 5), 'rgb', 0);
-	#classic-body[style*="background-color: #{$col}"] {
-		// background: $item;
-		.checklist-progress-bar-current,
-		.u-fancy-scrollbar::-webkit-scrollbar-thumb { background: lighten($item, 20) !important; }
-		.checklist-item .icon-check:before,
-		.window-sidebar .button-link:hover { color: $item !important; }
-		.action-comment a {color: desaturate($item, 30%) !important; }
-		.badge.is-complete { background-color: $item; }
-		pre::-webkit-scrollbar-thumb { background: transparentize($item, 0.3) !important; }
 	}
 }
