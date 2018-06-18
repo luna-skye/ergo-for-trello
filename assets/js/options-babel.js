@@ -17,6 +17,7 @@ const settings = {
 				"gradients": [
 		            {
 		                "name": "Blue",
+                        "colorID": "rgb(0, 121, 191)",
 		                "gradient": "linear-gradient(135deg, #0079BF 0%, #1EBDD2 50%, #B5EFA1 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -26,6 +27,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Orange",
+                        "colorID": "rgb(210, 144, 52)",
 		                "gradient": "linear-gradient(135deg, #D29034 0%, #EB9606 50%, #2A241C 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -35,6 +37,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Green",
+                        "colorID": "rgb(81, 152, 57)",
 		                "gradient": "linear-gradient(135deg, #519839 0%, #A3D21E 50%, #B5EFA1 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -44,6 +47,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Red",
+                        "colorID": "rgb(176, 70, 50",
 		                "gradient": "linear-gradient(135deg, #BA311B 0%, #D2881E 75%, #D37319 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -53,6 +57,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Purple",
+                        "colorID": "rgb(137, 96, 158)",
 		                "gradient": "linear-gradient(135deg, #5461C0 0%, #801ED2 47%, #963CD3 79%, #972ED8 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -63,6 +68,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Pink",
+                        "colorID": "rgb(205, 90, 145)",
 		                "gradient": "linear-gradient(135deg, #EA537D 0%, #D04FD0 50%, #D415FF 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -72,6 +78,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Light Green",
+                        "colorID": "rgb(75, 191, 107)",
 		                "gradient": "linear-gradient(135deg, #4BBF6B 0%, #4FD0C1 50%, #15ABFF 100%)",
 		                "rotation": "135",
 		                "colors": [
@@ -81,6 +88,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Light Blue",
+                        "colorID": "rgb(0, 174, 204)",
 		                "gradient": "linear-gradient(135deg, #00C0FF, #C301FF)",
 		                "rotation": "135",
 		                "colors": [
@@ -89,6 +97,7 @@ const settings = {
 		                ]
 		            },{
 		                "name": "Grey",
+                        "colorID": "rgb(131, 140, 145)",
 		                "gradient": "linear-gradient(135deg, #838C91, #424242)",
 		                "rotation": "135",
 		                "colors": [
@@ -130,6 +139,7 @@ const gradients = {
             let preset = {};
             preset.container = document.createElement('li')
             preset.container.id = gradient.name;
+            preset.container.setAttribute('data-col-id', gradient.colorID);
             preset.container.classList.add('gradient-preset');
 
 
@@ -256,6 +266,7 @@ const gradients = {
         document.querySelectorAll('.gradient-preset').forEach((preset) => {
             let piece = {
                 name: preset.id,
+                colorID: preset.getAttribute('data-col-id'),
                 rotation: preset.children[2].children[0].children[0].children[1].value,
                 gradient: gradients.compile(preset.children[2])
             }
