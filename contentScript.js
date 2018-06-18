@@ -1,5 +1,33 @@
-"use strict";
+'use strict';
 
+var stylesheet = {
+	"add": function add(type, id, href) {
+		if (!document.getElementById(id)) {
+			var sheet = document.createElement(type);
+			if (type == 'link') {
+				sheet.rel = 'stylesheet';
+				sheet.type = 'text/css';
+				sheet.href = chrome.runtime.getURL('/assets/css/' + href + '.css');
+			} else if (type == 'style') {
+				sheet.innerText = href;
+			}
+			sheet.id = id;
+			document.body.appendChild(sheet);
+		}
+	},
+	"remove": function remove(id) {
+		if (document.getElementById(id)) {
+			var sheet = document.getElementById(id);
+			sheet.parentNode.removeChild(sheet);
+		}
+	},
+	"update": function update(type, id, href) {
+		stylesheet.remove(id);
+		stylesheet.add(type, id, href);
+	}
+};
+
+var listHeaderInterval, counterInterval;
 var settings = {
 	"default": {
 		"minimalDark": {
@@ -94,162 +122,178 @@ var settings = {
 		});
 	},
 	"apply": {
-		"styles": function styles(core, piece) {
-			if (document.getElementById(core + '-' + piece)) {
-				var styleEl = document.getElementById(core + '-' + piece);
-				styleEl.parentNode.removeChild(styleEl);
-			} else {
-				var _styleEl = document.createElement('link');
-				_styleEl.rel = 'stylesheet';
-				_styleEl.href = chrome.runtime.getURL('/assets/css/' + core + '/' + piece + '.css');
-				_styleEl.type = 'text/css';
-				_styleEl.id = core + '-' + piece;
-				document.body.appendChild(_styleEl);
-			}
-		},
 		"minimalDark": function minimalDark(options) {
-			settings.apply.styles('minimalDark', 'core');
+			var listHeaders = Array.from(document.querySelectorAll('.list-header-name'));
+			if (options.state) {
+				stylesheet.add('link', 'minimalDark-core', 'minimalDark/core');
 
-			for (var sub in options.subsettings) {
-				if (options.subsettings[sub] == true) {
-					settings.apply.styles('minimalDark', sub);
+				for (var sub in options.subsettings) {
+					if (options.subsettings[sub] == true) {
+						stylesheet.add('link', 'minimalDark-' + sub, 'minimalDark/' + sub);
+					} else {
+						stylesheet.remove('minimalDark-' + sub);
+					}
+				}
+			} else {
+				stylesheet.remove('minimalDark-core');
+				for (var sub in options.subsettings) {
+					if (options.subsettings[sub] == true) {
+						stylesheet.add('link', 'minimalDark-' + sub, 'minimalDark/' + sub);
+					} else {
+						stylesheet.remove('minimalDark-' + sub);
+					}
 				}
 			}
-
-			// Fix List Headers
-			var listHeaders = Array.from(document.querySelectorAll('.list-header-name'));
-			listHeaders.forEach(function (el) {
-				el.style.height = '40px';
-			});
-			setInterval(function () {
-				listHeaders.forEach(function (el) {
-					el.style.height = '40px';
-				});
-			}, 2000);
 		},
 		"backgroundGradients": function backgroundGradients(options) {
-			var styles = '';
-			options.subsettings.gradients.forEach(function (gradient) {
-				if (gradient.colorID.includes('rgb')) {
-					styles += '#classic-body[style*="' + gradient.colorID + '"] #surface { background: ' + gradient.gradient + ' !important; }';
-				}
-			});
-
-			var styleEl = document.createElement('style');
-			styleEl.innerText = styles;
-			document.body.appendChild(styleEl);
+			if (options.state) {
+				var styles = '';
+				options.subsettings.gradients.forEach(function (gradient) {
+					if (gradient.colorID.includes('rgb')) {
+						styles += '#classic-body[style*="' + gradient.colorID + '"] #surface { background: ' + gradient.gradient + ' !important; }';
+					}
+				});
+				stylesheet.update('style', 'backgroundGradients', styles);
+			} else {
+				stylesheet.remove('backgroundGradients');
+			}
 		},
 		"cardCounter": function cardCounter(options) {
-			var styleEl = document.createElement('style');
-			styleEl.innerText = '#total-card-count { padding: 0 6px; } .card-count { position: absolute; right: 28px; top: 3px; }';
-			document.body.appendChild(styleEl);
-
 			// Update Counter Function
 			var updateCounter = function updateCounter() {
-				var totalCount = 0;
-				if (!document.getElementById('total-card-count')) {
-					var divider = document.createElement('span');
-					divider.classList.add('board-header-btn-divider');
+				if (options.state) {
+					var totalCount = 0;
+					if (!document.getElementById('total-card-count')) {
+						var divider = document.createElement('span');
+						divider.classList.add('board-header-btn-divider');
+						divider.id = "card-count-divider";
 
-					var totalCardCount = document.createElement('div');
-					totalCardCount.id = 'total-card-count';
-					totalCardCount.classList.add('board-header-btn');
-					totalCardCount.appendChild(document.createTextNode('0 total cards'));
+						var totalCardCount = document.createElement('div');
+						totalCardCount.id = 'total-card-count';
+						totalCardCount.classList.add('board-header-btn');
+						totalCardCount.appendChild(document.createTextNode('0 total cards'));
 
-					var container = document.querySelector('.board-header-btns.mod-left');
-					if (container) {
-						container.appendChild(divider);
-						container.appendChild(totalCardCount);
+						var container = document.querySelector('.board-header-btns.mod-left');
+						if (container) {
+							container.appendChild(divider);
+							container.appendChild(totalCardCount);
+						}
 					}
-				}
 
-				var list = document.querySelectorAll('.list');
-				if (list) {
-					Array.from(list).forEach(function (list) {
-						if (!list.children[0].children[4].children[0].classList.contains('card-count')) {
-							var countEl = document.createElement('div');
-							countEl.classList.add('card-count');
-							countEl.appendChild(document.createTextNode('0'));
-							list.children[0].children[4].prepend(countEl);
-						};
+					var list = document.querySelectorAll('.list');
+					if (list) {
+						Array.from(list).forEach(function (list) {
+							if (!list.children[0].children[4].children[0].classList.contains('card-count')) {
+								var countEl = document.createElement('div');
+								countEl.classList.add('card-count');
+								countEl.appendChild(document.createTextNode('0'));
+								list.children[0].children[4].prepend(countEl);
+							};
 
-						var count = 0;
-						Array.from(list.children[1].children).forEach(function (card) {
-							if (!card.classList.contains('card-composer')) {
-								count++;totalCount++;
-							}
+							var count = 0;
+							Array.from(list.children[1].children).forEach(function (card) {
+								if (!card.classList.contains('card-composer')) {
+									count++;totalCount++;
+								}
+							});
+							list.children[0].children[4].children[0].innerText = count;
 						});
-						list.children[0].children[4].children[0].innerText = count;
-					});
 
-					if (document.getElementById('total-card-count')) {
-						document.getElementById('total-card-count').innerText = totalCount + ' total cards';
-					}
-				}
-			};
-
-			// Update The Counters
-			updateCounter();
-			setInterval(function () {
-				updateCounter();
-			}, 1000);
-
-			// Additional Limits functions
-		},
-		"actionSnapping": function actionSnapping(options) {
-			// Create Snapped Class
-			var styleEl = document.createElement('style');
-			styleEl.innerText = '.snapped { position: absolute; right: 0; }';
-			document.body.appendChild(styleEl);
-
-			// Functions
-			var overlay = document.getElementsByClassName('window-overlay')[0];
-			var actionSnap = function actionSnap() {
-				var actions = document.getElementsByClassName('window-sidebar')[0];
-				var scrollPos = overlay.scrollTop;
-
-				if (document.querySelector('.window-cover')) {
-					if (scrollPos >= 128 + document.querySelector('.window-cover').offsetHeight) {
-						actions.style.top = scrollPos - 40 + 'px';
-						actions.classList.add('snapped');
-					} else {
-						actions.classList.remove('snapped');
+						if (document.getElementById('total-card-count')) {
+							document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+						}
 					}
 				} else {
-					if (scrollPos >= 128) {
-						actions.style.top = scrollPos - 40 + 'px';
-						actions.classList.add('snapped');
-					} else {
-						actions.classList.remove('snapped');
+					var cardCountDivider = document.getElementById('card-count-divider');
+					if (cardCountDivider) {
+						cardCountDivider.parentNode.removeChild(cardCountDivider);
+					}
+
+					var _totalCardCount = document.getElementById('total-card-count');
+					if (_totalCardCount) {
+						_totalCardCount.parentNode.removeChild(_totalCardCount);
+					}
+
+					var listCardCounts = document.querySelectorAll('.card-count');
+					if (listCardCounts) {
+						listCardCounts.forEach(function (count) {
+							count.parentNode.removeChild(count);
+						});
 					}
 				}
 			};
-			overlay.addEventListener('scroll', function (e) {
+
+			if (options.state) {
+				var styles = '#total-card-count { padding: 0 6px; } .card-count { position: absolute; right: 28px; top: 3px; }';
+				stylesheet.add('style', 'cardCounter', styles);
+
+				// Update The Counters
+				updateCounter();
+				counterInterval = setInterval(function () {
+					updateCounter();
+				}, 1000);
+			} else {
+				stylesheet.remove('cardCounter');
+				clearInterval(counterInterval);
+				updateCounter();
+			}
+		},
+		"actionSnapping": function actionSnapping(options) {
+			var overlay = document.getElementsByClassName('window-overlay')[0];
+			var actionSnap = function actionSnap() {
+				if (options.state) {
+					var actions = document.getElementsByClassName('window-sidebar')[0];
+					var scrollPos = overlay.scrollTop;
+
+					if (document.querySelector('.window-cover')) {
+						if (scrollPos >= 128 + document.querySelector('.window-cover').offsetHeight) {
+							actions.style.top = scrollPos - 40 + 'px';
+							actions.classList.add('snapped');
+						} else {
+							actions.classList.remove('snapped');
+						}
+					} else {
+						if (scrollPos >= 128) {
+							actions.style.top = scrollPos - 40 + 'px';
+							actions.classList.add('snapped');
+						} else {
+							actions.classList.remove('snapped');
+						}
+					}
+				}
+			};
+			var scroll = function scroll() {
 				window.requestAnimationFrame(function () {
 					actionSnap();
 				});
-			});
+			};
+
+			if (options.state) {
+				// Create Snapped Class
+				var styles = '.snapped { position: absolute; right: 0; }';
+				stylesheet.add('style', 'actionSnapping', styles);
+
+				overlay.addEventListener('scroll', scroll);
+			} else {
+				stylesheet.remove('actionSnapping');
+			}
 		},
 		"listColors": function listColors(options) {}
 	}
 };
 
+// Listen for Realtime Messages from extension
+chrome.runtime.onMessage.addListener(function (req, sender, res) {
+	for (var option in req) {
+		settings.apply[option](req[option]);
+	}
+});
+
 window.addEventListener('load', function () {
 	// Initial Load
 	settings.get(function (options) {
 		for (var key in options) {
-			if (options[key].state == true) {
-				settings.apply[key](options[key]);
-			}
+			settings.apply[key](options[key]);
 		}
 	});
-
-	/* // Inject Background Gradient CSS
- if (options.backgroundGradients) {
- 	let gradientStyles = document.createElement('link');
- 	gradientStyles.rel = "stylesheet";
- 	gradientStyles.type = "text/css";
- 	gradientStyles.href = chrome.extension.getURL('assets/css/gradients.css');
- 	document.body.appendChild(gradientStyles);
- } */
 });

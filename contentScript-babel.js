@@ -1,3 +1,32 @@
+const stylesheet = {
+	"add": (type, id, href) => {
+		if (!document.getElementById(id)) {
+			let sheet = document.createElement(type);
+			if (type == 'link') {
+				sheet.rel = 'stylesheet';
+				sheet.type = 'text/css';
+				sheet.href = chrome.runtime.getURL('/assets/css/'+href+'.css');
+			}
+			else if (type == 'style') {
+				sheet.innerText = href;
+			}
+			sheet.id = id;
+			document.body.appendChild(sheet);
+		}
+	},
+	"remove": (id) => {
+		if (document.getElementById(id)) {
+			let sheet = document.getElementById(id);
+			sheet.parentNode.removeChild(sheet);
+		}
+	},
+	"update": (type, id, href) => {
+		stylesheet.remove(id);
+		stylesheet.add(type, id, href);
+	}
+}
+
+var listHeaderInterval, counterInterval;
 const settings = {
 	"default": {
         "minimalDark": {
@@ -125,127 +154,140 @@ const settings = {
 		chrome.storage.sync.get(settings.default, (items) => { callback(items); });
 	},
 	"apply": {
-		"styles": (core, piece) => {
-			if ( document.getElementById(core+'-'+piece) ) {
-				let styleEl = document.getElementById(core+'-'+piece);
-				styleEl.parentNode.removeChild(styleEl);
-			} else {
-				let styleEl = document.createElement('link');
-				styleEl.rel  = 'stylesheet';
-				styleEl.href = chrome.runtime.getURL('/assets/css/'+core+'/'+piece+'.css');
-				styleEl.type = 'text/css';
-				styleEl.id   = core+'-'+piece;
-				document.body.appendChild(styleEl);
-			}
-		},
 		"minimalDark": (options) => {
-			settings.apply.styles('minimalDark', 'core');
-
-			for (var sub in options.subsettings) { if (options.subsettings[sub] == true) { settings.apply.styles('minimalDark', sub); } }
-
-			// Fix List Headers
 			let listHeaders = Array.from(document.querySelectorAll('.list-header-name'));
-			listHeaders.forEach((el) => { el.style.height = '40px'; });
-			setInterval(() => { listHeaders.forEach((el) => { el.style.height = '40px'; }); }, 2000);
+			if (options.state) {
+				stylesheet.add('link', 'minimalDark-core', 'minimalDark/core');
+
+				for (var sub in options.subsettings) {
+					if (options.subsettings[sub] == true) { stylesheet.add('link', 'minimalDark-'+sub, 'minimalDark/'+sub); }
+					else                                  { stylesheet.remove('minimalDark-'+sub); }
+				}
+			}
+			else {
+				stylesheet.remove('minimalDark-core');
+				for (var sub in options.subsettings) {
+					if (options.subsettings[sub] == true) { stylesheet.add('link', 'minimalDark-'+sub, 'minimalDark/'+sub); }
+					else                                  { stylesheet.remove('minimalDark-'+sub); }
+				}
+			}
 		},
 		"backgroundGradients": (options) => {
-			let styles = '';
-			options.subsettings.gradients.forEach((gradient) => {
-				if (gradient.colorID.includes('rgb')) {
-					styles += '#classic-body[style*="'+gradient.colorID+'"] #surface { background: '+gradient.gradient+' !important; }';
-				}
-			});
-
-			let styleEl = document.createElement('style');
-			styleEl.innerText = styles;
-			document.body.appendChild(styleEl);
+			if (options.state) {
+				let styles = '';
+				options.subsettings.gradients.forEach((gradient) => {
+					if (gradient.colorID.includes('rgb')) {
+						styles += '#classic-body[style*="'+gradient.colorID+'"] #surface { background: '+gradient.gradient+' !important; }';
+					}
+				});
+				stylesheet.update('style', 'backgroundGradients', styles);
+			}
+			else { stylesheet.remove('backgroundGradients'); }
 		},
 		"cardCounter": (options) => {
-			let styleEl = document.createElement('style');
-			styleEl.innerText = '#total-card-count { padding: 0 6px; } .card-count { position: absolute; right: 28px; top: 3px; }';
-			document.body.appendChild(styleEl);
-
 			// Update Counter Function
 			let updateCounter = () => {
-				let totalCount = 0;
-				if (!document.getElementById('total-card-count')) {
-					let divider = document.createElement('span');
-					divider.classList.add('board-header-btn-divider');
+				if (options.state) {
+					let totalCount = 0;
+					if (!document.getElementById('total-card-count')) {
+						let divider = document.createElement('span');
+						divider.classList.add('board-header-btn-divider');
+						divider.id = "card-count-divider";
 
-					let totalCardCount = document.createElement('div');
-					totalCardCount.id = 'total-card-count';
-					totalCardCount.classList.add('board-header-btn');
-					totalCardCount.appendChild(document.createTextNode('0 total cards'));
+						let totalCardCount = document.createElement('div');
+						totalCardCount.id = 'total-card-count';
+						totalCardCount.classList.add('board-header-btn');
+						totalCardCount.appendChild(document.createTextNode('0 total cards'));
 
-					let container = document.querySelector('.board-header-btns.mod-left');
-					if (container) {
-						container.appendChild(divider);
-						container.appendChild(totalCardCount);
+						let container = document.querySelector('.board-header-btns.mod-left');
+						if (container) {
+							container.appendChild(divider);
+							container.appendChild(totalCardCount);
+						}
+
 					}
 
-				}
 
+					let list = document.querySelectorAll('.list');
+					if (list) {
+						Array.from(list).forEach((list) => {
+							if (!list.children[0].children[4].children[0].classList.contains('card-count')) {
+								let countEl = document.createElement('div');
+								countEl.classList.add('card-count');
+								countEl.appendChild(document.createTextNode('0'));
+								list.children[0].children[4].prepend(countEl);
+							};
 
-				let list = document.querySelectorAll('.list');
-				if (list) {
-					Array.from(list).forEach((list) => {
-						if (!list.children[0].children[4].children[0].classList.contains('card-count')) {
-							let countEl = document.createElement('div');
-							countEl.classList.add('card-count');
-							countEl.appendChild(document.createTextNode('0'));
-							list.children[0].children[4].prepend(countEl);
-						};
-
-						let count = 0;
-						Array.from(list.children[1].children).forEach((card) => {
-							if (!card.classList.contains('card-composer')) { count++; totalCount++; }
+							let count = 0;
+							Array.from(list.children[1].children).forEach((card) => {
+								if (!card.classList.contains('card-composer')) { count++; totalCount++; }
+							});
+							list.children[0].children[4].children[0].innerText = count;
 						});
-						list.children[0].children[4].children[0].innerText = count;
-					});
 
 
-					if (document.getElementById('total-card-count')) {
-						document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+						if (document.getElementById('total-card-count')) {
+							document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+						}
 					}
-				}
+				} else {
+					let cardCountDivider = document.getElementById('card-count-divider');
+					if (cardCountDivider) { cardCountDivider.parentNode.removeChild(cardCountDivider); }
 
+					let totalCardCount = document.getElementById('total-card-count');
+					if (totalCardCount) { totalCardCount.parentNode.removeChild(totalCardCount); }
+
+					let listCardCounts = document.querySelectorAll('.card-count');
+					if (listCardCounts) { listCardCounts.forEach((count) => { count.parentNode.removeChild(count); }); }
+				}
 			}
 
-			// Update The Counters
-			updateCounter();
-			setInterval(() => { updateCounter(); }, 1000);
+			if (options.state) {
+				let styles = '#total-card-count { padding: 0 6px; } .card-count { position: absolute; right: 28px; top: 3px; }';
+				stylesheet.add('style', 'cardCounter', styles);
 
-
-			// Additional Limits functions
-
+				// Update The Counters
+				updateCounter();
+				counterInterval = setInterval(() => { updateCounter(); }, 1000);
+			}
+			else {
+				stylesheet.remove('cardCounter');
+				clearInterval(counterInterval);
+				updateCounter();
+			}
 		},
 		"actionSnapping": (options) => {
-			// Create Snapped Class
-			let styleEl = document.createElement('style');
-			styleEl.innerText = '.snapped { position: absolute; right: 0; }';
-			document.body.appendChild(styleEl);
-
-			// Functions
 			let overlay = document.getElementsByClassName('window-overlay')[0];
 			let actionSnap = () => {
-				let actions = document.getElementsByClassName('window-sidebar')[0];
-				let scrollPos = overlay.scrollTop;
+				if (options.state) {
+					let actions = document.getElementsByClassName('window-sidebar')[0];
+					let scrollPos = overlay.scrollTop;
 
-				if (document.querySelector('.window-cover')) {
-					if (scrollPos >= (128 + document.querySelector('.window-cover').offsetHeight)) {
-						actions.style.top = (scrollPos - 40) + 'px';
-						actions.classList.add('snapped');
+					if (document.querySelector('.window-cover')) {
+						if (scrollPos >= (128 + document.querySelector('.window-cover').offsetHeight)) {
+							actions.style.top = (scrollPos - 40) + 'px';
+							actions.classList.add('snapped');
+						}
+						else { actions.classList.remove('snapped'); }
+					} else {
+						if (scrollPos >= 128) {
+							actions.style.top = (scrollPos - 40) + 'px';
+							actions.classList.add('snapped');
+						}
+						else { actions.classList.remove('snapped'); }
 					}
-					else { actions.classList.remove('snapped'); }
-				} else {
-					if (scrollPos >= 128) {
-						actions.style.top = (scrollPos - 40) + 'px';
-						actions.classList.add('snapped');
-					}
-					else { actions.classList.remove('snapped'); }
 				}
 			}
-			overlay.addEventListener('scroll', (e) => { window.requestAnimationFrame(() => { actionSnap(); }); });
+			let scroll = () => { window.requestAnimationFrame(() => { actionSnap(); }); }
+
+			if (options.state) {
+				// Create Snapped Class
+				let styles = '.snapped { position: absolute; right: 0; }';
+				stylesheet.add('style', 'actionSnapping', styles);
+
+				overlay.addEventListener('scroll', scroll);
+			}
+			else { stylesheet.remove('actionSnapping'); }
 		},
 		"listColors": (options) => {
 
@@ -253,16 +295,18 @@ const settings = {
 	}
 };
 
+// Listen for Realtime Messages from extension
+chrome.runtime.onMessage.addListener((req, sender, res) => {
+	for (var option in req) {
+		settings.apply[option]( req[option] );
+	}
+});
+
 window.addEventListener('load', () => {
 	// Initial Load
-	settings.get(options => { for (var key in options) { if (options[key].state == true) { settings.apply[key](options[key]); } } });
-
-	/* // Inject Background Gradient CSS
-	if (options.backgroundGradients) {
-		let gradientStyles = document.createElement('link');
-		gradientStyles.rel = "stylesheet";
-		gradientStyles.type = "text/css";
-		gradientStyles.href = chrome.extension.getURL('assets/css/gradients.css');
-		document.body.appendChild(gradientStyles);
-	} */
+	settings.get(options => {
+		for (var key in options) {
+			settings.apply[key](options[key]);
+		}
+	});
 });

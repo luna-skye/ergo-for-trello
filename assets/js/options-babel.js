@@ -121,7 +121,16 @@ const settings = {
 		}
     },
     "save": (options) => {
-        chrome.storage.sync.set(options, () => { console.log('Settings saved...', options); });
+        chrome.storage.sync.set(options, () => {
+            console.log('Settings saved...', options);
+
+            // Send Realtime Message to all Trello tabs
+            chrome.tabs.query({ url: "https://trello.com/*" }, (tabs) => {
+                tabs.forEach((tab) => {
+                    chrome.tabs.sendMessage(tab.id, options);
+                });
+            });
+        });
     },
     "get": (callback) => {
         chrome.storage.sync.get(settings.default, (items) => { callback(items); });
@@ -256,6 +265,7 @@ const gradients = {
         options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
         let option = {};
         option.backgroundGradients = {};
+        option.backgroundGradients.state = document.getElementById('backgroundGradients').checked;
         option.backgroundGradients.subsettings = {};
         option.backgroundGradients.subsettings.gradients = gradients.setting();
         settings.save(option);
@@ -357,6 +367,11 @@ window.onload = () => {
                 let options = {};
                 options[setting] = {};
                 options[setting].state = checkbox.children[0].checked;
+                if (setting == 'backgroundGradients') {
+                    options[setting].subsettings = {};
+                    options[setting].subsettings.gradients = gradients.setting();
+                }
+
                 settings.save(options);
             }
         });

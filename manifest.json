@@ -21,7 +21,7 @@
 		"default_popup": "popup.html"
 	},
 	"options_page": "options.html",
-	"permissions": [ "activeTab", "storage" ],
+	"permissions": [ "activeTab", "storage", "tabs" ],
 	"web_accessible_resources": [
 		"assets/css/*.css"
 	]

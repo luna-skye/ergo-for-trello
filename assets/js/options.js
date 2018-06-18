@@ -88,6 +88,13 @@ var settings = {
     "save": function save(options) {
         chrome.storage.sync.set(options, function () {
             console.log('Settings saved...', options);
+
+            // Send Realtime Message to all Trello tabs
+            chrome.tabs.query({ url: "https://trello.com/*" }, function (tabs) {
+                tabs.forEach(function (tab) {
+                    chrome.tabs.sendMessage(tab.id, options);
+                });
+            });
         });
     },
     "get": function get(callback) {
@@ -223,6 +230,7 @@ var gradients = {
         options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
         var option = {};
         option.backgroundGradients = {};
+        option.backgroundGradients.state = document.getElementById('backgroundGradients').checked;
         option.backgroundGradients.subsettings = {};
         option.backgroundGradients.subsettings.gradients = gradients.setting();
         settings.save(option);
@@ -329,6 +337,11 @@ window.onload = function () {
                 var _options = {};
                 _options[setting] = {};
                 _options[setting].state = checkbox.children[0].checked;
+                if (setting == 'backgroundGradients') {
+                    _options[setting].subsettings = {};
+                    _options[setting].subsettings.gradients = gradients.setting();
+                }
+
                 settings.save(_options);
             }
         });

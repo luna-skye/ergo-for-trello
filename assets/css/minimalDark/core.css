@@ -623,7 +623,7 @@ pre::-webkit-scrollbar-track-piece {
   .list .list-header-name {
     color: white !important;
     padding: 12px;
-    max-height: none;
+    min-height: 40px;
     margin: 0 !important;
     border-radius: 0 !important;
     resize: none !important; }
