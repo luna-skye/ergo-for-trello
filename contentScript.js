@@ -135,6 +135,9 @@ var settings = {
 					}
 				}
 			} else {
+				listHeaders.forEach(function (header) {
+					header.style.height = '18px';
+				});
 				stylesheet.remove('minimalDark-core');
 				for (var sub in options.subsettings) {
 					if (options.subsettings[sub] == true) {

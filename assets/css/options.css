@@ -12,12 +12,19 @@ body {
   min-width: 990px; }
 
 #header {
-  background: url("http://trelloergo.sepshun.io/assets/img/featuresGraphic.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
+  position: relative;
+  background: -webkit-linear-gradient(345deg, #5461C0 0%, #8120D3 50%, #964FE9 50%, #972ED8 100%);
+  background: -o-linear-gradient(345deg, #5461C0 0%, #8120D3 50%, #964FE9 50%, #972ED8 100%);
+  background: linear-gradient(105deg, #5461C0 0%, #8120D3 50%, #964FE9 50%, #972ED8 100%);
   width: 100%;
   height: 256px; }
+  #header img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
 
 #content {
   width: 970px;
@@ -223,7 +230,7 @@ ul.settings {
         ul.settings li div.gradient-options .colors {
           display: grid;
           grid-template-columns: repeat(4, 92px);
-          margin-left: 26px; }
+          margin-left: 15px; }
           ul.settings li div.gradient-options .colors .color .color-select {
             width: 80px;
             height: 30px;
