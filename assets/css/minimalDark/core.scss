@@ -494,6 +494,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	.card-count { display: inline-block; float: left; padding: 4px 2px; font-size: 12px; }
 	.board-header-btn-divider { display: none; }
 	.board-header-facepile {
+		margin-top: 4px;
 		height: 32px;
 		.member, .member-avatar {
 			width: 32px;
@@ -503,6 +504,9 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 			height: 32px;
 			line-height: 32px;
 		}
+	}
+	.icon-add-member {
+		margin-top: 8px !important;
 	}
 	.board-header-btn.js-open-manage-board-members,
 	.board-header-btn.js-open-show-all-board-members {
@@ -531,7 +535,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		color: hsla(0,0%,100%,0.4);
 		position: absolute;
 		right: 28px;
-		top: 4px;
+		top: 6px;
 	}
 
 	.list-header { padding: 0; }
@@ -571,6 +575,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	border: none;
 	margin-bottom: 2px;
 	border-radius: 0;
+	box-shadow: none !important;
 	&.placeholder { background: hsla(0,0%,10%,0.5); }
 	&.active-card { background: hsla(0,0%,100%,0.15) !important; }
 

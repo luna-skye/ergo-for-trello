@@ -584,6 +584,7 @@ pre::-webkit-scrollbar-track-piece {
   .board-header .board-header-btn-divider {
     display: none; }
   .board-header .board-header-facepile {
+    margin-top: 4px;
     height: 32px; }
     .board-header .board-header-facepile .member, .board-header .board-header-facepile .member-avatar {
       width: 32px;
@@ -591,6 +592,8 @@ pre::-webkit-scrollbar-track-piece {
     .board-header .board-header-facepile .member-initials {
       height: 32px;
       line-height: 32px; }
+  .board-header .icon-add-member {
+    margin-top: 8px !important; }
   .board-header .board-header-btn.js-open-manage-board-members,
   .board-header .board-header-btn.js-open-show-all-board-members {
     height: 24px;
@@ -617,7 +620,7 @@ pre::-webkit-scrollbar-track-piece {
     color: rgba(255, 255, 255, 0.4);
     position: absolute;
     right: 28px;
-    top: 4px; }
+    top: 6px; }
   .list .list-header {
     padding: 0; }
   .list .list-header-name {
@@ -656,7 +659,9 @@ pre::-webkit-scrollbar-track-piece {
   background: rgba(255, 255, 255, 0.05);
   border: none;
   margin-bottom: 2px;
-  border-radius: 0; }
+  border-radius: 0;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important; }
   .list-card.placeholder {
     background: rgba(26, 26, 26, 0.5); }
   .list-card.active-card {

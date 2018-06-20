@@ -26,6 +26,68 @@ var stylesheet = {
 		stylesheet.add(type, id, href);
 	}
 };
+var el = {
+	"create": function create(type, options) {
+		var e = document.createElement(type);
+		if (options.text) {
+			e.innerText = options.text;
+		}
+		if (options.html) {
+			e.innerHTML = options.html;
+		}
+		for (var attr in options.attributes) {
+			e.setAttribute(attr, options.attributes[attr]);
+		}
+		for (var listener in options.listeners) {
+			e.addEventListener(listener, options.listeners[listener]);
+		}
+		for (var child in options.children) {
+			e.append(options.children[child]);
+		}
+
+		var s = '';
+		for (var style in options.style) {
+			s += style + ': ' + options.style[style] + '; ';
+		};
+		e.setAttribute('style', s);
+
+		return e;
+	},
+	"append": function append(appender, appendee) {
+		appender.append(appendee);
+	},
+	"get": function get(query) {
+		var e = document.querySelectorAll(query);
+		return e.length > 1 ? e : e[0];
+	},
+	"remove": function remove(query) {
+		var e = document.querySelectorAll(query);
+		if (e.length > 1) {
+			e.forEach(function (f) {
+				f.parentNode.removeChild(f);
+			});
+		} else {
+			e[0].parentNode.removeChild(e[0]);
+		}
+	},
+	"find": function find(e, query) {
+		// Element.matches() polyfill
+		if (!Element.prototype.matches) {
+			Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function (s) {
+				var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+				    i = matches.length;
+				while (--i >= 0 && matches.item(i) !== this) {}
+				return i > -1;
+			};
+		}
+
+		// Get closest match
+		for (; e && e !== document; e = e.parentNode) {
+			if (e.matches(query)) return e;
+		}
+		return null;
+	}
+};
 
 var listHeaderInterval, counterInterval;
 var settings = {
@@ -167,30 +229,18 @@ var settings = {
 				if (options.state) {
 					var totalCount = 0;
 					if (!document.getElementById('total-card-count')) {
-						var divider = document.createElement('span');
-						divider.classList.add('board-header-btn-divider');
-						divider.id = "card-count-divider";
-
-						var totalCardCount = document.createElement('div');
-						totalCardCount.id = 'total-card-count';
-						totalCardCount.classList.add('board-header-btn');
-						totalCardCount.appendChild(document.createTextNode('0 total cards'));
-
-						var container = document.querySelector('.board-header-btns.mod-left');
-						if (container) {
-							container.appendChild(divider);
-							container.appendChild(totalCardCount);
-						}
+						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }));
+						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'total-card-count' } }));
 					}
 
-					var list = document.querySelectorAll('.list');
+					// This whole area should be cleaned up
+					// Specifically all the children calls
+					// I can easily clean that up with some querySelector
+					var list = el.get('.list');
 					if (list) {
 						Array.from(list).forEach(function (list) {
-							if (!list.children[0].children[4].children[0].classList.contains('card-count')) {
-								var countEl = document.createElement('div');
-								countEl.classList.add('card-count');
-								countEl.appendChild(document.createTextNode('0'));
-								list.children[0].children[4].prepend(countEl);
+							if (!list.querySelector('.card-count')) {
+								list.children[0].children[4].prepend(el.create('div', { text: '0', attributes: { class: 'card-count' } }));
 							};
 
 							var count = 0;
@@ -199,25 +249,25 @@ var settings = {
 									count++;totalCount++;
 								}
 							});
-							list.children[0].children[4].children[0].innerText = count;
+							list.querySelector('.card-count').innerText = count;
 						});
 
-						if (document.getElementById('total-card-count')) {
-							document.getElementById('total-card-count').innerText = totalCount + ' total cards';
+						if (el.get('#total-card-count')) {
+							el.get('#total-card-count').innerText = totalCount + ' total cards';
 						}
 					}
 				} else {
-					var cardCountDivider = document.getElementById('card-count-divider');
+					var cardCountDivider = el.get('#card-count-divider');
 					if (cardCountDivider) {
 						cardCountDivider.parentNode.removeChild(cardCountDivider);
 					}
 
-					var _totalCardCount = document.getElementById('total-card-count');
-					if (_totalCardCount) {
-						_totalCardCount.parentNode.removeChild(_totalCardCount);
+					var totalCardCount = el.get('#total-card-count');
+					if (totalCardCount) {
+						totalCardCount.parentNode.removeChild(totalCardCount);
 					}
 
-					var listCardCounts = document.querySelectorAll('.card-count');
+					var listCardCounts = el.get('.card-count');
 					if (listCardCounts) {
 						listCardCounts.forEach(function (count) {
 							count.parentNode.removeChild(count);
