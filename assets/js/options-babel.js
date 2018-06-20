@@ -138,122 +138,237 @@ const settings = {
 };
 
 
+// ELEMENTS CLASS
+// --------------
+const el = {
+    "create": (type, options) => {
+        let e = document.createElement(type);
+        if (options.text) { e.innerText = options.text }
+        if (options.html) { e.innerHTML = options.html }
+        for (var attr in options.attributes)    { e.setAttribute(attr, options.attributes[attr]); }
+        for (var listener in options.listeners) { e.addEventListener(listener, options.listeners[listener]); }
+        for (var child in options.children)     { e.append(options.children[child]); }
+
+        let s = '';
+        for (var style in options.style) { s += style + ': ' + options.style[style] + '; ' };
+        e.setAttribute('style', s);
+
+        return e;
+    },
+    "append": (appender, appendee) => {
+        appender.append(appendee);
+    },
+    "get": (query) => {
+        let e = document.querySelectorAll(query);
+        return e.length > 1 ? e : e[0];
+    },
+    "remove": (query) => {
+        let e = document.querySelectorAll(query);
+        if (e.length > 1) { e.forEach((f) => { f.parentNode.removeChild(f); }); }
+        else { e[0].parentNode.removeChild(e[0]); }
+    },
+    "find": (e, query) => {
+        // Element.matches() polyfill
+    	if (!Element.prototype.matches) {
+    		Element.prototype.matches =
+			Element.prototype.matchesSelector ||
+			Element.prototype.mozMatchesSelector ||
+			Element.prototype.msMatchesSelector ||
+			Element.prototype.oMatchesSelector ||
+			Element.prototype.webkitMatchesSelector ||
+			function(s) {
+				var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+					i = matches.length;
+				while (--i >= 0 && matches.item(i) !== this) {}
+				return i > -1;
+			};
+    	}
+
+    	// Get closest match
+    	for ( ; e && e !== document; e = e.parentNode ) { if ( e.matches( query ) ) return e; }
+    	return null;
+    }
+}
+
+
 // GRADIENT CLASS
 // --------------
 // Gradient Generator
 const gradients = {
     "create": (g) => {
         g.forEach((gradient) => {
-            // PRESET PANEL
-            let preset = {};
-            preset.container = document.createElement('li')
-            preset.container.id = gradient.name;
-            preset.container.setAttribute('data-col-id', gradient.colorID);
-            preset.container.classList.add('gradient-preset');
 
+            // Generate Gradient Color Elements
+            let color = {
+                "createElement": (label, hex, pos) => {
+                    return el.create('div', {
+                        attributes: { class: 'color' },
+                        children: [
+                            // Label
+                            el.create('p', {
+                                text: label,
+                                attributes: { class: 'label' }
+                            }),
 
-            // GRADIENT LABEL
-            preset.label = document.createElement('p');
-            preset.label.classList.add('gradient-title');
-            preset.label.innerText = gradient.name;
-            preset.container.append(preset.label);
+                            // Color Select
+                            el.create('div', {
+                                attributes: { class: 'color-select' },
+                                children: [
+                                    // Color Input
+                                    el.create('input', {
+                                        attributes: { type: 'color', value: hex },
+                                        listeners: { change: (event) => {
+                                            let c = el.find(event.target, '.color'), options = el.find(event.target, '.gradient-options');
+                                            gradients.updateView(options);
+                                        }}
+                                    }),
 
+                                    // Remove Button
+                                    el.create('div', {
+                                        attributes: { class: 'remove-btn', title: 'Remove color' },
+                                        listeners: { click: (event) => {
+                                            let c = el.find(event.target, '.color'), options = el.find(event.target, '.gradient-options');
 
-            // GRADIENT DISPLAY
-            preset.display = document.createElement('div');
-            preset.display.classList.add('gradient-display');
-            preset.display.style.background = gradient.gradient;
-            preset.display.addEventListener('click', () => {
-                // Event Listener
-                preset.container.classList.add('show');
-            });
-            preset.container.append(preset.display);
+                                            if (options.querySelectorAll('.color').length > 1) { c.parentNode.removeChild(c); }
+                                            gradients.updateView(options);
+                                        }}
+                                    }),
+                                ]
+                            }),
 
-
-            // OPTIONS
-            preset.options = document.createElement('div');
-            preset.options.classList.add('gradient-options');
-
-            // Rotation
-            preset.rotation = document.createElement('div');
-            preset.rotation.innerHTML = '<div class="slider"><p class="label">Rotation</p><input type="range" name="rotation" value="'+gradient.rotation+'" min="0" max="360" step="15"><input type="number" name="rot" min="0" max="100" value="'+gradient.rotation+'"><div class="symbol">&deg;</div></div>';
-            preset.rotation.children[0].children[1].addEventListener('input', () => {
-                // Event Listener
-                gradients.updateView(preset.options);
-                preset.rotation.children[0].children[2].value = preset.rotation.children[0].children[1].value;
-            });
-            preset.options.append(preset.rotation);
-
-            // Colors
-            preset.colors = document.createElement('div');
-            preset.colors.classList.add('colors');
+                            // Position Input
+                            el.create('input', {
+                                attributes: { type: 'number', value: pos },
+                                listeners: { input: (event) => {
+                                    let color = el.find(event.target, '.color'), options = el.find(event.target, '.gradient-options');
+                                    gradients.updateView(options);
+                                }}
+                            }),
+                            el.create('div', { html: '&percnt;', attributes: { class: 'symbol' } })
+                        ]
+                    });
+                },
+                "random": () => { }
+            }, colorElements = [];
             for (let i = 0; i < gradient.colors.length; i++) {
-                // Color Div
-                let color = document.createElement('div');
-                color.classList.add('color');
-
-                // Color Label
-                color.label = document.createElement('p');
-                color.label.classList.add('label');
-                if (i === 0) { color.label.innerText = "Colors"; }
-                color.append(color.label);
-
-                // Color Select & Input
-                color.select = document.createElement('div');
-                color.select.classList.add('color-select');
-                color.input = document.createElement('input');
-                color.input.type = "color";
-                color.input.setAttribute('value', gradient.colors[i].hex);
-                color.input.addEventListener('change', () => {
-                    // Event Listener
-                    gradients.updateView(preset.options);
-                });
-                color.select.append(color.input);
-                color.append(color.select);
-
-                // Color Position
-                color.pos = document.createElement('input');
-                color.pos.type = 'number';
-                color.pos.setAttribute('value', gradient.colors[i].pos);
-                color.pos.addEventListener('input', () => {
-                    // Event Listener
-                    gradients.updateView(preset.options);
-                });
-                color.append(color.pos);
-
-                color.posSymbol = document.createElement('div');
-                color.posSymbol.classList.add('symbol');
-                color.posSymbol.innerHTML = '&percnt;';
-                color.append(color.posSymbol);
-
-                // Append Color
-                preset.colors.append(color);
+                colorElements.push( color.createElement( i === 0 ? 'Colors' : '', gradient.colors[i].hex, gradient.colors[i].pos) );
             }
-            // Append Colors
-            preset.options.append(preset.colors);
 
-            // Append All Options
-            preset.container.append(preset.options);
+            // Add Color Button
+            colorElements.push(el.create('div', {
+                attributes: { class: 'fake-color' },
+                children: [
+                    // Label
+                    el.create('p', { attributes: { class: 'label' } }),
+
+                    // Color Select
+                    el.create('div', {
+                        attributes: { class: 'add-color' },
+                        listeners: { click: (event) => {
+                            let c = color.createElement('', "#FFFFFF", 100);
+                            let colors = event.target.parentNode.parentNode;
+                            colors.insertBefore(c, colors.children[colors.children.length - 1]);
+                        } }
+                    })
+                ]
+            }))
 
 
-            // Close Button
-            preset.close = document.createElement('div');
-            preset.close.classList.add('close-btn');
-            preset.close.addEventListener('click', () => { preset.container.classList.remove('show'); });
-            preset.container.append(preset.close);
+            // -------------------
+            // Append Preset Panel
+            el.append(
+                el.get('#gradientSettings'),
+                el.create('li', {
+                    attributes: {
+                        "id": gradient.name,
+                        "data-col-id": gradient.colorID,
+                        "class": "gradient-preset"
+                    },
+                    children: [
+                        // Panel Label
+                        el.create('p', {
+                            text: gradient.name,
+                            attributes: { class: "gradient-title" }
+                        }),
 
+                        // Gradient Display
+                        el.create('div', {
+                            attributes: { class: "gradient-display" },
+                            style:      { background: gradient.gradient },
+                            listeners: { click: (event) => {
+                                el.find(event.target, '.gradient-preset').classList.add('show');
+                            }}
+                        }),
 
-            // Finish
-            document.getElementById('backgroundGradients-settings').children[3].append(preset.container);
+                        // Options
+                        el.create('div', {
+                            attributes: { class: "gradient-options" },
+                            children: [
+
+                                // Rotation
+                                el.create('div', {
+                                    children: [
+                                        el.create('div', { attributes: { class: 'slider' },
+                                            children: [
+                                                // Label
+                                                el.create('p', { text: 'Rotation', attributes: { class: 'label' } }),
+
+                                                // Range Slider
+                                                el.create('input', {
+                                                    attributes: { type: 'range', name: 'rotation', value: gradient.rotation, min: 0, max: 360, step: 15 },
+                                                    listeners: { input: (event) => {
+                                                        let options = el.find(event.target, '.gradient-options'), rotationNum = el.find(event.target, '.slider').querySelector('[name="rot"]');
+                                                        gradients.updateView(options);
+                                                        rotationNum.value = event.target.value;
+                                                    }}
+                                                }),
+
+                                                // Number Slider
+                                                el.create('input', {
+                                                    attributes: { type: 'number', name: 'rot', min: 0, max: 360, value: gradient.rotation },
+                                                    listeners: { input: (event) => {
+                                                        /*
+                                                        let options = el.find(event.target, '.gradient-options'), rotationSlide = el.find(event.target, '.slider').querySelector('[name="rotation"]');
+                                                        gradients.updateView(options);
+                                                        rotationSlide.value = event.target.value;
+                                                        */
+                                                    }}
+                                                }),
+
+                                                // Degree Symbol
+                                                el.create('div', { html: "&deg;", attributes: { class: "symbol" } })
+                                            ]
+                                        })
+                                    ]
+                                }),
+
+                                // Colors
+                                el.create('div', {
+                                    attributes: { class: 'colors' },
+                                    children: colorElements
+                                })
+                            ]
+                        }),
+
+                        // Close Button
+                        el.create('div', {
+                            attributes: { class: 'close-btn' },
+                            listeners: { click: (event) => {
+                                el.find(event.target, '.gradient-preset').classList.remove('show');
+                            }}
+                        })
+                    ]
+                })
+            );
         });
     },
     "compile": (options) => {
         let rotation = options.children[0].children[0].children[1].value;
 
         let colors = '';
-        options.querySelectorAll('.color:not(#addColor)').forEach((color) => {
-            let hex = color.querySelector('input[type="color"]').value;
-            let pos = color.querySelector('input[type="number"]').value;
+        options.querySelectorAll('.colors .color').forEach((c) => {
+            let hex = c.querySelector('input[type="color"]').value;
+            let pos = c.querySelector('input[type="number"]').value;
             colors += hex+' '+pos+'%, ';
         });
 
@@ -263,11 +378,13 @@ const gradients = {
     },
     "updateView": (options) => {
         options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
+
         let option = {};
         option.backgroundGradients = {};
         option.backgroundGradients.state = document.getElementById('backgroundGradients').checked;
         option.backgroundGradients.subsettings = {};
         option.backgroundGradients.subsettings.gradients = gradients.setting();
+
         settings.save(option);
     },
     "setting": () => {
@@ -282,8 +399,8 @@ const gradients = {
             }
 
             let colors = [];
-            Array.from(preset.children[2].children[1].children).forEach((color) => {
-                if (!color.id) { colors.push({ hex: color.querySelector('input[type="color"]').value, pos: color.querySelector('input[type="number"]').value }); }
+            preset.querySelectorAll('.colors .color').forEach((c) => {
+                if (!c.id) { colors.push({ hex: c.querySelector('input[type="color"]').value, pos: c.querySelector('input[type="number"]').value }); }
             });
             piece.colors = colors;
 

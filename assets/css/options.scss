@@ -241,26 +241,15 @@ ul.settings {
                     display: grid;
                     grid-template-columns: repeat(4, 92px);
                     margin-left: 15px;
-                    .color {
+                    .color, .fake-color {
+                        position: relative;
 
-                        .color-select {
+                        .color-select, .add-color {
                             width: 80px;
                             height: 30px;
                             overflow: hidden;
                             background: #222;
                             position: relative;
-
-                            &:after {
-                                content: '';
-                                height: 100%;
-                                width: 18px;
-                                background: hsla(0,0%,5,0.5);
-                                position: absolute;
-                                top: 0;
-                                right: -18px;
-                                transition: 0.2s ease;
-                            }
-                            &:hover:after { right: 0px; }
 
                             input[type="color"] {
                                 cursor: pointer;
@@ -275,7 +264,32 @@ ul.settings {
                                 margin-top: -5px;
                                 -webkit-appearance: button;
                             }
-                            &#addColorBtn {
+
+                            .remove-btn {
+                                position: absolute;
+                                top: 0;
+                                right: -24px;
+                                height: 30px;
+                                width: 24px;
+                                background: hsla(0,0%,0%,0.5);
+                                cursor: pointer;
+                                transition: 0.2s ease;
+
+                                &:before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%,-50%);
+                                    height: 2px;
+                                    width: 12px;
+                                    background: white;
+                                }
+                            }
+                            &:hover .remove-btn { right: 0; }
+
+
+                            &.add-color {
                                 position: relative;
                                 cursor: pointer;
 
@@ -302,6 +316,8 @@ ul.settings {
                             transform: scale(1);
                             top: 1px;
                         }
+
+
                     }
                 }
                 .symbol {

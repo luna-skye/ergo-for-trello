@@ -231,67 +231,80 @@ ul.settings {
           display: grid;
           grid-template-columns: repeat(4, 92px);
           margin-left: 15px; }
-          ul.settings li div.gradient-options .colors .color .color-select {
-            width: 80px;
-            height: 30px;
-            overflow: hidden;
-            background: #222;
+          ul.settings li div.gradient-options .colors .color, ul.settings li div.gradient-options .colors .fake-color {
             position: relative; }
-            ul.settings li div.gradient-options .colors .color .color-select:after {
-              content: '';
-              height: 100%;
-              width: 18px;
-              background: rgba(13, 13, 13, 0.5);
-              position: absolute;
-              top: 0;
-              right: -18px;
-              -webkit-transition: 0.2s ease;
-              -o-transition: 0.2s ease;
-              transition: 0.2s ease; }
-            ul.settings li div.gradient-options .colors .color .color-select:hover:after {
-              right: 0px; }
-            ul.settings li div.gradient-options .colors .color .color-select input[type="color"] {
-              cursor: pointer;
-              border: none;
-              border-color: transparent;
-              background: transparent;
-              height: 46px;
-              width: 88px;
-              padding: 0;
-              margin: 0;
-              margin-left: -4px;
-              margin-top: -5px;
-              -webkit-appearance: button; }
-            ul.settings li div.gradient-options .colors .color .color-select#addColorBtn {
-              position: relative;
-              cursor: pointer; }
-              ul.settings li div.gradient-options .colors .color .color-select#addColorBtn:before, ul.settings li div.gradient-options .colors .color .color-select#addColorBtn:after {
-                content: '';
-                background: #414141;
+            ul.settings li div.gradient-options .colors .color .color-select, ul.settings li div.gradient-options .colors .color .add-color, ul.settings li div.gradient-options .colors .fake-color .color-select, ul.settings li div.gradient-options .colors .fake-color .add-color {
+              width: 80px;
+              height: 30px;
+              overflow: hidden;
+              background: #222;
+              position: relative; }
+              ul.settings li div.gradient-options .colors .color .color-select input[type="color"], ul.settings li div.gradient-options .colors .color .add-color input[type="color"], ul.settings li div.gradient-options .colors .fake-color .color-select input[type="color"], ul.settings li div.gradient-options .colors .fake-color .add-color input[type="color"] {
+                cursor: pointer;
+                border: none;
+                border-color: transparent;
+                background: transparent;
+                height: 46px;
+                width: 88px;
+                padding: 0;
+                margin: 0;
+                margin-left: -4px;
+                margin-top: -5px;
+                -webkit-appearance: button; }
+              ul.settings li div.gradient-options .colors .color .color-select .remove-btn, ul.settings li div.gradient-options .colors .color .add-color .remove-btn, ul.settings li div.gradient-options .colors .fake-color .color-select .remove-btn, ul.settings li div.gradient-options .colors .fake-color .add-color .remove-btn {
                 position: absolute;
-                width: 16px;
-                height: 2px;
-                top: 50%;
-                left: 50%;
-                -webkit-transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%); }
-              ul.settings li div.gradient-options .colors .color .color-select#addColorBtn:after {
-                -webkit-transform: translate(-50%, -50%) rotate(90deg);
-                -ms-transform: translate(-50%, -50%) rotate(90deg);
-                transform: translate(-50%, -50%) rotate(90deg);
-                -webkit-transform-origin: center;
-                -ms-transform-origin: center;
-                transform-origin: center; }
-          ul.settings li div.gradient-options .colors .color input[type="number"] {
-            right: 12px !important;
-            padding: 0 14px 0 2px !important; }
-          ul.settings li div.gradient-options .colors .color .symbol {
-            right: 18px;
-            -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-            transform: scale(1);
-            top: 1px; }
+                top: 0;
+                right: -24px;
+                height: 30px;
+                width: 24px;
+                background: rgba(0, 0, 0, 0.5);
+                cursor: pointer;
+                -webkit-transition: 0.2s ease;
+                -o-transition: 0.2s ease;
+                transition: 0.2s ease; }
+                ul.settings li div.gradient-options .colors .color .color-select .remove-btn:before, ul.settings li div.gradient-options .colors .color .add-color .remove-btn:before, ul.settings li div.gradient-options .colors .fake-color .color-select .remove-btn:before, ul.settings li div.gradient-options .colors .fake-color .add-color .remove-btn:before {
+                  content: '';
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  -ms-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%);
+                  height: 2px;
+                  width: 12px;
+                  background: white; }
+              ul.settings li div.gradient-options .colors .color .color-select:hover .remove-btn, ul.settings li div.gradient-options .colors .color .add-color:hover .remove-btn, ul.settings li div.gradient-options .colors .fake-color .color-select:hover .remove-btn, ul.settings li div.gradient-options .colors .fake-color .add-color:hover .remove-btn {
+                right: 0; }
+              ul.settings li div.gradient-options .colors .color .color-select.add-color, ul.settings li div.gradient-options .colors .color .add-color.add-color, ul.settings li div.gradient-options .colors .fake-color .color-select.add-color, ul.settings li div.gradient-options .colors .fake-color .add-color.add-color {
+                position: relative;
+                cursor: pointer; }
+                ul.settings li div.gradient-options .colors .color .color-select.add-color:before, ul.settings li div.gradient-options .colors .color .color-select.add-color:after, ul.settings li div.gradient-options .colors .color .add-color.add-color:before, ul.settings li div.gradient-options .colors .color .add-color.add-color:after, ul.settings li div.gradient-options .colors .fake-color .color-select.add-color:before, ul.settings li div.gradient-options .colors .fake-color .color-select.add-color:after, ul.settings li div.gradient-options .colors .fake-color .add-color.add-color:before, ul.settings li div.gradient-options .colors .fake-color .add-color.add-color:after {
+                  content: '';
+                  background: #414141;
+                  position: absolute;
+                  width: 16px;
+                  height: 2px;
+                  top: 50%;
+                  left: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  -ms-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%); }
+                ul.settings li div.gradient-options .colors .color .color-select.add-color:after, ul.settings li div.gradient-options .colors .color .add-color.add-color:after, ul.settings li div.gradient-options .colors .fake-color .color-select.add-color:after, ul.settings li div.gradient-options .colors .fake-color .add-color.add-color:after {
+                  -webkit-transform: translate(-50%, -50%) rotate(90deg);
+                  -ms-transform: translate(-50%, -50%) rotate(90deg);
+                  transform: translate(-50%, -50%) rotate(90deg);
+                  -webkit-transform-origin: center;
+                  -ms-transform-origin: center;
+                  transform-origin: center; }
+            ul.settings li div.gradient-options .colors .color input[type="number"], ul.settings li div.gradient-options .colors .fake-color input[type="number"] {
+              right: 12px !important;
+              padding: 0 14px 0 2px !important; }
+            ul.settings li div.gradient-options .colors .color .symbol, ul.settings li div.gradient-options .colors .fake-color .symbol {
+              right: 18px;
+              -webkit-transform: scale(1);
+              -ms-transform: scale(1);
+              transform: scale(1);
+              top: 1px; }
         ul.settings li div.gradient-options .symbol {
           position: absolute;
           top: 0;
