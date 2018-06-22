@@ -382,11 +382,11 @@ const gradients = {
         let colors = options.querySelectorAll('.colors .color'), display = options.parentNode.querySelector('.gradient-display');
         if (colors.length == 1) {
             display.style.background = colors[0].querySelector('input[type="color"]').value;
-            display.parentNode.querySelector('input[name="rotation"]').classList.add('disabled');
+            display.parentNode.querySelector('.slider').classList.add('disabled');
         }
         else {
             display.style.background = gradients.compile(options);
-            display.parentNode.querySelector('input[name="rotation"]').classList.remove('disabled');
+            display.parentNode.querySelector('.slider').classList.remove('disabled');
         }
 
 

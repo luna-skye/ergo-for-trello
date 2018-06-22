@@ -438,9 +438,9 @@ ul.settings {
             transition: 0.5s all ease;
         }
 
-        &.disabled {
-            opacity: 0.25;
-            pointer-events: none;
-        }
+    }
+    &.disabled {
+        opacity: 0.25;
+        pointer-events: none;
     }
 }
