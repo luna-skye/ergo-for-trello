@@ -400,7 +400,10 @@ ul.settings {
     margin: 0;
     -webkit-appearance: none;
     width: 256px;
-    position: relative; }
+    position: relative;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease; }
     .slider input[type="range"]:focus {
       outline: none; }
     .slider input[type="range"]::-webkit-slider-runnable-track {
@@ -417,3 +420,6 @@ ul.settings {
       -webkit-transition: 0.5s all ease;
       -o-transition: 0.5s all ease;
       transition: 0.5s all ease; }
+    .slider input[type="range"].disabled {
+      opacity: 0.25;
+      pointer-events: none; }

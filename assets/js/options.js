@@ -197,6 +197,7 @@ var el = {
                                 listeners: { change: function change(event) {
                                         var c = el.find(event.target, '.color'),
                                             options = el.find(event.target, '.gradient-options');
+                                        console.log(options);
                                         gradients.updateView(options);
                                     } }
                             }),
@@ -245,9 +246,11 @@ var el = {
                 el.create('div', {
                     attributes: { class: 'add-color' },
                     listeners: { click: function click(event) {
-                            var c = color.createElement('', "#FFFFFF", 100);
+                            var c = color.createElement('', "#FFFFFF", 100),
+                                options = el.find(event.target, '.gradient-options');
                             var colors = event.target.parentNode.parentNode;
                             colors.insertBefore(c, colors.children[colors.children.length - 1]);
+                            gradients.updateView(options);
                         } }
                 })]
             }));
@@ -283,7 +286,7 @@ var el = {
 
                     // Rotation
                     el.create('div', {
-                        children: [el.create('div', { attributes: { class: 'slider' },
+                        children: [el.create('div', { attributes: { class: colorElements.length == 2 ? 'slider disabled' : 'slider' },
                             children: [
                             // Label
                             el.create('p', { text: 'Rotation', attributes: { class: 'label' } }),
@@ -348,7 +351,15 @@ var el = {
         return gradient;
     },
     "updateView": function updateView(options) {
-        options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
+        var colors = options.querySelectorAll('.colors .color'),
+            display = options.parentNode.querySelector('.gradient-display');
+        if (colors.length == 1) {
+            display.style.background = colors[0].querySelector('input[type="color"]').value;
+            display.parentNode.querySelector('input[name="rotation"]').classList.add('disabled');
+        } else {
+            display.style.background = gradients.compile(options);
+            display.parentNode.querySelector('input[name="rotation"]').classList.remove('disabled');
+        }
 
         var option = {};
         option.backgroundGradients = {};
@@ -365,12 +376,19 @@ var el = {
             var piece = {
                 name: preset.id,
                 colorID: preset.getAttribute('data-col-id'),
-                rotation: preset.children[2].children[0].children[0].children[1].value,
-                gradient: gradients.compile(preset.children[2])
+                rotation: preset.children[2].children[0].children[0].children[1].value
             };
 
             var colors = [];
-            preset.querySelectorAll('.colors .color').forEach(function (c) {
+            var colorEls = preset.querySelectorAll('.colors .color');
+
+            if (colorEls.length == 1) {
+                piece.gradient = colorEls[0].querySelector('input[type="color"]').value;
+            } else {
+                piece.gradient = gradients.compile(preset.children[2]);
+            }
+
+            colorEls.forEach(function (c) {
                 if (!c.id) {
                     colors.push({ hex: c.querySelector('input[type="color"]').value, pos: c.querySelector('input[type="number"]').value });
                 }

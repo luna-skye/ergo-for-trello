@@ -41,7 +41,7 @@ const el = {
         return e;
     },
     "append": (appender, appendee) => {
-        appender.append(appendee);
+		if (appender && appendee) { appender.append(appendee); }
     },
     "get": (query) => {
         let e = document.querySelectorAll(query);
@@ -250,10 +250,6 @@ const settings = {
 						);
 					}
 
-
-					// This whole area should be cleaned up
-					// Specifically all the children calls
-					// I can easily clean that up with some querySelector
 					let list = el.get('.list');
 					if (list) {
 						Array.from(list).forEach((list) => {
@@ -268,12 +264,9 @@ const settings = {
 							list.querySelector('.card-count').innerText = count;
 						});
 
-						
+
 						if (el.get('#total-card-count')) { el.get('#total-card-count').innerText = totalCount + ' total cards'; }
 					}
-
-
-
 				} else {
 					let cardCountDivider = el.get('#card-count-divider');
 					if (cardCountDivider) { cardCountDivider.parentNode.removeChild(cardCountDivider); }
@@ -313,7 +306,8 @@ const settings = {
 							actions.classList.add('snapped');
 						}
 						else { actions.classList.remove('snapped'); }
-					} else {
+					}
+					else {
 						if (scrollPos >= 128) {
 							actions.style.top = (scrollPos - 40) + 'px';
 							actions.classList.add('snapped');
@@ -341,16 +335,14 @@ const settings = {
 
 // Listen for Realtime Messages from extension
 chrome.runtime.onMessage.addListener((req, sender, res) => {
-	for (var option in req) {
-		settings.apply[option]( req[option] );
-	}
+	for (var option in req) { settings.apply[option]( req[option] ); }
 });
 
+
+// On Window Load
 window.addEventListener('load', () => {
 	// Initial Load
 	settings.get(options => {
-		for (var key in options) {
-			settings.apply[key](options[key]);
-		}
+		for (var key in options) { settings.apply[key](options[key]); }
 	});
 });

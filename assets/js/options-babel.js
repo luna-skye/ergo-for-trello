@@ -219,6 +219,7 @@ const gradients = {
                                         attributes: { type: 'color', value: hex },
                                         listeners: { change: (event) => {
                                             let c = el.find(event.target, '.color'), options = el.find(event.target, '.gradient-options');
+                                            console.log(options);
                                             gradients.updateView(options);
                                         }}
                                     }),
@@ -265,14 +266,14 @@ const gradients = {
                     el.create('div', {
                         attributes: { class: 'add-color' },
                         listeners: { click: (event) => {
-                            let c = color.createElement('', "#FFFFFF", 100);
+                            let c = color.createElement('', "#FFFFFF", 100), options = el.find(event.target, '.gradient-options');
                             let colors = event.target.parentNode.parentNode;
                             colors.insertBefore(c, colors.children[colors.children.length - 1]);
+                            gradients.updateView(options);
                         } }
                     })
                 ]
             }))
-
 
             // -------------------
             // Append Preset Panel
@@ -308,7 +309,7 @@ const gradients = {
                                 // Rotation
                                 el.create('div', {
                                     children: [
-                                        el.create('div', { attributes: { class: 'slider' },
+                                        el.create('div', { attributes: { class: colorElements.length == 2 ? 'slider disabled' : 'slider' },
                                             children: [
                                                 // Label
                                                 el.create('p', { text: 'Rotation', attributes: { class: 'label' } }),
@@ -360,6 +361,7 @@ const gradients = {
                     ]
                 })
             );
+
         });
     },
     "compile": (options) => {
@@ -377,7 +379,16 @@ const gradients = {
         return gradient;
     },
     "updateView": (options) => {
-        options.parentNode.querySelector('.gradient-display').style.background = gradients.compile(options);
+        let colors = options.querySelectorAll('.colors .color'), display = options.parentNode.querySelector('.gradient-display');
+        if (colors.length == 1) {
+            display.style.background = colors[0].querySelector('input[type="color"]').value;
+            display.parentNode.querySelector('input[name="rotation"]').classList.add('disabled');
+        }
+        else {
+            display.style.background = gradients.compile(options);
+            display.parentNode.querySelector('input[name="rotation"]').classList.remove('disabled');
+        }
+
 
         let option = {};
         option.backgroundGradients = {};
@@ -394,12 +405,16 @@ const gradients = {
             let piece = {
                 name: preset.id,
                 colorID: preset.getAttribute('data-col-id'),
-                rotation: preset.children[2].children[0].children[0].children[1].value,
-                gradient: gradients.compile(preset.children[2])
-            }
+                rotation: preset.children[2].children[0].children[0].children[1].value
+            };
 
             let colors = [];
-            preset.querySelectorAll('.colors .color').forEach((c) => {
+            let colorEls = preset.querySelectorAll('.colors .color');
+
+            if (colorEls.length == 1) { piece.gradient = colorEls[0].querySelector('input[type="color"]').value; }
+            else { piece.gradient = gradients.compile(preset.children[2]); }
+
+            colorEls.forEach((c) => {
                 if (!c.id) { colors.push({ hex: c.querySelector('input[type="color"]').value, pos: c.querySelector('input[type="number"]').value }); }
             });
             piece.colors = colors;

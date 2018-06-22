@@ -54,7 +54,9 @@ var el = {
 		return e;
 	},
 	"append": function append(appender, appendee) {
-		appender.append(appendee);
+		if (appender && appendee) {
+			appender.append(appendee);
+		}
 	},
 	"get": function get(query) {
 		var e = document.querySelectorAll(query);
@@ -233,9 +235,6 @@ var settings = {
 						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'total-card-count' } }));
 					}
 
-					// This whole area should be cleaned up
-					// Specifically all the children calls
-					// I can easily clean that up with some querySelector
 					var list = el.get('.list');
 					if (list) {
 						Array.from(list).forEach(function (list) {
@@ -342,6 +341,7 @@ chrome.runtime.onMessage.addListener(function (req, sender, res) {
 	}
 });
 
+// On Window Load
 window.addEventListener('load', function () {
 	// Initial Load
 	settings.get(function (options) {

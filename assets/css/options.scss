@@ -418,6 +418,7 @@ ul.settings {
         -webkit-appearance: none;
         width: 256px;
         position: relative;
+        transition: 0.2s ease;
 
         &:focus { outline: none; }
 
@@ -435,6 +436,11 @@ ul.settings {
             z-index: 99;
             position: relative;
             transition: 0.5s all ease;
+        }
+
+        &.disabled {
+            opacity: 0.25;
+            pointer-events: none;
         }
     }
 }
