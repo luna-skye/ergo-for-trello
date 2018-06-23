@@ -252,7 +252,12 @@ const gradients = {
                     });
                 },
                 "random": () => {
-                    
+                    let colors = [
+                        '#3A00A6', '#6500A6', '#9100A6', '#A60075', '#A6001F', '#A60E00',
+                        '#26FEAE', '#26FEE8', '#26DBFE', '#269FFE', '#2669FE', '#2631FE',
+                        '#ECA200', '#ECBE00', '#ECD500', '#E8EC00', '#95EC00', '#3FEC00'
+                    ];
+                    return colors[Math.floor(Math.random() * colors.length)];
                 }
             }, colorElements = [];
             for (let i = 0; i < gradient.colors.length; i++) {
@@ -270,7 +275,8 @@ const gradients = {
                     el.create('div', {
                         attributes: { class: 'add-color' },
                         listeners: { click: (event) => {
-                            let c = color.createElement('', "#FFFFFF", 100), options = el.find(event.target, '.gradient-options');
+                            let c = color.createElement('', color.random(), 100),
+                                options = el.find(event.target, '.gradient-options');
                             let colors = event.target.parentNode.parentNode;
                             colors.insertBefore(c, colors.children[colors.children.length - 1]);
                             gradients.updateView(options);
