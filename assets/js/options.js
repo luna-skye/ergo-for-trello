@@ -197,7 +197,7 @@ var el = {
                                 listeners: { change: function change(event) {
                                         var c = el.find(event.target, '.color'),
                                             options = el.find(event.target, '.gradient-options');
-                                        console.log(options);
+
                                         gradients.updateView(options);
                                     } }
                             }),
@@ -293,12 +293,12 @@ var el = {
 
                             // Range Slider
                             el.create('input', {
-                                attributes: { type: 'range', name: 'rotation', value: gradient.rotation, min: 0, max: 360, step: 15 },
+                                attributes: { type: 'range', name: 'rotation', min: 0, max: 360, step: 15, value: gradient.rotation },
                                 listeners: { input: function input(event) {
                                         var options = el.find(event.target, '.gradient-options'),
-                                            rotationNum = el.find(event.target, '.slider').querySelector('[name="rot"]');
+                                            number = options.querySelector('input[type="number"]');
+                                        number.value = event.target.value;
                                         gradients.updateView(options);
-                                        rotationNum.value = event.target.value;
                                     } }
                             }),
 
@@ -306,11 +306,10 @@ var el = {
                             el.create('input', {
                                 attributes: { type: 'number', name: 'rot', min: 0, max: 360, value: gradient.rotation },
                                 listeners: { input: function input(event) {
-                                        /*
-                                        let options = el.find(event.target, '.gradient-options'), rotationSlide = el.find(event.target, '.slider').querySelector('[name="rotation"]');
+                                        var options = el.find(event.target, '.gradient-options'),
+                                            slider = options.querySelector('input[type="range"]');
+                                        slider.value = event.target.value;
                                         gradients.updateView(options);
-                                        rotationSlide.value = event.target.value;
-                                        */
                                     } }
                             }),
 
