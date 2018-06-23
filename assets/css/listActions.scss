@@ -1,0 +1,25 @@
+.eft-list-actions {
+    position: absolute;
+    right: 34px; top: 0;
+
+    div {
+        float: left;
+        cursor: pointer;
+
+        &.eft-list-color {
+            width: 12px;
+            height: 12px;
+            background: #752FCE;
+            border-radius: 50%;
+            margin-top: 14px;
+            opacity: 0;
+            margin-right: -12px;
+            transition: 0.2s ease;
+        }
+        &.eft-card-count { padding: 10px 6px; }
+    }
+}
+.list-header:hover .eft-list-color {
+    margin-right: 2px;
+    opacity: 1;
+}

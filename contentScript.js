@@ -199,9 +199,7 @@ var settings = {
 					}
 				}
 			} else {
-				listHeaders.forEach(function (header) {
-					header.style.height = '18px';
-				});
+				stylesheet.add('style', 'listHeader', '.list-header-name { width: 200px !important; resize: none !important; }');
 				stylesheet.remove('minimalDark-core');
 				for (var sub in options.subsettings) {
 					if (options.subsettings[sub] == true) {
@@ -223,71 +221,6 @@ var settings = {
 				stylesheet.update('style', 'backgroundGradients', styles);
 			} else {
 				stylesheet.remove('backgroundGradients');
-			}
-		},
-		"cardCounter": function cardCounter(options) {
-			// Update Counter Function
-			var updateCounter = function updateCounter() {
-				if (options.state) {
-					var totalCount = 0;
-					if (!document.getElementById('total-card-count')) {
-						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }));
-						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'total-card-count' } }));
-					}
-
-					var list = el.get('.list');
-					if (list) {
-						Array.from(list).forEach(function (list) {
-							if (!list.querySelector('.card-count')) {
-								list.children[0].children[4].prepend(el.create('div', { text: '0', attributes: { class: 'card-count' } }));
-							};
-
-							var count = 0;
-							Array.from(list.children[1].children).forEach(function (card) {
-								if (!card.classList.contains('card-composer')) {
-									count++;totalCount++;
-								}
-							});
-							list.querySelector('.card-count').innerText = count;
-						});
-
-						if (el.get('#total-card-count')) {
-							el.get('#total-card-count').innerText = totalCount + ' total cards';
-						}
-					}
-				} else {
-					var cardCountDivider = el.get('#card-count-divider');
-					if (cardCountDivider) {
-						cardCountDivider.parentNode.removeChild(cardCountDivider);
-					}
-
-					var totalCardCount = el.get('#total-card-count');
-					if (totalCardCount) {
-						totalCardCount.parentNode.removeChild(totalCardCount);
-					}
-
-					var listCardCounts = el.get('.card-count');
-					if (listCardCounts) {
-						listCardCounts.forEach(function (count) {
-							count.parentNode.removeChild(count);
-						});
-					}
-				}
-			};
-
-			if (options.state) {
-				var styles = '#total-card-count { padding: 0 6px; } .card-count { position: absolute; right: 28px; top: 3px; }';
-				stylesheet.add('style', 'cardCounter', styles);
-
-				// Update The Counters
-				updateCounter();
-				counterInterval = setInterval(function () {
-					updateCounter();
-				}, 1000);
-			} else {
-				stylesheet.remove('cardCounter');
-				clearInterval(counterInterval);
-				updateCounter();
 			}
 		},
 		"actionSnapping": function actionSnapping(options) {
@@ -330,7 +263,110 @@ var settings = {
 				stylesheet.remove('actionSnapping');
 			}
 		},
-		"listColors": function listColors(options) {}
+		"cardCounter": function cardCounter(options) {
+			// Update Counter Function
+			var updateCounter = function updateCounter() {
+				if (options.state) {
+					// Total Card Count
+					var totalCount = 0;
+					if (!document.getElementById('eft-total-card-count')) {
+						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }));
+						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } }));
+					}
+
+					// List Counters
+					var lists = el.get('.list');
+					if (lists) {
+						Array.from(lists).forEach(function (list) {
+							// Check/Create EFT Actions
+							if (!list.querySelector('.eft-list-actions')) {
+								list.children[0].append(el.create('div', { attributes: { class: 'eft-list-actions' } }));
+							}
+
+							// Check/Create Card Counter
+							if (!list.querySelector('.eft-card-count')) {
+								list.querySelector('.eft-list-actions').prepend(el.create('div', {
+									text: '0',
+									attributes: { class: 'eft-card-count' },
+									listeners: { click: function click(event) {
+											// ...
+										} }
+								}));
+							};
+
+							// Update Count
+							var count = 0;
+							Array.from(list.children[1].children).forEach(function (card) {
+								if (!card.classList.contains('card-composer')) {
+									count++;totalCount++;
+								}
+							});
+							list.querySelector('.eft-card-count').innerText = count;
+						});
+
+						if (el.get('#eft-total-card-count')) {
+							el.get('#eft-total-card-count').innerText = totalCount + ' total cards';
+						}
+					}
+				} else {
+					var cardCountDivider = el.get('#card-count-divider');
+					if (cardCountDivider) {
+						cardCountDivider.parentNode.removeChild(cardCountDivider);
+					}
+
+					var totalCardCount = el.get('#eft-total-card-count');
+					if (totalCardCount) {
+						totalCardCount.parentNode.removeChild(totalCardCount);
+					}
+
+					var listCardCounts = el.get('.eft-card-count');
+					if (listCardCounts) {
+						listCardCounts.forEach(function (count) {
+							count.parentNode.removeChild(count);
+						});
+					}
+				}
+			};
+
+			if (options.state) {
+				var styles = '#eft-total-card-count { padding: 0 6px; }';
+				stylesheet.add('style', 'cardCounter', styles);
+
+				// Update The Counters
+				updateCounter();
+				counterInterval = setInterval(function () {
+					updateCounter();
+				}, 1000);
+			} else {
+				stylesheet.remove('cardCounter');
+				clearInterval(counterInterval);
+				updateCounter();
+			}
+		},
+		"listColors": function listColors(options) {
+			if (options.state) {
+				var lists = el.get('.list'),
+				    popover = el.get('.pop-over');
+				if (lists) {
+					lists.forEach(function (list) {
+						// Check/Create EFT Actions
+						if (!list.querySelector('.eft-list-actions')) {
+							list.children[0].append(el.create('div', { attributes: { class: 'eft-list-actions' } }));
+						}
+
+						// Check/Create List Color
+						if (!list.querySelector('.eft-list-color')) {
+							list.querySelector('.eft-list-actions').prepend(el.create('div', {
+								attributes: { class: 'eft-list-color' },
+								listeners: { click: function click(event) {
+										// ...
+									} }
+							}));
+						}
+					});
+				}
+			} else {}
+		}
 	}
 };
 
@@ -348,5 +384,6 @@ window.addEventListener('load', function () {
 		for (var key in options) {
 			settings.apply[key](options[key]);
 		}
+		stylesheet.add('link', 'listActions', 'listActions');
 	});
 });
