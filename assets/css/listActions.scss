@@ -16,7 +16,10 @@
             margin-right: -12px;
             transition: 0.2s ease;
         }
-        &.eft-card-count { padding: 10px 6px; }
+        &.eft-card-count {
+            padding: 10px 6px;
+            color: gray;
+        }
     }
 }
 .list-header:hover .eft-list-color {

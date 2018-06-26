@@ -17,7 +17,8 @@
       -o-transition: 0.2s ease;
       transition: 0.2s ease; }
     .eft-list-actions div.eft-card-count {
-      padding: 10px 6px; }
+      padding: 10px 6px;
+      color: gray; }
 
 .list-header:hover .eft-list-color {
   margin-right: 2px;

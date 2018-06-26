@@ -64,12 +64,14 @@ var el = {
 	},
 	"remove": function remove(query) {
 		var e = document.querySelectorAll(query);
-		if (e.length > 1) {
-			e.forEach(function (f) {
-				f.parentNode.removeChild(f);
-			});
-		} else {
-			e[0].parentNode.removeChild(e[0]);
+		if (e.length > 0) {
+			if (e.length > 1) {
+				e.forEach(function (f) {
+					f.parentNode.removeChild(f);
+				});
+			} else {
+				e[0].parentNode.removeChild(e[0]);
+			}
 		}
 	},
 	"find": function find(e, query) {
@@ -88,6 +90,60 @@ var el = {
 			if (e.matches(query)) return e;
 		}
 		return null;
+	}
+};
+var popover = {
+	"show": function show(top, left, title, content) {
+		popover.hide();
+
+		var popOver = el.get('.pop-over');
+		popOver.style.top = top + 42 + 'px';
+		if (left + 306 > document.body.clientWidth) {
+			left = left - 306 + 22;
+		}
+		popOver.style.left = left + 'px';
+		popOver.classList.add('is-shown');
+
+		el.append(popOver,
+		// Popover Back
+		el.create('div', {
+			attributes: { class: 'no-back' },
+			children: [
+			// Popover Header
+			el.create('div', {
+				attributes: { class: 'pop-over-header js-pop-over-header' },
+				children: [
+				// Header Name
+				el.create('span', {
+					text: title,
+					attributes: { class: 'pop-over-header-title' }
+				}),
+
+				// Close Btn
+				el.create('a', {
+					attributes: { href: '#', class: 'pop-over-header-close-btn icon-sm icon-close' },
+					listeners: { click: function click(event) {
+							popover.hide();
+						} }
+				})]
+			}),
+
+			// Content
+			el.create('div', {
+				children: [el.create('div', {
+					attributes: { class: 'pop-over-content js-pop-over-content u-fancy-scrollbar js-tab-parent' },
+					children: [el.create('div', {
+						children: [el.create('div', {
+							children: content
+						})]
+					})]
+				})]
+			})]
+		}));
+	},
+	"hide": function hide() {
+		el.remove('.pop-over .no-back');
+		el.get('.pop-over').classList.remove('is-shown');
 	}
 };
 
@@ -289,7 +345,11 @@ var settings = {
 									text: '0',
 									attributes: { class: 'eft-card-count' },
 									listeners: { click: function click(event) {
-											// ...
+											var viewportOffset = event.target.getBoundingClientRect(),
+											    top = viewportOffset.top,
+											    left = viewportOffset.left;
+
+											popover.show(top, left, 'Card Count', [el.create('ul', { children: [el.create('li', { children: [el.create('a', { text: 'test', attributes: { href: '#' } })] })] })]);
 										} }
 								}));
 							};
@@ -346,7 +406,7 @@ var settings = {
 		"listColors": function listColors(options) {
 			if (options.state) {
 				var lists = el.get('.list'),
-				    popover = el.get('.pop-over');
+				    _popover = el.get('.pop-over');
 				if (lists) {
 					lists.forEach(function (list) {
 						// Check/Create EFT Actions
