@@ -338,12 +338,12 @@ const settings = {
 					// Total Card Count
 					let totalCount = 0;
 					if (!document.getElementById('eft-total-card-count')) {
-						el.append(
-							document.querySelector('.board-header-btns.mod-left'),
+						let headerBtnAppend = el.get('.board-header-btns.mod-left')[0];
+						let cardCountDivider
+						el.append( headerBtnAppend,
 							el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } })
 						);
-						el.append(
-							document.querySelector('.board-header-btns.mod-left'),
+						el.append( headerBtnAppend,
 							el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } })
 						);
 					}
@@ -367,7 +367,16 @@ const settings = {
 												left = viewportOffset.left;
 
 											popover.show(top, left, 'Card Count', [
-												el.create('ul', { children: [ el.create('li', { children: [ el.create('a', { text: 'test', attributes: { href: '#' } }) ] }) ] })
+												el.create('ul', {
+													attributes: { class: 'pop-over-list' },
+													children: [
+														el.create('li', {
+															children: [
+																el.create('a', { text: 'test', attributes: { href: '#' } })
+															]
+														})
+													]
+												})
 											]);
 										} }
 									})
@@ -412,8 +421,7 @@ const settings = {
 		},
 		"listColors": (options) => {
 			if (options.state) {
-				let lists   = el.get('.list'),
-				popover = el.get('.pop-over');
+				let lists = el.get('.list');
 				if (lists) {
 					lists.forEach((list) => {
 						// Check/Create EFT Actions
@@ -428,6 +436,22 @@ const settings = {
 									attributes: { class: 'eft-list-color' },
 									listeners: { click: (event) => {
 										// ...
+										let viewportOffset = event.target.getBoundingClientRect(),
+											top  = viewportOffset.top,
+											left = viewportOffset.left;
+
+										popover.show(top, left, 'List Color', [
+											el.create('ul', {
+												attributes: { class: 'pop-over-list' },
+												children: [
+													el.create('li', {
+														children: [
+															el.create('a', { text: 'test', attributes: { href: '#' } })
+														]
+													})
+												]
+											})
+										]);
 									} }
 								})
 							);

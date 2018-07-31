@@ -326,8 +326,10 @@ var settings = {
 					// Total Card Count
 					var totalCount = 0;
 					if (!document.getElementById('eft-total-card-count')) {
-						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }));
-						el.append(document.querySelector('.board-header-btns.mod-left'), el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } }));
+						var headerBtnAppend = el.get('.board-header-btns.mod-left')[0];
+						var cardCountDivider = void 0;
+						el.append(headerBtnAppend, el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }));
+						el.append(headerBtnAppend, el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } }));
 					}
 
 					// List Counters
@@ -349,7 +351,12 @@ var settings = {
 											    top = viewportOffset.top,
 											    left = viewportOffset.left;
 
-											popover.show(top, left, 'Card Count', [el.create('ul', { children: [el.create('li', { children: [el.create('a', { text: 'test', attributes: { href: '#' } })] })] })]);
+											popover.show(top, left, 'Card Count', [el.create('ul', {
+												attributes: { class: 'pop-over-list' },
+												children: [el.create('li', {
+													children: [el.create('a', { text: 'test', attributes: { href: '#' } })]
+												})]
+											})]);
 										} }
 								}));
 							};
@@ -369,9 +376,9 @@ var settings = {
 						}
 					}
 				} else {
-					var cardCountDivider = el.get('#card-count-divider');
-					if (cardCountDivider) {
-						cardCountDivider.parentNode.removeChild(cardCountDivider);
+					var _cardCountDivider = el.get('#card-count-divider');
+					if (_cardCountDivider) {
+						_cardCountDivider.parentNode.removeChild(_cardCountDivider);
 					}
 
 					var totalCardCount = el.get('#eft-total-card-count');
@@ -405,8 +412,7 @@ var settings = {
 		},
 		"listColors": function listColors(options) {
 			if (options.state) {
-				var lists = el.get('.list'),
-				    _popover = el.get('.pop-over');
+				var lists = el.get('.list');
 				if (lists) {
 					lists.forEach(function (list) {
 						// Check/Create EFT Actions
@@ -420,6 +426,16 @@ var settings = {
 								attributes: { class: 'eft-list-color' },
 								listeners: { click: function click(event) {
 										// ...
+										var viewportOffset = event.target.getBoundingClientRect(),
+										    top = viewportOffset.top,
+										    left = viewportOffset.left;
+
+										popover.show(top, left, 'List Color', [el.create('ul', {
+											attributes: { class: 'pop-over-list' },
+											children: [el.create('li', {
+												children: [el.create('a', { text: 'test', attributes: { href: '#' } })]
+											})]
+										})]);
 									} }
 							}));
 						}
