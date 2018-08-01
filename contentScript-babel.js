@@ -338,14 +338,11 @@ const settings = {
 					// Total Card Count
 					let totalCount = 0;
 					if (!document.getElementById('eft-total-card-count')) {
-						let headerBtnAppend = el.get('.board-header-btns.mod-left')[0];
-						let cardCountDivider
-						el.append( headerBtnAppend,
-							el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } })
-						);
-						el.append( headerBtnAppend,
-							el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } })
-						);
+						let headerBtnAppend  = el.get('.board-header-btns.mod-left')[0],
+							cardCountDivider = el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }),
+							cardCountTotal   = el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } });
+						el.append(headerBtnAppend, cardCountDivider);
+						el.append(headerBtnAppend, cardCountTotal);
 					}
 
 					// List Counters
@@ -371,8 +368,16 @@ const settings = {
 													attributes: { class: 'pop-over-list' },
 													children: [
 														el.create('li', {
+															attributes: { class: 'card-limit-value' },
 															children: [
-																el.create('a', { text: 'test', attributes: { href: '#' } })
+																el.create('p', { text: 'Card Limit' }),
+																el.create('input', {
+																	attributes: { type: 'text' },
+																	listeners: { input: () => {
+																		// On Limit Value Change
+																		// ...
+																	}}
+																})
 															]
 														})
 													]

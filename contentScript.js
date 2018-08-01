@@ -326,10 +326,11 @@ var settings = {
 					// Total Card Count
 					var totalCount = 0;
 					if (!document.getElementById('eft-total-card-count')) {
-						var headerBtnAppend = el.get('.board-header-btns.mod-left')[0];
-						var cardCountDivider = void 0;
-						el.append(headerBtnAppend, el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }));
-						el.append(headerBtnAppend, el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } }));
+						var headerBtnAppend = el.get('.board-header-btns.mod-left')[0],
+						    cardCountDivider = el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }),
+						    cardCountTotal = el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } });
+						el.append(headerBtnAppend, cardCountDivider);
+						el.append(headerBtnAppend, cardCountTotal);
 					}
 
 					// List Counters
@@ -354,7 +355,14 @@ var settings = {
 											popover.show(top, left, 'Card Count', [el.create('ul', {
 												attributes: { class: 'pop-over-list' },
 												children: [el.create('li', {
-													children: [el.create('a', { text: 'test', attributes: { href: '#' } })]
+													attributes: { class: 'card-limit-value' },
+													children: [el.create('p', { text: 'Card Limit' }), el.create('input', {
+														attributes: { type: 'text' },
+														listeners: { input: function input() {
+																// On Limit Value Change
+																// ...
+															} }
+													})]
 												})]
 											})]);
 										} }
