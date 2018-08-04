@@ -325,7 +325,7 @@ var settings = {
 				if (options.state) {
 					// Total Card Count
 					var totalCount = 0;
-					if (!document.getElementById('eft-total-card-count')) {
+					if (!document.getElementById('eft-total-card-count') && document.querySelector('.board-header-btns.mod-left')) {
 						var headerBtnAppend = el.get('.board-header-btns.mod-left')[0],
 						    cardCountDivider = el.create('span', { attributes: { class: 'board-header-btn-divider', id: 'card-count-divider' } }),
 						    cardCountTotal = el.create('div', { text: '0 total cards', attributes: { class: 'board-header-btn', id: 'eft-total-card-count' } });
@@ -345,22 +345,38 @@ var settings = {
 							// Check/Create Card Counter
 							if (!list.querySelector('.eft-card-count')) {
 								list.querySelector('.eft-list-actions').prepend(el.create('div', {
-									text: '0',
 									attributes: { class: 'eft-card-count' },
+									children: [el.create('span', {
+										text: '0',
+										attributes: { class: 'eft-card-count-number' }
+									}), el.create('span', {
+										text: '/30',
+										attributes: { class: 'eft-card-limit' }
+									})],
 									listeners: { click: function click(event) {
 											var viewportOffset = event.target.getBoundingClientRect(),
 											    top = viewportOffset.top,
 											    left = viewportOffset.left;
+											var target = event.target.parentNode,
+											    targetVal = target.querySelector('.eft-card-limit').innerText.substring(1);
 
 											popover.show(top, left, 'Card Count', [el.create('ul', {
 												attributes: { class: 'pop-over-list' },
 												children: [el.create('li', {
 													attributes: { class: 'card-limit-value' },
 													children: [el.create('p', { text: 'Card Limit' }), el.create('input', {
-														attributes: { type: 'text' },
-														listeners: { input: function input() {
+														attributes: { type: 'number', value: targetVal },
+														listeners: { input: function input(event) {
 																// On Limit Value Change
-																// ...
+																var val = event.target.value;
+
+																if (val == 0) {
+																	target.querySelector('.eft-card-limit').classList.add('eft-card-limit-off');
+																} else {
+																	target.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
+																}
+
+																target.querySelector('.eft-card-limit').innerText = '/' + val;
 															} }
 													})]
 												})]
@@ -376,7 +392,7 @@ var settings = {
 									count++;totalCount++;
 								}
 							});
-							list.querySelector('.eft-card-count').innerText = count;
+							list.querySelector('.eft-card-count-number').innerText = count;
 						});
 
 						if (el.get('#eft-total-card-count')) {

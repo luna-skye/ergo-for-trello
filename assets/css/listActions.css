@@ -17,8 +17,10 @@
       -o-transition: 0.2s ease;
       transition: 0.2s ease; }
     .eft-list-actions div.eft-card-count {
-      padding: 10px 6px;
+      margin: 10px 6px;
       color: gray; }
+      .eft-list-actions div.eft-card-count .eft-card-limit-off {
+        display: none; }
 
 .list-header:hover .eft-list-color {
   margin-right: 2px;
