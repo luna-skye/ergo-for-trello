@@ -146,6 +146,29 @@ var popover = {
 		el.get('.pop-over').classList.remove('is-shown');
 	}
 };
+var saveCardLimit = function saveCardLimit() {
+	var lists = el.get('.list'),
+	    boardID = window.location.href.split('/')[4],
+	    s = void 0;
+
+	settings.get(function (options) {
+		var s = {};
+		s.cardCounter = options.cardCounter;
+
+		if (lists) {
+			var listLimits = [];
+			Array.from(lists).forEach(function (list) {
+				var listLimit = list.querySelector('.eft-card-limit').innerText.substring(1);
+				listLimits.push(listLimit);
+			});
+
+			s.cardCounter.subsettings.limits = s.cardCounter.subsettings.limits ? s.cardCounter.subsettings.limits : {};
+			s.cardCounter.subsettings.limits[boardID] = listLimits;
+
+			settings.save(s);
+		}
+	});
+};
 
 var listHeaderInterval, counterInterval;
 var settings = {
@@ -377,6 +400,8 @@ var settings = {
 																}
 
 																target.querySelector('.eft-card-limit').innerText = '/' + val;
+
+																saveCardLimit();
 															} }
 													})]
 												})]

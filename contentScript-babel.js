@@ -137,6 +137,29 @@ const popover = {
 		el.get('.pop-over').classList.remove('is-shown');
 	}
 }
+const saveCardLimit = () => {
+	let lists = el.get('.list'), boardID = window.location.href.split('/')[4], s;
+
+	settings.get(options => {
+		let s = {};
+		s.cardCounter = options.cardCounter;
+
+		if (lists) {
+			let listLimits = [];
+			Array.from(lists).forEach((list) => {
+				let listLimit = list.querySelector('.eft-card-limit').innerText.substring(1);
+				listLimits.push(listLimit);
+			});
+
+			s.cardCounter.subsettings.limits = s.cardCounter.subsettings.limits ? s.cardCounter.subsettings.limits : {};
+			s.cardCounter.subsettings.limits[boardID] = listLimits;
+
+			settings.save(s);
+		}
+	});
+
+
+}
 
 var listHeaderInterval, counterInterval;
 const settings = {
@@ -393,6 +416,8 @@ const settings = {
 																		else { target.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off'); }
 
 																		target.querySelector('.eft-card-limit').innerText = '/'+val;
+
+																		saveCardLimit();
 																	}}
 																})
 															]
