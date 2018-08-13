@@ -443,6 +443,21 @@ var settings = {
 					}
 				}
 			};
+			var setInitLimits = function setInitLimits() {
+				var i = 0;
+				options.subsettings.limits[window.location.href.split('/')[4]].forEach(function (limit) {
+					var list = el.get('.list')[i];
+
+					list.querySelector('.eft-card-limit').innerText = '/' + limit;
+					if (limit != 0) {
+						list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
+					} else {
+						list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off');
+					}
+
+					i++;
+				});
+			};
 
 			if (options.state) {
 				var styles = '#eft-total-card-count { padding: 0 6px; }';
@@ -453,6 +468,9 @@ var settings = {
 				counterInterval = setInterval(function () {
 					updateCounter();
 				}, 1000);
+
+				// Set Initial Limit Numbers
+				setInitLimits();
 			} else {
 				stylesheet.remove('cardCounter');
 				clearInterval(counterInterval);
@@ -506,6 +524,7 @@ chrome.runtime.onMessage.addListener(function (req, sender, res) {
 window.addEventListener('load', function () {
 	// Initial Load
 	settings.get(function (options) {
+		console.log('Initialized Ergo with settings:', options);
 		for (var key in options) {
 			settings.apply[key](options[key]);
 		}
