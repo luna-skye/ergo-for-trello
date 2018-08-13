@@ -1,5 +1,9 @@
 'use strict';
 
+var getBoardID = function getBoardID() {
+	return window.location.href.split('/')[4];
+};
+
 var stylesheet = {
 	"add": function add(type, id, href) {
 		if (!document.getElementById(id)) {
@@ -146,9 +150,9 @@ var popover = {
 		el.get('.pop-over').classList.remove('is-shown');
 	}
 };
+
 var saveCardLimit = function saveCardLimit() {
 	var lists = el.get('.list'),
-	    boardID = window.location.href.split('/')[4],
 	    s = void 0;
 
 	settings.get(function (options) {
@@ -163,11 +167,47 @@ var saveCardLimit = function saveCardLimit() {
 			});
 
 			s.cardCounter.subsettings.limits = s.cardCounter.subsettings.limits ? s.cardCounter.subsettings.limits : {};
-			s.cardCounter.subsettings.limits[boardID] = listLimits;
+			s.cardCounter.subsettings.limits[getBoardID()] = listLimits;
 
 			settings.save(s);
 		}
 	});
+};
+var percentage = function percentage(a, b) {
+	return a / b * 100;
+};
+var updateCounterColor = function updateCounterColor() {
+	var i = 0;
+	var lists = el.get('.list');
+	if (lists) {
+		Array.from(lists).forEach(function (list) {
+			// Calculate Count
+			var count = 0;
+			Array.from(list.children[1].children).forEach(function (card) {
+				if (!card.classList.contains('card-composer')) {
+					count++;
+				}
+			});
+			list.querySelector('.eft-card-count-number').innerText = count;
+
+			// Get Elements
+			var limit = list.querySelector('.eft-card-limit').innerText.substring(1);
+			var counter = list.querySelector('.eft-card-count');
+
+			// Percentage
+			if (limit != 0) {
+				if (percentage(count, limit) > 80) {
+					counter.style.color = 'red';
+				} else {
+					counter.style.color = 'rgb(128,128,128)';
+				}
+			} else {
+				counter.style.color = 'rgb(128,128,128)';
+			}
+
+			i++;
+		});
+	}
 };
 
 var listHeaderInterval, counterInterval;
@@ -373,7 +413,7 @@ var settings = {
 										text: '0',
 										attributes: { class: 'eft-card-count-number' }
 									}), el.create('span', {
-										text: '/30',
+										text: '/4242',
 										attributes: { class: 'eft-card-limit' }
 									})],
 									listeners: { click: function click(event) {
@@ -402,6 +442,7 @@ var settings = {
 																target.querySelector('.eft-card-limit').innerText = '/' + val;
 
 																saveCardLimit();
+																updateCounterColor();
 															} }
 													})]
 												})]
@@ -423,6 +464,10 @@ var settings = {
 						if (el.get('#eft-total-card-count')) {
 							el.get('#eft-total-card-count').innerText = totalCount + ' total cards';
 						}
+
+						// Update Values & Colors
+						setInitLimits();
+						updateCounterColor();
 					}
 				} else {
 					var _cardCountDivider = el.get('#card-count-divider');
@@ -445,18 +490,22 @@ var settings = {
 			};
 			var setInitLimits = function setInitLimits() {
 				var i = 0;
-				options.subsettings.limits[window.location.href.split('/')[4]].forEach(function (limit) {
-					var list = el.get('.list')[i];
+				if (options.subsettings.limits[getBoardID()]) {
+					options.subsettings.limits[getBoardID()].forEach(function (limit) {
+						var list = el.get('.list')[i];
 
-					list.querySelector('.eft-card-limit').innerText = '/' + limit;
-					if (limit != 0) {
-						list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
-					} else {
-						list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off');
-					}
+						if (list.querySelector('.eft-card-limit').innerText == '/4242') {
+							list.querySelector('.eft-card-limit').innerText = '/' + limit;
+							if (limit != 0) {
+								list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
+							} else {
+								list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off');
+							}
+						}
 
-					i++;
-				});
+						i++;
+					});
+				}
 			};
 
 			if (options.state) {
@@ -524,7 +573,7 @@ chrome.runtime.onMessage.addListener(function (req, sender, res) {
 window.addEventListener('load', function () {
 	// Initial Load
 	settings.get(function (options) {
-		console.log('Initialized Ergo with settings:', options);
+		// console.log('Initialized Ergo with settings:', options);
 		for (var key in options) {
 			settings.apply[key](options[key]);
 		}
