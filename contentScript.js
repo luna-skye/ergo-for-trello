@@ -149,9 +149,9 @@ var popover = {
 		el.remove('.pop-over .no-back');
 		el.get('.pop-over').classList.remove('is-shown');
 	}
-};
 
-var saveCardLimit = function saveCardLimit() {
+	// Card Counting Functions
+};var saveCardLimit = function saveCardLimit() {
 	var lists = el.get('.list'),
 	    s = void 0;
 
@@ -180,7 +180,7 @@ var setInitLimits = function setInitLimits() {
 			options.cardCounter.subsettings.limits[getBoardID()].forEach(function (limit) {
 				var list = el.get('.list')[i];
 
-				if (list.querySelector('.eft-card-limit').innerText == '/4242') {
+				if (list.querySelector('.eft-card-limit').innerText == '/0') {
 					list.querySelector('.eft-card-limit').innerText = '/' + limit;
 					if (limit != 0) {
 						list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
@@ -230,6 +230,9 @@ var updateCounterColor = function updateCounterColor() {
 							list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
 							list.querySelector('.js-open-card-composer').style.opacity = '1';
 						}
+					} else {
+						list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
+						list.querySelector('.js-open-card-composer').style.opacity = '1';
 					}
 
 					i++;
@@ -443,8 +446,8 @@ var settings = {
 										text: '0',
 										attributes: { class: 'eft-card-count-number' }
 									}), el.create('span', {
-										text: '/4242',
-										attributes: { class: 'eft-card-limit' }
+										text: '/0',
+										attributes: { class: 'eft-card-limit eft-card-limit-off' }
 									})],
 									listeners: { click: function click(event) {
 											var viewportOffset = event.target.getBoundingClientRect(),

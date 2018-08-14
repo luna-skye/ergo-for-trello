@@ -140,6 +140,7 @@ const popover = {
 	}
 }
 
+// Card Counting Functions
 const saveCardLimit = () => {
 	let lists = el.get('.list'), s;
 
@@ -170,7 +171,7 @@ const setInitLimits = () => {
 			options.cardCounter.subsettings.limits[getBoardID()].forEach(limit => {
 				let list = el.get('.list')[i];
 
-				if (list.querySelector('.eft-card-limit').innerText == '/4242') {
+				if (list.querySelector('.eft-card-limit').innerText == '/0') {
 					list.querySelector('.eft-card-limit').innerText = '/' + limit;
 					if (limit != 0) { list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off'); }
 					else { list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off'); }
@@ -210,6 +211,9 @@ const updateCounterColor = () => {
 							list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
 							list.querySelector('.js-open-card-composer').style.opacity = '1';
 						}
+					} else {
+						list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
+						list.querySelector('.js-open-card-composer').style.opacity = '1';
 					}
 
 					i++;
@@ -445,8 +449,8 @@ const settings = {
 												attributes: { class: 'eft-card-count-number' }
 											}),
 											el.create('span', {
-												text: '/4242',
-												attributes: { class: 'eft-card-limit' }
+												text: '/0',
+												attributes: { class: 'eft-card-limit eft-card-limit-off' }
 											})
 										],
 										listeners: { click: (event) => {
