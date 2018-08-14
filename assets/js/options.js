@@ -76,7 +76,8 @@ var settings = {
         "cardCounter": {
             "state": true,
             "subsettings": {
-                "warningColors": true
+                "warningColors": true,
+                "harshLimits": true
             }
         },
         "actionSnapping": { "state": true },

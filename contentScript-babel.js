@@ -184,37 +184,36 @@ const setInitLimits = () => {
 const percentage = (a,b) => { return (a/b)*100; }
 const updateCounterColor = () => {
 	settings.get(options => {
-		if (options.cardCounter.subsettings.warningColors) {
+		if (options.cardCounter.subsettings.warningColors ||
+			options.cardCounter.subsettings.harshLimits) {
 			let i = 0;
 			let lists = el.get('.list');
 			if (lists) {
 				Array.from(lists).forEach(list => {
-					// Calculate Count
-					let count = 0;
-					Array.from(list.children[1].children).forEach((card) => { if (!card.classList.contains('card-composer')) { count++; } });
-					list.querySelector('.eft-card-count-number').innerText = count;
+					let counter = list.querySelector('.eft-card-count'),
+						count   = list.querySelector('.eft-card-count-number').innerText,
+						limit   = list.querySelector('.eft-card-limit').innerText.substring(1);
 
-					// Get Elements
-					let limit = list.querySelector('.eft-card-limit').innerText.substring(1);
-					let counter = list.querySelector('.eft-card-count');
-
-					// Percentage
-					if (limit != 0) {
-						if      (percentage(count, limit) >= 80) { counter.style.color = '#f44336'; }
-						else if (percentage(count, limit) >= 60) { counter.style.color = '#ffc107'; }
+					// Warning Colors
+					if (limit != 0 && options.cardCounter.subsettings.warningColors) {
+						if      (percentage(count, limit) > 79) { counter.style.color = '#f44336'; }
+						else if (percentage(count, limit) > 59) { counter.style.color = '#ffc107'; }
 						else { counter.style.color = 'rgb(128,128,128)'; }
 					} else   { counter.style.color = 'rgb(128,128,128)'; }
 
+					// Harsh Limit
+					if (limit != 0 && options.cardCounter.subsettings.harshLimits) {
+						if (percentage(count, limit) > 99) {
+							list.querySelector('.js-open-card-composer').style.pointerEvents = 'none';
+							list.querySelector('.js-open-card-composer').style.opacity = '0.5';
+						} else {
+							list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
+							list.querySelector('.js-open-card-composer').style.opacity = '1';
+						}
+					}
+
 					i++;
-				});
-			}
-		} else {
-			let lists = el.get('.list');
-			if (lists) {
-				Array.from(lists).forEach(list => {
-					let counter = list.querySelector('.eft-card-count');
-					counter.style.color = 'rgb(128,128,128)';
-				});
+				})
 			}
 		}
 	})
@@ -332,7 +331,8 @@ const settings = {
         "cardCounter": {
 			"state": true,
 			"subsettings": {
-				"warningColors": true
+				"warningColors": true,
+                "harshLimits": true
 			}
 		},
         "actionSnapping": { "state": true },
@@ -589,7 +589,7 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
 window.addEventListener('load', () => {
 	// Initial Load
 	settings.get(options => {
-		// console.log('Initialized Ergo with settings:', options);
+		console.log('Initialized Ergo with settings:', options);
 		for (var key in options) { settings.apply[key](options[key]); }
 		stylesheet.add('link', 'listActions', 'listActions');
 	});
