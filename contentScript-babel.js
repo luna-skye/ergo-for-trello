@@ -163,30 +163,61 @@ const saveCardLimit = () => {
 
 
 }
+const setInitLimits = () => {
+	settings.get(options => {
+		let i = 0;
+		if (options.cardCounter.subsettings.limits && options.cardCounter.subsettings.limits[getBoardID()]) {
+			options.cardCounter.subsettings.limits[getBoardID()].forEach(limit => {
+				let list = el.get('.list')[i];
+
+				if (list.querySelector('.eft-card-limit').innerText == '/4242') {
+					list.querySelector('.eft-card-limit').innerText = '/' + limit;
+					if (limit != 0) { list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off'); }
+					else { list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off'); }
+				}
+
+				i++;
+			});
+		}
+	});
+}
 const percentage = (a,b) => { return (a/b)*100; }
 const updateCounterColor = () => {
-	let i = 0;
-	let lists = el.get('.list');
-	if (lists) {
-		Array.from(lists).forEach(list => {
-			// Calculate Count
-			let count = 0;
-			Array.from(list.children[1].children).forEach((card) => { if (!card.classList.contains('card-composer')) { count++; } });
-			list.querySelector('.eft-card-count-number').innerText = count;
+	settings.get(options => {
+		if (options.cardCounter.subsettings.warningColors) {
+			let i = 0;
+			let lists = el.get('.list');
+			if (lists) {
+				Array.from(lists).forEach(list => {
+					// Calculate Count
+					let count = 0;
+					Array.from(list.children[1].children).forEach((card) => { if (!card.classList.contains('card-composer')) { count++; } });
+					list.querySelector('.eft-card-count-number').innerText = count;
 
-			// Get Elements
-			let limit = list.querySelector('.eft-card-limit').innerText.substring(1);
-			let counter = list.querySelector('.eft-card-count');
+					// Get Elements
+					let limit = list.querySelector('.eft-card-limit').innerText.substring(1);
+					let counter = list.querySelector('.eft-card-count');
 
-			// Percentage
-			if (limit != 0) {
-				if (percentage(count, limit) > 80) { counter.style.color = 'red'; }
-				else { counter.style.color = 'rgb(128,128,128)'; }
-			} else   { counter.style.color = 'rgb(128,128,128)'; }
+					// Percentage
+					if (limit != 0) {
+						if      (percentage(count, limit) >= 80) { counter.style.color = '#f44336'; }
+						else if (percentage(count, limit) >= 60) { counter.style.color = '#ffc107'; }
+						else { counter.style.color = 'rgb(128,128,128)'; }
+					} else   { counter.style.color = 'rgb(128,128,128)'; }
 
-			i++;
-		});
-	}
+					i++;
+				});
+			}
+		} else {
+			let lists = el.get('.list');
+			if (lists) {
+				Array.from(lists).forEach(list => {
+					let counter = list.querySelector('.eft-card-count');
+					counter.style.color = 'rgb(128,128,128)';
+				});
+			}
+		}
+	})
 }
 
 var listHeaderInterval, counterInterval;
@@ -446,7 +477,7 @@ const settings = {
 																		target.querySelector('.eft-card-limit').innerText = '/'+val;
 
 																		saveCardLimit();
-																		updateCounterColor();
+																		if (options.subsettings.warningColors) { updateCounterColor(); }
 																	}}
 																})
 															]
@@ -469,7 +500,7 @@ const settings = {
 
 						// Update Values & Colors
 						setInitLimits();
-						updateCounterColor();
+						if (options.subsettings.warningColors) { updateCounterColor(); }
 					}
 				}
 				else {
@@ -481,22 +512,6 @@ const settings = {
 
 					let listCardCounts = el.get('.eft-card-count');
 					if (listCardCounts) { listCardCounts.forEach((count) => { count.parentNode.removeChild(count); }); }
-				}
-			}
-			let setInitLimits = () => {
-				let i = 0;
-				if (options.subsettings.limits[getBoardID()]) {
-					options.subsettings.limits[getBoardID()].forEach(limit => {
-						let list = el.get('.list')[i];
-
-						if (list.querySelector('.eft-card-limit').innerText == '/4242') {
-							list.querySelector('.eft-card-limit').innerText = '/' + limit;
-							if (limit != 0) { list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off'); }
-							else { list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off'); }
-						}
-
-						i++;
-					});
 				}
 			}
 

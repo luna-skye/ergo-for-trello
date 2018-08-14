@@ -173,41 +173,76 @@ var saveCardLimit = function saveCardLimit() {
 		}
 	});
 };
+var setInitLimits = function setInitLimits() {
+	settings.get(function (options) {
+		var i = 0;
+		if (options.cardCounter.subsettings.limits && options.cardCounter.subsettings.limits[getBoardID()]) {
+			options.cardCounter.subsettings.limits[getBoardID()].forEach(function (limit) {
+				var list = el.get('.list')[i];
+
+				if (list.querySelector('.eft-card-limit').innerText == '/4242') {
+					list.querySelector('.eft-card-limit').innerText = '/' + limit;
+					if (limit != 0) {
+						list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
+					} else {
+						list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off');
+					}
+				}
+
+				i++;
+			});
+		}
+	});
+};
 var percentage = function percentage(a, b) {
 	return a / b * 100;
 };
 var updateCounterColor = function updateCounterColor() {
-	var i = 0;
-	var lists = el.get('.list');
-	if (lists) {
-		Array.from(lists).forEach(function (list) {
-			// Calculate Count
-			var count = 0;
-			Array.from(list.children[1].children).forEach(function (card) {
-				if (!card.classList.contains('card-composer')) {
-					count++;
-				}
-			});
-			list.querySelector('.eft-card-count-number').innerText = count;
+	settings.get(function (options) {
+		if (options.cardCounter.subsettings.warningColors) {
+			var i = 0;
+			var lists = el.get('.list');
+			if (lists) {
+				Array.from(lists).forEach(function (list) {
+					// Calculate Count
+					var count = 0;
+					Array.from(list.children[1].children).forEach(function (card) {
+						if (!card.classList.contains('card-composer')) {
+							count++;
+						}
+					});
+					list.querySelector('.eft-card-count-number').innerText = count;
 
-			// Get Elements
-			var limit = list.querySelector('.eft-card-limit').innerText.substring(1);
-			var counter = list.querySelector('.eft-card-count');
+					// Get Elements
+					var limit = list.querySelector('.eft-card-limit').innerText.substring(1);
+					var counter = list.querySelector('.eft-card-count');
 
-			// Percentage
-			if (limit != 0) {
-				if (percentage(count, limit) > 80) {
-					counter.style.color = 'red';
-				} else {
-					counter.style.color = 'rgb(128,128,128)';
-				}
-			} else {
-				counter.style.color = 'rgb(128,128,128)';
+					// Percentage
+					if (limit != 0) {
+						if (percentage(count, limit) >= 80) {
+							counter.style.color = '#f44336';
+						} else if (percentage(count, limit) >= 60) {
+							counter.style.color = '#ffc107';
+						} else {
+							counter.style.color = 'rgb(128,128,128)';
+						}
+					} else {
+						counter.style.color = 'rgb(128,128,128)';
+					}
+
+					i++;
+				});
 			}
-
-			i++;
-		});
-	}
+		} else {
+			var _lists = el.get('.list');
+			if (_lists) {
+				Array.from(_lists).forEach(function (list) {
+					var counter = list.querySelector('.eft-card-count');
+					counter.style.color = 'rgb(128,128,128)';
+				});
+			}
+		}
+	});
 };
 
 var listHeaderInterval, counterInterval;
@@ -442,7 +477,9 @@ var settings = {
 																target.querySelector('.eft-card-limit').innerText = '/' + val;
 
 																saveCardLimit();
-																updateCounterColor();
+																if (options.subsettings.warningColors) {
+																	updateCounterColor();
+																}
 															} }
 													})]
 												})]
@@ -467,7 +504,9 @@ var settings = {
 
 						// Update Values & Colors
 						setInitLimits();
-						updateCounterColor();
+						if (options.subsettings.warningColors) {
+							updateCounterColor();
+						}
 					}
 				} else {
 					var _cardCountDivider = el.get('#card-count-divider');
@@ -486,25 +525,6 @@ var settings = {
 							count.parentNode.removeChild(count);
 						});
 					}
-				}
-			};
-			var setInitLimits = function setInitLimits() {
-				var i = 0;
-				if (options.subsettings.limits[getBoardID()]) {
-					options.subsettings.limits[getBoardID()].forEach(function (limit) {
-						var list = el.get('.list')[i];
-
-						if (list.querySelector('.eft-card-limit').innerText == '/4242') {
-							list.querySelector('.eft-card-limit').innerText = '/' + limit;
-							if (limit != 0) {
-								list.querySelector('.eft-card-limit').classList.remove('eft-card-limit-off');
-							} else {
-								list.querySelector('.eft-card-limit').classList.add('eft-card-limit-off');
-							}
-						}
-
-						i++;
-					});
 				}
 			};
 

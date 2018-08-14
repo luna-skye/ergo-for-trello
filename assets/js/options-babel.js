@@ -454,7 +454,11 @@ window.onload = () => {
             document.getElementById(key).checked = options[key].state;
 
             for (var sub in options[key].subsettings) {
-                if (sub !== 'gradients') { document.getElementById(sub).checked = options[key].subsettings[sub]; }
+                console.log(sub);
+                if (sub !== 'gradients' &&
+                    sub !== 'limits') {
+                    document.getElementById(sub).checked = options[key].subsettings[sub];
+                }
             }
         }
         gradients.create(options.backgroundGradients.subsettings.gradients);
@@ -495,17 +499,17 @@ window.onload = () => {
             let setting = checkbox.children[0].getAttribute('name');
             let parentSetting = checkbox.getAttribute('data-parentSetting');
             if (parentSetting != null) {
-                let options = {};
-                options[parentSetting] = {};
-                options[parentSetting].state = document.getElementById(parentSetting).checked;
-                options[parentSetting].subsettings = {};
+                settings.get(options => {
+                    options[parentSetting].state = document.getElementById(parentSetting).checked;
 
-                document.querySelectorAll('.checkbox[data-parentSetting = '+parentSetting+']').forEach((subsetting) => {
-                    let subsettingName = subsetting.children[0].getAttribute('name');
-                    options[parentSetting].subsettings[subsettingName] = subsetting.children[0].checked;
+                    document.querySelectorAll('.checkbox[data-parentSetting = '+parentSetting+']').forEach((subsetting) => {
+                        let subsettingName = subsetting.children[0].getAttribute('name');
+                        options[parentSetting].subsettings[subsettingName] = subsetting.children[0].checked;
+                    });
+
+                    settings.save(options);
                 });
 
-                settings.save(options);
             } else {
                 let options = {};
                 options[setting] = {};

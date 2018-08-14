@@ -420,7 +420,8 @@ window.onload = function () {
             document.getElementById(key).checked = options[key].state;
 
             for (var sub in options[key].subsettings) {
-                if (sub !== 'gradients') {
+                console.log(sub);
+                if (sub !== 'gradients' && sub !== 'limits') {
                     document.getElementById(sub).checked = options[key].subsettings[sub];
                 }
             }
@@ -465,27 +466,26 @@ window.onload = function () {
             var setting = checkbox.children[0].getAttribute('name');
             var parentSetting = checkbox.getAttribute('data-parentSetting');
             if (parentSetting != null) {
-                var options = {};
-                options[parentSetting] = {};
-                options[parentSetting].state = document.getElementById(parentSetting).checked;
-                options[parentSetting].subsettings = {};
+                settings.get(function (options) {
+                    options[parentSetting].state = document.getElementById(parentSetting).checked;
 
-                document.querySelectorAll('.checkbox[data-parentSetting = ' + parentSetting + ']').forEach(function (subsetting) {
-                    var subsettingName = subsetting.children[0].getAttribute('name');
-                    options[parentSetting].subsettings[subsettingName] = subsetting.children[0].checked;
+                    document.querySelectorAll('.checkbox[data-parentSetting = ' + parentSetting + ']').forEach(function (subsetting) {
+                        var subsettingName = subsetting.children[0].getAttribute('name');
+                        options[parentSetting].subsettings[subsettingName] = subsetting.children[0].checked;
+                    });
+
+                    settings.save(options);
                 });
-
-                settings.save(options);
             } else {
-                var _options = {};
-                _options[setting] = {};
-                _options[setting].state = checkbox.children[0].checked;
+                var options = {};
+                options[setting] = {};
+                options[setting].state = checkbox.children[0].checked;
                 if (setting == 'backgroundGradients') {
-                    _options[setting].subsettings = {};
-                    _options[setting].subsettings.gradients = gradients.setting();
+                    options[setting].subsettings = {};
+                    options[setting].subsettings.gradients = gradients.setting();
                 }
 
-                settings.save(_options);
+                settings.save(options);
             }
         });
     });
