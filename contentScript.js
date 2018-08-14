@@ -546,36 +546,40 @@ var settings = {
 		},
 		"listColors": function listColors(options) {
 			if (options.state) {
-				var lists = el.get('.list');
-				if (lists) {
-					lists.forEach(function (list) {
-						// Check/Create EFT Actions
-						if (!list.querySelector('.eft-list-actions')) {
-							list.children[0].append(el.create('div', { attributes: { class: 'eft-list-actions' } }));
-						}
+				// Update Actions
+				var updateActions = function updateActions() {
+					var lists = el.get('.list');
+					if (lists) {
+						lists.forEach(function (list) {
+							// Check/Create EFT Actions
+							if (!list.querySelector('.eft-list-actions')) {
+								list.children[0].append(el.create('div', { attributes: { class: 'eft-list-actions' } }));
+							}
 
-						// Check/Create List Color
-						if (!list.querySelector('.eft-list-color')) {
-							list.querySelector('.eft-list-actions').prepend(el.create('div', {
-								attributes: { class: 'eft-list-color' },
-								listeners: { click: function click(event) {
-										// ...
-										var viewportOffset = event.target.getBoundingClientRect(),
-										    top = viewportOffset.top,
-										    left = viewportOffset.left;
+							// Check/Create List Color Action
+							if (!list.querySelector('.eft-list-color')) {
+								list.querySelector('.eft-list-actions').prepend(el.create('div', {
+									attributes: { class: 'eft-list-color' },
+									listeners: { click: function click(event) {
+											var viewportOffset = event.target.getBoundingClientRect(),
+											    top = viewportOffset.top,
+											    left = viewportOffset.left;
 
-										popover.show(top, left, 'List Color', [el.create('ul', {
-											attributes: { class: 'pop-over-list' },
-											children: [el.create('li', {
-												children: [el.create('a', { text: 'test', attributes: { href: '#' } })]
-											})]
-										})]);
-									} }
-							}));
-						}
-					});
-				}
-			} else {}
+											popover.show(top, left, 'List Color', [el.create('ul', {
+												attributes: { class: 'pop-over-list' },
+												children: [el.create('li', { children: [el.create('a', { text: 'test', attributes: { href: '#' } })] })]
+											})]);
+										} }
+								}));
+							}
+						});
+					}
+				};
+				updateActions();
+				var actionUpdater = setInterval(function () {
+					updateActions();
+				}, 1000);
+			}
 		}
 	}
 };

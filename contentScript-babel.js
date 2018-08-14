@@ -538,46 +538,43 @@ const settings = {
 		},
 		"listColors": (options) => {
 			if (options.state) {
-				let lists = el.get('.list');
-				if (lists) {
-					lists.forEach((list) => {
-						// Check/Create EFT Actions
-						if (!list.querySelector('.eft-list-actions')) {
-							list.children[0].append( el.create('div', { attributes: { class: 'eft-list-actions' } }) );
-						}
+				// Update Actions
+				let updateActions = () => {
+					let lists = el.get('.list');
+					if (lists) {
+						lists.forEach(list => {
+							// Check/Create EFT Actions
+							if (!list.querySelector('.eft-list-actions')) {
+								list.children[0].append( el.create('div', { attributes: { class: 'eft-list-actions' } }) );
+							}
 
-						// Check/Create List Color
-						if (!list.querySelector('.eft-list-color')) {
-							list.querySelector('.eft-list-actions').prepend(
-								el.create('div', {
-									attributes: { class: 'eft-list-color' },
-									listeners: { click: (event) => {
-										// ...
-										let viewportOffset = event.target.getBoundingClientRect(),
-											top  = viewportOffset.top,
-											left = viewportOffset.left;
+							// Check/Create List Color Action
+							if (!list.querySelector('.eft-list-color')) {
+								list.querySelector('.eft-list-actions').prepend(
+									el.create('div', {
+										attributes: { class: 'eft-list-color' },
+										listeners: { click: (event) => {
+											let viewportOffset = event.target.getBoundingClientRect(),
+												top  = viewportOffset.top,
+												left = viewportOffset.left;
 
-										popover.show(top, left, 'List Color', [
-											el.create('ul', {
-												attributes: { class: 'pop-over-list' },
-												children: [
-													el.create('li', {
-														children: [
-															el.create('a', { text: 'test', attributes: { href: '#' } })
-														]
-													})
-												]
-											})
-										]);
-									} }
-								})
-							);
-						}
-					});
+											popover.show(top, left, 'List Color', [
+												el.create('ul', {
+													attributes: { class: 'pop-over-list' },
+													children: [ el.create('li', { children: [ el.create('a', { text: 'test', attributes: { href: '#' } }) ] }) ]
+												})
+											])
+										} }
+									})
+								);
+							}
+						})
+					}
 				}
-			}
-			else {
+				updateActions();
+				let actionUpdater = setInterval(() => { updateActions(); }, 1000);
 
+				
 			}
 		}
 	}
