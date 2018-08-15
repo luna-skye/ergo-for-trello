@@ -118,7 +118,15 @@ const settings = {
         "actionSnapping": { "state": true },
         "listColors": {
 			"state": true,
-			"presets": {}
+			"subsettings": {
+				"presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
+				"boards": {
+					"I9f4HVsz": {
+						"style": "Sleek",
+						"colors": ['#ffffff', '#000000', '#555555']
+					}
+				}
+			}
 		}
     },
     "save": (options) => {
@@ -457,7 +465,10 @@ window.onload = () => {
             for (var sub in options[key].subsettings) {
                 console.log(sub);
                 if (sub !== 'gradients' &&
-                    sub !== 'limits') {
+                    sub !== 'limits' &&
+                    sub !== 'presets' &&
+                    sub !== 'boards') {
+
                     document.getElementById(sub).checked = options[key].subsettings[sub];
                 }
             }

@@ -226,13 +226,16 @@ var updateCounterColor = function updateCounterColor() {
 						if (percentage(count, limit) > 99) {
 							list.querySelector('.js-open-card-composer').style.pointerEvents = 'none';
 							list.querySelector('.js-open-card-composer').style.opacity = '0.5';
+							list.classList.add('list-eft-limited');
 						} else {
 							list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
 							list.querySelector('.js-open-card-composer').style.opacity = '1';
+							list.classList.remove('list-eft-limited');
 						}
 					} else {
 						list.querySelector('.js-open-card-composer').style.pointerEvents = 'auto';
 						list.querySelector('.js-open-card-composer').style.opacity = '1';
+						list.classList.remove('list-eft-limited');
 					}
 
 					i++;
@@ -324,7 +327,15 @@ var settings = {
 		"actionSnapping": { "state": true },
 		"listColors": {
 			"state": true,
-			"presets": {}
+			"subsettings": {
+				"presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
+				"boards": {
+					"I9f4HVsz": {
+						"style": "Sleek",
+						"colors": ['#ffffff', '#000000', '#555555']
+					}
+				}
+			}
 		}
 	},
 	"save": function save(options) {
@@ -416,6 +427,7 @@ var settings = {
 			}
 		},
 		"cardCounter": function cardCounter(options) {
+			stylesheet.add('style', 'harshLimits', '.list-eft-limited .placeholder { display: none; pointer-events: none; }');
 			// Update Counter Function
 			var updateCounter = function updateCounter() {
 				if (options.state) {
@@ -561,13 +573,49 @@ var settings = {
 								list.querySelector('.eft-list-actions').prepend(el.create('div', {
 									attributes: { class: 'eft-list-color' },
 									listeners: { click: function click(event) {
+											// Define Color Options
+											var colorOptions = [el.create('div', {
+												attributes: { class: 'eft-lc-transparent', 'data-color': 'transparent' }
+											})];
+											options.subsettings.presets.forEach(function (preset) {
+												colorOptions.push(el.create('div', {
+													style: { background: preset },
+													attributes: { 'data-color': preset },
+													listeners: { click: function click(event) {
+															// ...
+															console.log(event);
+														} }
+												}));
+											});
+											colorOptions.push(el.create('div', {
+												attributes: { class: 'eft-lc-custom' }
+											}));
+
+											// Call Popover
 											var viewportOffset = event.target.getBoundingClientRect(),
 											    top = viewportOffset.top,
 											    left = viewportOffset.left;
-
 											popover.show(top, left, 'List Color', [el.create('ul', {
 												attributes: { class: 'pop-over-list' },
-												children: [el.create('li', { children: [el.create('a', { text: 'test', attributes: { href: '#' } })] })]
+												children: [el.create('li', {
+													children: [el.create('div', {
+														attributes: { class: 'eft-list-colors' },
+														children: colorOptions
+													}), el.create('form', {
+														children: [el.create('span', {
+															children: [el.create('label', {
+																text: 'Board Style',
+																attributes: { for: 'eft-list-color-style' }
+															}), el.create('select', {
+																attributes: { class: 'eft-list-color-style' },
+																children: [el.create('option', { text: 'Sleek' }), el.create('option', { text: 'Top Border' }), el.create('option', { text: 'Left Border' }), el.create('option', { text: 'Dots' }), el.create('option', { text: 'Fill' })],
+																listeners: { change: function change(event) {
+																		console.log(event);
+																	} }
+															})]
+														})]
+													})]
+												})]
 											})]);
 										} }
 								}));

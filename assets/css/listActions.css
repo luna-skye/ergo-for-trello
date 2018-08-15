@@ -25,3 +25,34 @@
 .list-header:hover .eft-list-color {
   margin-right: 2px;
   opacity: 1; }
+
+.eft-list-colors::after {
+  content: "";
+  clear: both;
+  display: table; }
+
+.eft-list-colors div {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: white;
+  float: left;
+  margin-right: 6px;
+  border: 2px solid #cccccc;
+  cursor: pointer; }
+  .eft-list-colors div.eft-lc-transparent {
+    position: relative; }
+    .eft-list-colors div.eft-lc-transparent:after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 32px;
+      background: red;
+      -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+      transform-origin: center;
+      -webkit-transform: rotate(45deg) translateX(-50%);
+      -ms-transform: rotate(45deg) translateX(-50%);
+      transform: rotate(45deg) translateX(-50%);
+      left: calc(50% - 1px);
+      top: 1px; }
