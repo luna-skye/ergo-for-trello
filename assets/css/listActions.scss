@@ -25,11 +25,12 @@
         }
     }
 }
+
+// List Colors
 .list-header:hover .eft-list-color {
     margin-right: 2px;
     opacity: 1;
 }
-
 .eft-list-colors::after {
     content: "";
     clear: both;
@@ -59,4 +60,42 @@
             top: 1px;
         }
     }
+}
+
+.list { overflow: hidden; }
+.eft-list-color-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 42px;
+    background: transparent;
+    z-index: 0;
+}
+
+#board.eft-list-color-skew .eft-list-color-element {
+    left: -20px;
+    width: 50%;
+    opacity: 1;
+    transform: skewX(-45deg);
+}
+#board.eft-list-color-top-border .eft-list-color-element {
+    width: 100%;
+    height: 4px;
+    opacity: 1;
+}
+#board.eft-list-color-left-border .eft-list-color-element {
+    width: 4px;
+    height: 100%;
+    opacity: 1;
+}
+#board.eft-list-color-fill .eft-list-color-element {
+    width: 100%;
+    height: 42px;
+    opacity: 1;
+}
+#board.eft-list-color-half-fill .eft-list-color-element {
+    width: 50%;
+    height: 42px;
+    opacity: 1;
 }

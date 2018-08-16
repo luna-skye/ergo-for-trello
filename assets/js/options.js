@@ -85,12 +85,7 @@ var settings = {
             "state": true,
             "subsettings": {
                 "presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
-                "boards": {
-                    "I9f4HVsz": {
-                        "style": "Sleek",
-                        "colors": ['#ffffff', '#000000', '#555555']
-                    }
-                }
+                "boards": {}
             }
         }
     },

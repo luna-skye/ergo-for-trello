@@ -3,6 +3,11 @@
 var getBoardID = function getBoardID() {
 	return window.location.href.split('/')[4];
 };
+var toTitleCase = function toTitleCase(str) {
+	return str.replace(/\w\S*/g, function (txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	});
+};
 
 var stylesheet = {
 	"add": function add(type, id, href) {
@@ -152,8 +157,7 @@ var popover = {
 
 	// Card Counting Functions
 };var saveCardLimit = function saveCardLimit() {
-	var lists = el.get('.list'),
-	    s = void 0;
+	var lists = el.get('.list');
 
 	settings.get(function (options) {
 		var s = {};
@@ -161,7 +165,7 @@ var popover = {
 
 		if (lists) {
 			var listLimits = [];
-			Array.from(lists).forEach(function (list) {
+			lists.forEach(function (list) {
 				var listLimit = list.querySelector('.eft-card-limit').innerText.substring(1);
 				listLimits.push(listLimit);
 			});
@@ -203,7 +207,7 @@ var updateCounterColor = function updateCounterColor() {
 			var i = 0;
 			var lists = el.get('.list');
 			if (lists) {
-				Array.from(lists).forEach(function (list) {
+				lists.forEach(function (list) {
 					var counter = list.querySelector('.eft-card-count'),
 					    count = list.querySelector('.eft-card-count-number').innerText,
 					    limit = list.querySelector('.eft-card-limit').innerText.substring(1);
@@ -329,12 +333,7 @@ var settings = {
 			"state": true,
 			"subsettings": {
 				"presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
-				"boards": {
-					"I9f4HVsz": {
-						"style": "Sleek",
-						"colors": ['#ffffff', '#000000', '#555555']
-					}
-				}
+				"boards": {}
 			}
 		}
 	},
@@ -444,7 +443,7 @@ var settings = {
 					// List Counters
 					var lists = el.get('.list');
 					if (lists) {
-						Array.from(lists).forEach(function (list) {
+						lists.forEach(function (list) {
 							// Check/Create EFT Actions
 							if (!list.querySelector('.eft-list-actions')) {
 								list.children[0].append(el.create('div', { attributes: { class: 'eft-list-actions' } }));
@@ -500,7 +499,7 @@ var settings = {
 
 							// Update Count
 							var count = 0;
-							Array.from(list.children[1].children).forEach(function (card) {
+							Array.from(list.querySelector('.list-cards').children).forEach(function (card) {
 								if (!card.classList.contains('card-composer')) {
 									count++;totalCount++;
 								}
@@ -558,6 +557,43 @@ var settings = {
 		},
 		"listColors": function listColors(options) {
 			if (options.state) {
+				if (options.subsettings.boards[getBoardID()]) {
+					document.getElementById('board').classList.add(options.subsettings.boards[getBoardID()].style);
+				} else {
+					document.getElementById('board').classList.add('eft-list-color-skew');
+				}
+
+				// Save List Colors
+				var saveListColors = function saveListColors() {
+					settings.get(function (options) {
+						var s = {};
+						s.listColors = options.listColors;
+
+						var boardStyle = document.getElementById('board').className.split(' ').find(function (el) {
+							return el.indexOf('eft-list-color-') !== -1;
+						});
+						var lists = el.get('.list');
+						if (lists) {
+							var colors = [];
+							lists.forEach(function (list) {
+								colors.push(list.querySelector('.eft-list-color').style.background);
+							});
+							s.listColors.subsettings.boards[getBoardID()] = {};
+							s.listColors.subsettings.boards[getBoardID()].style = boardStyle;
+							s.listColors.subsettings.boards[getBoardID()].colors = colors;
+						}
+
+						settings.save(s);
+					});
+				};
+
+				// Update List C0lor
+				var setListColor = function setListColor(list, color) {
+					list.querySelector('.eft-list-color-element').style.background = color;
+					list.querySelector('.eft-list-color').style.background = color;
+					saveListColors();
+				};
+
 				// Update Actions
 				var updateActions = function updateActions() {
 					var lists = el.get('.list');
@@ -575,7 +611,10 @@ var settings = {
 									listeners: { click: function click(event) {
 											// Define Color Options
 											var colorOptions = [el.create('div', {
-												attributes: { class: 'eft-lc-transparent', 'data-color': 'transparent' }
+												attributes: { class: 'eft-lc-transparent', 'data-color': 'transparent' },
+												listeners: { click: function click(event) {
+														setListColor(list, 'transparent');
+													} }
 											})];
 											options.subsettings.presets.forEach(function (preset) {
 												colorOptions.push(el.create('div', {
@@ -583,13 +622,29 @@ var settings = {
 													attributes: { 'data-color': preset },
 													listeners: { click: function click(event) {
 															// ...
-															console.log(event);
+															setListColor(list, event.target.style.background);
 														} }
 												}));
 											});
-											colorOptions.push(el.create('div', {
-												attributes: { class: 'eft-lc-custom' }
-											}));
+											/* colorOptions.push(
+           	el.create('div', {
+           		attributes: { class: 'eft-lc-custom' }
+           	})
+           ); */
+
+											// Calculate Style Options
+											var styles = ['skew', 'top-border', 'left-border', 'fill', 'half-fill'];
+											var optionsEl = [];
+											var boardStyle = document.getElementById('board').className.split(' ').find(function (el) {
+												return el.indexOf('eft-list-color-') !== -1;
+											});
+											styles.forEach(function (style) {
+												if (style === boardStyle) {
+													optionsEl.push(el.create('option', { text: toTitleCase(style.replace('-', ' ')), attributes: { value: style } }));
+												} else {
+													optionsEl.push(el.create('option', { text: toTitleCase(style.replace('-', ' ')), attributes: { value: style, selected: true } }));
+												}
+											});
 
 											// Call Popover
 											var viewportOffset = event.target.getBoundingClientRect(),
@@ -608,9 +663,17 @@ var settings = {
 																attributes: { for: 'eft-list-color-style' }
 															}), el.create('select', {
 																attributes: { class: 'eft-list-color-style' },
-																children: [el.create('option', { text: 'Sleek' }), el.create('option', { text: 'Top Border' }), el.create('option', { text: 'Left Border' }), el.create('option', { text: 'Dots' }), el.create('option', { text: 'Fill' })],
+																children: optionsEl,
 																listeners: { change: function change(event) {
-																		console.log(event);
+																		document.getElementById('board').classList.remove('eft-list-color-skew');
+																		document.getElementById('board').classList.remove('eft-list-color-top-border');
+																		document.getElementById('board').classList.remove('eft-list-color-left-border');
+																		document.getElementById('board').classList.remove('eft-list-color-fill');
+																		document.getElementById('board').classList.remove('eft-list-color-half-fill');
+
+																		document.getElementById('board').classList.add('eft-list-color-' + event.target.value);
+
+																		saveListColors();
 																	} }
 															})]
 														})]
@@ -620,6 +683,11 @@ var settings = {
 										} }
 								}));
 							}
+
+							// Check/Create List Color Element
+							if (!list.querySelector('.eft-list-color-element')) {
+								list.prepend(el.create('div', { attributes: { class: 'eft-list-color-element' } }));
+							}
 						});
 					}
 				};
@@ -627,6 +695,21 @@ var settings = {
 				var actionUpdater = setInterval(function () {
 					updateActions();
 				}, 1000);
+
+				// Set Init Colors
+				var setInitListColors = function setInitListColors() {
+					if (options.subsettings.boards[getBoardID()]) {
+						var i = 0;
+						options.subsettings.boards[getBoardID()].colors.forEach(function (col) {
+							var lists = el.get('.list');
+							lists[i].querySelector('.eft-list-color-element').style.background = col;
+							lists[i].querySelector('.eft-list-color').style.background = col;
+
+							i++;
+						});
+					}
+				};
+				setInitListColors();
 			}
 		}
 	}
