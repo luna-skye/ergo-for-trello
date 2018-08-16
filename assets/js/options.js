@@ -174,7 +174,6 @@ var el = {
 
     // GRADIENT CLASS
     // --------------
-    // Gradient Generator
 };var gradients = {
     "create": function create(g) {
         g.forEach(function (gradient) {
@@ -407,6 +406,72 @@ var el = {
         return setting;
     }
 
+    // LIST COLORS CLASS
+    // -----------------
+};var listColors = {
+    create: function create(presets) {
+        // Random Color Picker
+        var randomColor = function randomColor() {
+            var colors = ['#3A00A6', '#6500A6', '#9100A6', '#A60075', '#A6001F', '#A60E00', '#26FEAE', '#26FEE8', '#26DBFE', '#269FFE', '#2669FE', '#2631FE', '#ECA200', '#ECBE00', '#ECD500', '#E8EC00', '#95EC00', '#3FEC00'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        };
+
+        // Create Presets
+        var elements = [];
+        presets.forEach(function (preset) {
+            el.append(document.querySelector('.color-preset-container'), el.create('li', {
+                attributes: { class: 'color-preset' },
+                children: [el.create('div', {
+                    attributes: { class: 'color-preset-remove' },
+                    listeners: { click: function click(event) {
+                            var targetPreset = event.target.parentNode;
+                            targetPreset.parentNode.removeChild(targetPreset);
+                            listColors.save();
+                        } }
+                }), el.create('input', {
+                    attributes: { type: 'color', value: preset },
+                    listeners: { change: function change(event) {
+                            listColors.save();
+                        } }
+                })]
+            }));
+        });
+
+        // Add Color Button
+        el.append(document.querySelector('.color-preset-settings'), el.create('li', {
+            attributes: { class: 'color-preset add-color' },
+            listeners: { click: function click(event) {
+                    // ...
+                    el.append(document.querySelector('.color-preset-container'), el.create('li', {
+                        attributes: { class: 'color-preset' },
+                        children: [el.create('input', {
+                            attributes: { type: 'color', value: randomColor() },
+                            listeners: { change: function change(event) {
+                                    listColors.save();
+                                } }
+                        })]
+                    }));
+
+                    listColors.save();
+                } }
+        }));
+    },
+    save: function save() {
+        settings.get(function (options) {
+            var s = {};
+            s.listColors = options.listColors;
+
+            var presets = el.get('.color-preset-container .color-preset');
+            var presetArray = [];
+            presets.forEach(function (preset) {
+                presetArray.push(preset.querySelector('input[type="color"]').value);
+            });
+            s.listColors.subsettings.presets = presetArray;
+
+            settings.save(s);
+        });
+    }
+
     // REMOVECLASSFROMALL
     // ------------------
 };var removeClassFromAll = function removeClassFromAll(el, className) {
@@ -432,6 +497,7 @@ window.onload = function () {
             }
         }
         gradients.create(options.backgroundGradients.subsettings.gradients);
+        listColors.create(options.listColors.subsettings.presets);
     });
 
     // SETTINGS NAVIGATION

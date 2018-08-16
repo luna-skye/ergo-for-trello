@@ -141,7 +141,6 @@ const settings = {
     }
 };
 
-
 // ELEMENTS CLASS
 // --------------
 const el = {
@@ -194,10 +193,8 @@ const el = {
     }
 }
 
-
 // GRADIENT CLASS
 // --------------
-// Gradient Generator
 const gradients = {
     "create": (g) => {
         g.forEach((gradient) => {
@@ -441,6 +438,91 @@ const gradients = {
     }
 }
 
+// LIST COLORS CLASS
+// -----------------
+const listColors = {
+    create: (presets) => {
+        // Random Color Picker
+        let randomColor = () => {
+            let colors = [
+                '#3A00A6', '#6500A6', '#9100A6', '#A60075', '#A6001F', '#A60E00',
+                '#26FEAE', '#26FEE8', '#26DBFE', '#269FFE', '#2669FE', '#2631FE',
+                '#ECA200', '#ECBE00', '#ECD500', '#E8EC00', '#95EC00', '#3FEC00'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Create Presets
+        let elements = [];
+        presets.forEach(preset => {
+            el.append(
+                document.querySelector('.color-preset-container'),
+                el.create('li', {
+                    attributes: { class: 'color-preset' },
+                    children: [
+                        el.create('div', {
+                            attributes: { class: 'color-preset-remove' },
+                            listeners: { click: (event) => {
+                                let targetPreset = event.target.parentNode;
+                                targetPreset.parentNode.removeChild(targetPreset);
+                                listColors.save();
+                            } }
+                        }),
+                        el.create('input', {
+                            attributes: { type: 'color', value: preset },
+                            listeners: { change: (event) => {
+                                listColors.save();
+                            } }
+                        })
+                    ]
+                })
+            )
+        });
+
+        // Add Color Button
+        el.append(
+            document.querySelector('.color-preset-settings'),
+            el.create('li', {
+                attributes: { class: 'color-preset add-color' },
+                listeners: { click: (event) => {
+                    // ...
+                    el.append(
+                        document.querySelector('.color-preset-container'),
+                        el.create('li', {
+                            attributes: { class: 'color-preset' },
+                            children: [
+                                el.create('input', {
+                                    attributes: { type: 'color', value: randomColor() },
+                                    listeners: { change: (event) => {
+                                        listColors.save();
+                                    } }
+                                })
+                            ]
+                        })
+                    )
+
+                    listColors.save();
+                } }
+            })
+        );
+    },
+    save: () => {
+        settings.get(options => {
+            let s = {};
+            s.listColors = options.listColors;
+
+            let presets = el.get('.color-preset-container .color-preset');
+            let presetArray = [];
+            presets.forEach(preset => {
+                presetArray.push(preset.querySelector('input[type="color"]').value);
+            })
+            s.listColors.subsettings.presets = presetArray;
+
+            settings.save(s);
+        });
+    }
+}
+
 // REMOVECLASSFROMALL
 // ------------------
 const removeClassFromAll = (el, className) => {
@@ -469,6 +551,7 @@ window.onload = () => {
             }
         }
         gradients.create(options.backgroundGradients.subsettings.gradients);
+        listColors.create(options.listColors.subsettings.presets);
     });
 
 

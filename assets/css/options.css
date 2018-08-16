@@ -387,6 +387,93 @@ ul.settings {
     ul.settings li#orange .gradient-title {
       color: #D29034 !important; }
 
+.color-preset-settings {
+  padding: 0;
+  list-style: none; }
+  .color-preset-settings li.color-preset {
+    width: 42px;
+    height: 42px;
+    margin: 6px;
+    float: left;
+    overflow: hidden;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 0 0px #4d4d4d;
+    box-shadow: 0 0 0 0px #4d4d4d;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    -webkit-transition: 0.15s ease;
+    -o-transition: 0.15s ease;
+    transition: 0.15s ease; }
+    .color-preset-settings li.color-preset input[type="color"] {
+      width: 58px;
+      height: 58px;
+      border: transparent 0px solid;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      margin-left: -3px;
+      margin-top: -5px;
+      cursor: pointer; }
+    .color-preset-settings li.color-preset .color-preset-remove {
+      width: 42px;
+      height: 21px;
+      background: rgba(77, 77, 77, 0.5);
+      position: absolute;
+      bottom: -21px;
+      left: 50%;
+      -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+      cursor: pointer;
+      -webkit-transition: 0.15s ease 0s;
+      -o-transition: 0.15s ease 0s;
+      transition: 0.15s ease 0s; }
+      .color-preset-settings li.color-preset .color-preset-remove:after, .color-preset-settings li.color-preset .color-preset-remove:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background: white;
+        width: 2px;
+        height: 16px; }
+      .color-preset-settings li.color-preset .color-preset-remove:after {
+        -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+        -ms-transform: translate(-50%, -50%) rotate(-45deg);
+        transform: translate(-50%, -50%) rotate(-45deg); }
+      .color-preset-settings li.color-preset .color-preset-remove:before {
+        -webkit-transform: translate(-50%, -50%) rotate(45deg);
+        -ms-transform: translate(-50%, -50%) rotate(45deg);
+        transform: translate(-50%, -50%) rotate(45deg); }
+    .color-preset-settings li.color-preset:hover {
+      -webkit-box-shadow: 0 0 0 4px #4d4d4d;
+      box-shadow: 0 0 0 4px #4d4d4d; }
+      .color-preset-settings li.color-preset:hover .color-preset-remove {
+        bottom: 0;
+        -webkit-transition: 0.15s ease 0.5s;
+        -o-transition: 0.15s ease 0.5s;
+        transition: 0.15s ease 0.5s; }
+    .color-preset-settings li.color-preset.add-color {
+      position: relative; }
+      .color-preset-settings li.color-preset.add-color:before, .color-preset-settings li.color-preset.add-color:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 2px;
+        height: 24px;
+        background: #4d4d4d; }
+      .color-preset-settings li.color-preset.add-color:after {
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+        -ms-transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg); }
+
 .label {
   font-size: 12px !important;
   margin: 0;

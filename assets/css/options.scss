@@ -403,6 +403,86 @@ ul.settings {
 }
 
 
+// List Colors Settings
+.color-preset-settings {
+    padding: 0;
+    list-style: none;
+
+    li.color-preset {
+        width: 42px;
+        height: 42px;
+        margin: 6px;
+        float: left;
+        overflow: hidden;
+        border-radius: 50%;
+        box-shadow: 0 0 0 0px hsl(0,0%,30%);
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: 0.15s ease;
+
+        input[type="color"] {
+            width: 58px;
+            height: 58px;
+            border: transparent 0px solid;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+            margin-left: -3px;
+            margin-top: -5px;
+            cursor: pointer;
+        }
+
+        .color-preset-remove {
+            width: 42px;
+            height: 21px;
+            background: hsla(0,0%,30%, 0.5);
+            position: absolute;
+            bottom: -21px;
+            left: 50%;
+            transform: translate(-50%,0);
+            cursor: pointer;
+            transition: 0.15s ease 0s;
+
+            &:after, &:before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                background: white;
+                width: 2px;
+                height: 16px;
+            }
+            &:after { transform: translate(-50%,-50%) rotate(-45deg); }
+            &:before { transform: translate(-50%,-50%) rotate(45deg); }
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 4px hsl(0,0%,30%);
+            .color-preset-remove {
+                bottom: 0;
+                transition: 0.15s ease 0.5s;
+            }
+        }
+
+        &.add-color {
+            position: relative;
+            &:before, &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                width: 2px;
+                height: 24px;
+                background: hsl(0,0%,30%);
+            }
+            &:after { transform: translate(-50%,-50%) rotate(90deg); }
+        }
+    }
+}
+
+
 // CUSTOM SELECTS
 .label {
     font-size: 12px !important;
