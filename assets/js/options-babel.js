@@ -7,8 +7,7 @@ const settings = {
 			"subsettings": {
 				"dottedLabels": true,
 				"backgroundInfluence": true,
-				"wideCard": true,
-				"hideExpandBtn": true
+				"wideCard": true
 			}
 		},
         "backgroundGradients": {
@@ -119,7 +118,7 @@ const settings = {
         "listColors": {
 			"state": true,
 			"subsettings": {
-				"presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
+				"presets": ['#fd0033', '#ffa204', '#38b8f5', '#71da07', '#c027fa'],
 				"boards": { }
 			}
 		}
@@ -309,7 +308,19 @@ const gradients = {
                             attributes: { class: "gradient-display" },
                             style:      { background: gradient.gradient },
                             listeners: { click: (event) => {
+                                removeClassFromAll(document.querySelectorAll('.gradient-preset'), 'show');
                                 el.find(event.target, '.gradient-preset').classList.add('show');
+
+                                setTimeout(() => {
+                                    let container = document.querySelector('.option-details');
+                                    let element = el.find(event.target, '.gradient-preset');
+
+                                    container.scrollTo({
+                                        behavior: 'smooth',
+                                        left: 0,
+                                        top: element.offsetTop - 16
+                                    });
+                                }, 200);
                             }}
                         }),
 
@@ -491,6 +502,14 @@ const listColors = {
                         el.create('li', {
                             attributes: { class: 'color-preset' },
                             children: [
+                                el.create('div', {
+                                    attributes: { class: 'color-preset-remove' },
+                                    listeners: { click: (event) => {
+                                        let targetPreset = event.target.parentNode;
+                                        targetPreset.parentNode.removeChild(targetPreset);
+                                        listColors.save();
+                                    } }
+                                }),
                                 el.create('input', {
                                     attributes: { type: 'color', value: randomColor() },
                                     listeners: { change: (event) => {
@@ -540,7 +559,6 @@ window.onload = () => {
             document.getElementById(key).checked = options[key].state;
 
             for (var sub in options[key].subsettings) {
-                console.log(sub);
                 if (sub !== 'gradients' &&
                     sub !== 'limits' &&
                     sub !== 'presets' &&
@@ -553,7 +571,6 @@ window.onload = () => {
         gradients.create(options.backgroundGradients.subsettings.gradients);
         listColors.create(options.listColors.subsettings.presets);
     });
-
 
     // SETTINGS NAVIGATION
     // -----------------------
@@ -601,16 +618,23 @@ window.onload = () => {
                 });
 
             } else {
-                let options = {};
-                options[setting] = {};
-                options[setting].state = checkbox.children[0].checked;
-                if (setting == 'backgroundGradients') {
-                    options[setting].subsettings = {};
-                    options[setting].subsettings.gradients = gradients.setting();
-                }
+                settings.get(options => {
+                    options[setting].state = checkbox.children[0].checked;
 
-                settings.save(options);
+                    if (setting == 'backgroundGradients') {
+                        options[setting].subsettings = {};
+                        options[setting].subsettings.gradients = gradients.setting();
+                    }
+
+                    settings.save(options);
+                })
             }
         });
     });
+
+
+    // APPLY VERSION NUMBER
+    // --------------------
+    var manifest = chrome.runtime.getManifest();
+    document.querySelector('.version-number').innerText = 'v'+manifest.version;
 }

@@ -1,1 +1,1 @@
-"C:Program Files\7-Zip\7z.exe" a "Ergo for Trello.zip" "D:\Production\Coding\Chrome Extensions\ergo-for-trello\*" -r -x!.gitattributes -x!LICENSE -x!*-babel.js -x!prepros-6.config -x!README.md -x!*.bat -x!*.scss -x!.git
+"C:Program Files\7-Zip\7z.exe" a "Ergo for Trello.zip" "E:\CODE\Chrome Extensions\ergo-for-trello\*" -r -x!.gitattributes -x!LICENSE -x!*-babel.js -x!prepros-6.config -x!*.bat -x!*.scss -x!.git -x!.gitignore -x!*.md

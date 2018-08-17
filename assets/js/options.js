@@ -9,8 +9,7 @@ var settings = {
             "subsettings": {
                 "dottedLabels": true,
                 "backgroundInfluence": true,
-                "wideCard": true,
-                "hideExpandBtn": true
+                "wideCard": true
             }
         },
         "backgroundGradients": {
@@ -84,7 +83,7 @@ var settings = {
         "listColors": {
             "state": true,
             "subsettings": {
-                "presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
+                "presets": ['#fd0033', '#ffa204', '#38b8f5', '#71da07', '#c027fa'],
                 "boards": {}
             }
         }
@@ -281,7 +280,19 @@ var el = {
                     attributes: { class: "gradient-display" },
                     style: { background: gradient.gradient },
                     listeners: { click: function click(event) {
+                            removeClassFromAll(document.querySelectorAll('.gradient-preset'), 'show');
                             el.find(event.target, '.gradient-preset').classList.add('show');
+
+                            setTimeout(function () {
+                                var container = document.querySelector('.option-details');
+                                var element = el.find(event.target, '.gradient-preset');
+
+                                container.scrollTo({
+                                    behavior: 'smooth',
+                                    left: 0,
+                                    top: element.offsetTop - 16
+                                });
+                            }, 200);
                         } }
                 }),
 
@@ -444,7 +455,14 @@ var el = {
                     // ...
                     el.append(document.querySelector('.color-preset-container'), el.create('li', {
                         attributes: { class: 'color-preset' },
-                        children: [el.create('input', {
+                        children: [el.create('div', {
+                            attributes: { class: 'color-preset-remove' },
+                            listeners: { click: function click(event) {
+                                    var targetPreset = event.target.parentNode;
+                                    targetPreset.parentNode.removeChild(targetPreset);
+                                    listColors.save();
+                                } }
+                        }), el.create('input', {
                             attributes: { type: 'color', value: randomColor() },
                             listeners: { change: function change(event) {
                                     listColors.save();
@@ -489,7 +507,6 @@ window.onload = function () {
             document.getElementById(key).checked = options[key].state;
 
             for (var sub in options[key].subsettings) {
-                console.log(sub);
                 if (sub !== 'gradients' && sub !== 'limits' && sub !== 'presets' && sub !== 'boards') {
 
                     document.getElementById(sub).checked = options[key].subsettings[sub];
@@ -548,16 +565,22 @@ window.onload = function () {
                     settings.save(options);
                 });
             } else {
-                var options = {};
-                options[setting] = {};
-                options[setting].state = checkbox.children[0].checked;
-                if (setting == 'backgroundGradients') {
-                    options[setting].subsettings = {};
-                    options[setting].subsettings.gradients = gradients.setting();
-                }
+                settings.get(function (options) {
+                    options[setting].state = checkbox.children[0].checked;
 
-                settings.save(options);
+                    if (setting == 'backgroundGradients') {
+                        options[setting].subsettings = {};
+                        options[setting].subsettings.gradients = gradients.setting();
+                    }
+
+                    settings.save(options);
+                });
             }
         });
     });
+
+    // APPLY VERSION NUMBER
+    // --------------------
+    var manifest = chrome.runtime.getManifest();
+    document.querySelector('.version-number').innerText = 'v' + manifest.version;
 };

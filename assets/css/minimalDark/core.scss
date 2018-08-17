@@ -337,6 +337,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		padding: 6px;
 		margin-right: 0;
 		&:hover { background: hsla(0,0%,100%,0.1); }
+		.icon-house { position: relative !important; }
 	}
 	.header-logo { top: 6px; }
 }
@@ -549,14 +550,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		&.is-editing { background: hsla(0,0%,10%,0.3) !important; }
 	}
 	.list-header-name-assist { color: white !important; }
-	.js-list-name-input {
-		border: none !important;
-		padding: 12px !important;
-		&:focus {
-			background: hsla(0,0%,10%,0.3) !important;
-			box-shadow: none !important;
-		}
-	}
+
 	.list-header-extras { margin-top: 3px; }
 	.list-header-extras-menu {
 		span { color: hsl(0,0%,50%); margin-top: 1px; }
@@ -567,6 +561,14 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		margin: 0;
 		padding: 0;
 		background: hsla(0,0%,10%,0.5);
+	}
+}
+.list-name-input {
+	border: none !important;
+	padding: 12px !important;
+	background: hsla(0,0%,10%,0.3) !important;
+	&:focus {
+		box-shadow: none !important;
 	}
 }
 // List Cards
@@ -583,7 +585,6 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	.expanded-list-card-operation { background: transparent !important; }
 	.icon-sm {
 		background: transparent !important;
-		color: hsl(0,0%,50%) !important;
 		&:hover { color: white !important; }
 	}
 
@@ -651,6 +652,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		.u-inline-block.u-bottom { padding: 6px 0; }
 		.card-detail-item-header.js-show-with-desc, .card-detail-item-header, h3 { color: white; }
 		.description-content { color: hsl(0,0%,70%); }
+		.description-content .card-detail-fake-text-area { border: none !important; }
 		.description-content a { color: hsl(0,0%,60%); }
 		.js-card-desc p { padding: 6px 0; }
 		.card-detail-edit.edit textarea.field {
@@ -665,6 +667,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 
 		.quiet.u-bottom:hover a { background: transparent !important; }
+		.quiet-button:hover, .attachment-thumbnail:hover .attachment-thumbnail-details { background: hsla(0,0%,100%,0.05); }
 
 		.checklist-progress-bar { background: hsla(0,0%,100%,0.1); }
 		.checklist-progress-bar-current { background: white; }

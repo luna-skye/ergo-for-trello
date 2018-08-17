@@ -157,7 +157,7 @@ var popover = {
 
 	// Card Counting Functions
 };var saveCardLimit = function saveCardLimit() {
-	var lists = el.get('.list');
+	var lists = document.querySelectorAll('.list');
 
 	settings.get(function (options) {
 		var s = {};
@@ -182,7 +182,7 @@ var setInitLimits = function setInitLimits() {
 		var i = 0;
 		if (options.cardCounter.subsettings.limits && options.cardCounter.subsettings.limits[getBoardID()]) {
 			options.cardCounter.subsettings.limits[getBoardID()].forEach(function (limit) {
-				var list = el.get('.list')[i];
+				var list = document.querySelectorAll('.list')[i];
 
 				if (list.querySelector('.eft-card-limit').innerText == '/0') {
 					list.querySelector('.eft-card-limit').innerText = '/' + limit;
@@ -205,7 +205,7 @@ var updateCounterColor = function updateCounterColor() {
 	settings.get(function (options) {
 		if (options.cardCounter.subsettings.warningColors || options.cardCounter.subsettings.harshLimits) {
 			var i = 0;
-			var lists = el.get('.list');
+			var lists = document.querySelectorAll('.list');
 			if (lists) {
 				lists.forEach(function (list) {
 					var counter = list.querySelector('.eft-card-count'),
@@ -249,7 +249,7 @@ var updateCounterColor = function updateCounterColor() {
 	});
 };
 
-var listHeaderInterval, counterInterval;
+var listHeaderInterval, counterInterval, actionInterval, listColorInterval;
 var settings = {
 	"default": {
 		"minimalDark": {
@@ -257,8 +257,7 @@ var settings = {
 			"subsettings": {
 				"dottedLabels": true,
 				"backgroundInfluence": true,
-				"wideCard": true,
-				"hideExpandBtn": true
+				"wideCard": true
 			}
 		},
 		"backgroundGradients": {
@@ -332,7 +331,7 @@ var settings = {
 		"listColors": {
 			"state": true,
 			"subsettings": {
-				"presets": ['#ff1744', '#FFB63B', '#2196f3', '#76ff03'],
+				"presets": ['#fd0033', '#ffa204', '#38b8f5', '#71da07', '#c027fa'],
 				"boards": {}
 			}
 		}
@@ -441,7 +440,7 @@ var settings = {
 					}
 
 					// List Counters
-					var lists = el.get('.list');
+					var lists = document.querySelectorAll('.list');
 					if (lists) {
 						lists.forEach(function (list) {
 							// Check/Create EFT Actions
@@ -472,7 +471,7 @@ var settings = {
 												children: [el.create('li', {
 													attributes: { class: 'card-limit-value' },
 													children: [el.create('p', { text: 'Card Limit' }), el.create('input', {
-														attributes: { type: 'number', value: targetVal },
+														attributes: { type: 'number', value: targetVal, min: '0', max: '99' },
 														listeners: { input: function input(event) {
 																// On Limit Value Change
 																var val = event.target.value;
@@ -557,12 +556,7 @@ var settings = {
 		},
 		"listColors": function listColors(options) {
 			if (options.state) {
-				if (options.subsettings.boards[getBoardID()]) {
-					document.getElementById('board').classList.add(options.subsettings.boards[getBoardID()].style);
-				} else {
-					document.getElementById('board').classList.add('eft-list-color-skew');
-				}
-
+				console.log('listColors on');
 				// Save List Colors
 				var saveListColors = function saveListColors() {
 					settings.get(function (options) {
@@ -572,7 +566,7 @@ var settings = {
 						var boardStyle = document.getElementById('board').className.split(' ').find(function (el) {
 							return el.indexOf('eft-list-color-') !== -1;
 						});
-						var lists = el.get('.list');
+						var lists = document.querySelectorAll('.list');
 						if (lists) {
 							var colors = [];
 							lists.forEach(function (list) {
@@ -596,7 +590,7 @@ var settings = {
 
 				// Update Actions
 				var updateActions = function updateActions() {
-					var lists = el.get('.list');
+					var lists = document.querySelectorAll('.list');
 					if (lists) {
 						lists.forEach(function (list) {
 							// Check/Create EFT Actions
@@ -616,15 +610,17 @@ var settings = {
 														setListColor(list, 'transparent');
 													} }
 											})];
-											options.subsettings.presets.forEach(function (preset) {
-												colorOptions.push(el.create('div', {
-													style: { background: preset },
-													attributes: { 'data-color': preset },
-													listeners: { click: function click(event) {
-															// ...
-															setListColor(list, event.target.style.background);
-														} }
-												}));
+											settings.get(function (opts) {
+												opts.listColors.subsettings.presets.forEach(function (preset) {
+													colorOptions.push(el.create('div', {
+														style: { background: preset },
+														attributes: { 'data-color': preset },
+														listeners: { click: function click(event) {
+																setListColor(list, event.target.style.background);
+															} }
+													}));
+												});
+												console.log(colorOptions);
 											});
 											/* colorOptions.push(
            	el.create('div', {
@@ -639,10 +635,11 @@ var settings = {
 												return el.indexOf('eft-list-color-') !== -1;
 											});
 											styles.forEach(function (style) {
-												if (style === boardStyle) {
-													optionsEl.push(el.create('option', { text: toTitleCase(style.replace('-', ' ')), attributes: { value: style } }));
-												} else {
+												console.log(style, boardStyle);
+												if ('eft-list-color-' + style === boardStyle) {
 													optionsEl.push(el.create('option', { text: toTitleCase(style.replace('-', ' ')), attributes: { value: style, selected: true } }));
+												} else {
+													optionsEl.push(el.create('option', { text: toTitleCase(style.replace('-', ' ')), attributes: { value: style } }));
 												}
 											});
 
@@ -650,36 +647,38 @@ var settings = {
 											var viewportOffset = event.target.getBoundingClientRect(),
 											    top = viewportOffset.top,
 											    left = viewportOffset.left;
-											popover.show(top, left, 'List Color', [el.create('ul', {
-												attributes: { class: 'pop-over-list' },
-												children: [el.create('li', {
-													children: [el.create('div', {
-														attributes: { class: 'eft-list-colors' },
-														children: colorOptions
-													}), el.create('form', {
-														children: [el.create('span', {
-															children: [el.create('label', {
-																text: 'Board Style',
-																attributes: { for: 'eft-list-color-style' }
-															}), el.create('select', {
-																attributes: { class: 'eft-list-color-style' },
-																children: optionsEl,
-																listeners: { change: function change(event) {
-																		document.getElementById('board').classList.remove('eft-list-color-skew');
-																		document.getElementById('board').classList.remove('eft-list-color-top-border');
-																		document.getElementById('board').classList.remove('eft-list-color-left-border');
-																		document.getElementById('board').classList.remove('eft-list-color-fill');
-																		document.getElementById('board').classList.remove('eft-list-color-half-fill');
+											setTimeout(function () {
+												popover.show(top, left, 'List Color', [el.create('ul', {
+													attributes: { class: 'pop-over-list' },
+													children: [el.create('li', {
+														children: [el.create('div', {
+															attributes: { class: 'eft-list-colors' },
+															children: colorOptions
+														}), el.create('form', {
+															children: [el.create('span', {
+																children: [el.create('label', {
+																	text: 'Board Style',
+																	attributes: { for: 'eft-list-color-style' }
+																}), el.create('select', {
+																	attributes: { class: 'eft-list-color-style' },
+																	children: optionsEl,
+																	listeners: { change: function change(event) {
+																			document.getElementById('board').classList.remove('eft-list-color-skew');
+																			document.getElementById('board').classList.remove('eft-list-color-top-border');
+																			document.getElementById('board').classList.remove('eft-list-color-left-border');
+																			document.getElementById('board').classList.remove('eft-list-color-fill');
+																			document.getElementById('board').classList.remove('eft-list-color-half-fill');
 
-																		document.getElementById('board').classList.add('eft-list-color-' + event.target.value);
+																			document.getElementById('board').classList.add('eft-list-color-' + event.target.value);
 
-																		saveListColors();
-																	} }
+																			saveListColors();
+																		} }
+																})]
 															})]
 														})]
 													})]
-												})]
-											})]);
+												})]);
+											}, 20);
 										} }
 								}));
 							}
@@ -692,24 +691,59 @@ var settings = {
 					}
 				};
 				updateActions();
-				var actionUpdater = setInterval(function () {
+				actionInterval = setInterval(function () {
 					updateActions();
 				}, 1000);
 
 				// Set Init Colors
-				var setInitListColors = function setInitListColors() {
-					if (options.subsettings.boards[getBoardID()]) {
-						var i = 0;
-						options.subsettings.boards[getBoardID()].colors.forEach(function (col) {
-							var lists = el.get('.list');
-							lists[i].querySelector('.eft-list-color-element').style.background = col;
-							lists[i].querySelector('.eft-list-color').style.background = col;
+				var applyListColors = function applyListColors() {
+					settings.get(function (options) {
+						if (options.listColors.subsettings.boards[getBoardID()]) {
+							// Board Style
+							if (document.getElementById('board')) {
+								document.getElementById('board').classList.add(options.listColors.subsettings.boards[getBoardID()].style);
+							}
 
-							i++;
-						});
-					}
+							// List Colors
+							var i = 0;
+							options.listColors.subsettings.boards[getBoardID()].colors.forEach(function (col) {
+								var lists = document.querySelectorAll('.list');
+								if (lists) {
+									lists[i].querySelector('.eft-list-color-element').style.background = col;
+									lists[i].querySelector('.eft-list-color').style.background = col;
+								}
+
+								i++;
+							});
+						} else {
+							if (document.getElementById('board')) {
+								document.getElementById('board').classList.add('eft-list-color-skew');
+							}
+						}
+					});
 				};
-				setInitListColors();
+				applyListColors();
+				listColorInterval = setInterval(function () {
+					applyListColors();
+				}, 1000);
+			} else {
+				console.log('listColors off');
+
+				clearInterval(actionInterval);
+				clearInterval(listColorInterval);
+
+				var lists = document.querySelectorAll('.list');
+				lists.forEach(function (list) {
+					var colorElement = list.querySelector('.eft-list-color-element');
+					if (colorElement) {
+						colorElement.parentNode.removeChild(colorElement);
+					}
+
+					var colorPicker = list.querySelector('.eft-list-color');
+					if (colorPicker) {
+						colorPicker.parentNode.removeChild(colorPicker);
+					}
+				});
 			}
 		}
 	}

@@ -399,6 +399,8 @@ pre::-webkit-scrollbar-track-piece {
     margin-right: 0; }
     #header .header-btn:hover {
       background: rgba(255, 255, 255, 0.1); }
+    #header .header-btn .icon-house {
+      position: relative !important; }
   #header .header-logo {
     top: 6px; }
 
@@ -634,13 +636,6 @@ pre::-webkit-scrollbar-track-piece {
       background: rgba(26, 26, 26, 0.3) !important; }
   .list .list-header-name-assist {
     color: white !important; }
-  .list .js-list-name-input {
-    border: none !important;
-    padding: 12px !important; }
-    .list .js-list-name-input:focus {
-      background: rgba(26, 26, 26, 0.3) !important;
-      -webkit-box-shadow: none !important;
-      box-shadow: none !important; }
   .list .list-header-extras {
     margin-top: 3px; }
   .list .list-header-extras-menu span {
@@ -654,6 +649,14 @@ pre::-webkit-scrollbar-track-piece {
     margin: 0;
     padding: 0;
     background: rgba(26, 26, 26, 0.5); }
+
+.list-name-input {
+  border: none !important;
+  padding: 12px !important;
+  background: rgba(26, 26, 26, 0.3) !important; }
+  .list-name-input:focus {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important; }
 
 .list-card {
   background: rgba(255, 255, 255, 0.05);
@@ -671,8 +674,7 @@ pre::-webkit-scrollbar-track-piece {
   .list-card .expanded-list-card-operation {
     background: transparent !important; }
   .list-card .icon-sm {
-    background: transparent !important;
-    color: gray !important; }
+    background: transparent !important; }
     .list-card .icon-sm:hover {
       color: white !important; }
   .list-card .list-card-composer-textarea {
@@ -749,6 +751,8 @@ pre::-webkit-scrollbar-track-piece {
     color: white; }
   .window .card-detail-window .description-content {
     color: #b3b3b3; }
+  .window .card-detail-window .description-content .card-detail-fake-text-area {
+    border: none !important; }
   .window .card-detail-window .description-content a {
     color: #999999; }
   .window .card-detail-window .js-card-desc p {
@@ -766,6 +770,8 @@ pre::-webkit-scrollbar-track-piece {
         color: white !important; }
   .window .card-detail-window .quiet.u-bottom:hover a {
     background: transparent !important; }
+  .window .card-detail-window .quiet-button:hover, .window .card-detail-window .attachment-thumbnail:hover .attachment-thumbnail-details {
+    background: rgba(255, 255, 255, 0.05); }
   .window .card-detail-window .checklist-progress-bar {
     background: rgba(255, 255, 255, 0.1); }
   .window .card-detail-window .checklist-progress-bar-current {
