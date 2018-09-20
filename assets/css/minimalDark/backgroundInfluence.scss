@@ -13,5 +13,8 @@ $colors: rgb(0, 121, 191), rgb(210, 144, 52), rgb(81, 152, 57), rgb(176, 70, 50)
 		.action-comment a {color: desaturate($item, 30%) !important; }
 		.badge.is-complete { background-color: $item; }
 		pre::-webkit-scrollbar-thumb { background: transparentize($item, 0.3) !important; }
+		.card-detail-window .button-link:hover, .card-detail-window .button-link:hover .icon-sm {
+			color: $item !important;
+		}
 	}
 }

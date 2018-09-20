@@ -15,6 +15,9 @@
 #classic-body[style*="background-color: rgb(0, 121, 191)"] pre::-webkit-scrollbar-thumb {
   background: rgba(0, 121, 191, 0.7) !important; }
 
+#classic-body[style*="background-color: rgb(0, 121, 191)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(0, 121, 191)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #0079bf !important; }
+
 #classic-body[style*="background-color: rgb(210, 144, 52)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(210, 144, 52)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
   background: #dba75e !important; }
@@ -31,6 +34,9 @@
 
 #classic-body[style*="background-color: rgb(210, 144, 52)"] pre::-webkit-scrollbar-thumb {
   background: rgba(210, 144, 52, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(210, 144, 52)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(210, 144, 52)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #d29034 !important; }
 
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(81, 152, 57)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
@@ -49,6 +55,9 @@
 #classic-body[style*="background-color: rgb(81, 152, 57)"] pre::-webkit-scrollbar-thumb {
   background: rgba(81, 152, 57, 0.7) !important; }
 
+#classic-body[style*="background-color: rgb(81, 152, 57)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(81, 152, 57)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #519839 !important; }
+
 #classic-body[style*="background-color: rgb(176, 70, 50)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(176, 70, 50)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
   background: #cb5e4a !important; }
@@ -65,6 +74,9 @@
 
 #classic-body[style*="background-color: rgb(176, 70, 50)"] pre::-webkit-scrollbar-thumb {
   background: rgba(176, 70, 50, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(176, 70, 50)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(176, 70, 50)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #b04632 !important; }
 
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(137, 96, 158)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
@@ -83,6 +95,9 @@
 #classic-body[style*="background-color: rgb(137, 96, 158)"] pre::-webkit-scrollbar-thumb {
   background: rgba(137, 96, 158, 0.7) !important; }
 
+#classic-body[style*="background-color: rgb(137, 96, 158)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(137, 96, 158)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #89609e !important; }
+
 #classic-body[style*="background-color: rgb(205, 90, 145)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(205, 90, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
   background: #d981ab !important; }
@@ -99,6 +114,9 @@
 
 #classic-body[style*="background-color: rgb(205, 90, 145)"] pre::-webkit-scrollbar-thumb {
   background: rgba(205, 90, 145, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(205, 90, 145)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(205, 90, 145)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #cd5a91 !important; }
 
 #classic-body[style*="background-color: rgb(75, 191, 107)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(75, 191, 107)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
@@ -117,6 +135,9 @@
 #classic-body[style*="background-color: rgb(75, 191, 107)"] pre::-webkit-scrollbar-thumb {
   background: rgba(75, 191, 107, 0.7) !important; }
 
+#classic-body[style*="background-color: rgb(75, 191, 107)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(75, 191, 107)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #4bbf6b !important; }
+
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(0, 174, 204)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
   background: #00daff !important; }
@@ -133,6 +154,9 @@
 
 #classic-body[style*="background-color: rgb(0, 174, 204)"] pre::-webkit-scrollbar-thumb {
   background: rgba(0, 174, 204, 0.7) !important; }
+
+#classic-body[style*="background-color: rgb(0, 174, 204)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(0, 174, 204)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #00aecc !important; }
 
 #classic-body[style*="background-color: rgb(131, 140, 145)"] .checklist-progress-bar-current,
 #classic-body[style*="background-color: rgb(131, 140, 145)"] .u-fancy-scrollbar::-webkit-scrollbar-thumb {
@@ -151,4 +175,5 @@
 #classic-body[style*="background-color: rgb(131, 140, 145)"] pre::-webkit-scrollbar-thumb {
   background: rgba(131, 140, 145, 0.7) !important; }
 
-/*# sourceMappingURL=backgroundInfluence.css.map */
+#classic-body[style*="background-color: rgb(131, 140, 145)"] .card-detail-window .button-link:hover, #classic-body[style*="background-color: rgb(131, 140, 145)"] .card-detail-window .button-link:hover .icon-sm {
+  color: #838c91 !important; }

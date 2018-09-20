@@ -162,6 +162,7 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	background: transparent;
 	box-shadow: none !important;
 	color: hsl(0,0%,20%);
+	.icon-sm { color: rgba(255, 255, 255, 0.5); }
 	&:not(.js-simple-add-members):not(.fakefile):not(.setting) { color: hsla(0,0%,100%,0.5); }
 	&:hover { background: transparent !important;
 		&:not(.js-simple-add-members):not(.fakefile):not(.setting) { color: white; }
@@ -281,21 +282,58 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 
 // Content
 // Main highlight container
-.lellDz {
+.jTNqOr {
 	background: transparent !important;
 
 	// Text content container
-	.dqjFjy {
+	.llXCOA {
 		background: hsla(0,0%,100%,0.05) !important;
 		border-radius: 0 !important;
 
 		// Username
-		.hSzPNK { color: white !important; }
+		.iAumev { color: #b3b3b3 !important; }
+		.kdyCzP { color: hsla(0,0%,100%,0.5) !important; }
 		// Text content
-		.bxBUFS {
+		.kGkHeA {
 			color: hsl(0,0%,60%) !important;
 			a { color: #999999 !important; }
 			a:hover { color: white !important; }
+		}
+
+		// Reactions
+		.eykGfP { background: transparent !important;
+			.reaction-piles { margin-left: 12px !important;
+				.reactions-add-img {
+					border: 1px solid hsla(0,0%,100%,0.2) !important;
+				}
+			}
+		}
+
+		// Comment Hide Gradient
+		.hide-comment-overlay { background: linear-gradient(transparent, #262626); }
+		.show-full-comment-button {
+			color: hsla(0,0%,100%,0.5) !important;
+			&:hover {
+				color: white !important;
+			}
+		}
+
+		// Due Date
+		.dIOqKq, .dIOqKq .icon-lg {
+			color: hsla(0,0%,100%,0.5);
+		}
+	}
+	// Reply
+	.bANFgT {
+		background: hsla(0,0%,100%,0.1) !important;
+		border-top: none !important;
+		border-radius: 0 !important;
+
+		.ZUsmH {
+			background: hsla(0,0%,100%,0.1) !important;
+			border-radius: 0 !important;
+			border: none !important;
+			color: white !important;
 		}
 	}
 
@@ -308,7 +346,12 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 		&:hover { background: hsla(0,0%,20%,0.9) !important; }
 
 		// Card title
-		.jwdbeE { color: white !important; }
+		.ctdWLc { color: white !important; }
+
+		// Labels/Due Date
+		.cvcBcq, .hEURDk {
+			border-radius: 0 !important;
+		}
 	}
 
 	// Board & List Titles
@@ -434,6 +477,53 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 .boards-page-board-section-header-options-item:hover { background: transparent; }
 .boards-page-board-section-header-options-item:hover span { color: white !important; }
 .boards-page-board-section-header-icon img { border-radius: 50%; }
+
+
+.tile__thumbnail__3-pqZ { border-radius: 0 !important; }
+.tile__titleText__2TZbr, .tile__linkText__BCNab, .icon-sm, .section-header__text__1SpVs {
+	color: hsla(0,0%,100%,0.5) !important;
+}
+.tile__tile__2tVYP { border-radius: 0 !important; }
+.tile__link__3kNHQ {
+	border-radius: 0 !important;
+	.tile__quietText__EHcBH { color: hsla(0,0%,100%,0.3) !important; }
+	&:hover {
+		background: hsla(0,0%,100%,0.1) !important;
+		.tile__titleText__2TZbr, .tile__linkText__BCNab, .icon-sm { color: white !important; }
+	}
+}
+.tile__buttonIcon__1qcR9 {
+	background: hsla(0,0%,100%,0.1) !important;
+	box-shadow: none !important;
+	border-radius: 0 !important;
+}
+
+.tab__selected__1gsiC.tab__tabLink__3C9rw {
+	background: hsla(0,0%,100%,0.1) !important;
+	.icon-sm, .tab__tabText__212hs {
+		color: #964BE6 !important;
+	}
+}
+
+/*
+.llXCOA { background: transparent !important; }
+.iAumev { color: white !important; }
+.iZSWwI { color: hsla(0,0%,100%,0.6) !important; }
+.kGkHeA { color: hsla(0,0%,100%,0.5) !important; }
+*/
+
+.OBwZh {
+	color: hsla(0,0%,100%,0.5) !important;
+	border-radius: 0 !important;
+	background-color: hsla(0,0%,100%,0.05);
+
+	&:hover {
+		color: white !important;
+		background-color: hsla(0,0%,100%,0.1) !important;
+	}
+}
+
+
 .board-tile {
     border-radius: 0;
     margin: 0;
@@ -593,6 +683,15 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	.open-card-composer { border-radius: 0; }
 	.list-card-composer-textarea { color: white; }
 }
+.open-card-composer {
+	background-color: transparent !important;
+	color: hsla(0,0%,100%,0.5);
+	.icon-sm { color: hsla(0,0%,100%,0.5); }
+	&:hover {
+		color: white !important;
+		.icon-sm { color: white !important; }
+	}
+}
 .badge.is-complete { background-color: hsla(0,0%,100%,0.2); border-radius: 0; }
 .calendar-wrapper .list-card-title { color: black; }
 
@@ -626,7 +725,9 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 	border-radius: 0 !important;
 	background: hsla(0,0%,10%,0.95);
 	a:hover { color: white !important; }
-
+	.icon-sm, a {
+		color: rgba(255, 255, 255, 0.5) !important;
+	}
 	.dialog-close-button {
 		color: hsl(0,0%,30%);
 	}
@@ -724,7 +825,10 @@ pre::-webkit-scrollbar-track-piece { background: transparent !important; }
 			}
 			&.is-focused .comment-frame { background: hsla(0,0%,100%,0.1) !important; }
 		}
-		.comment-box-input { color: white; }
+		.comment-box-input {
+			color: white !important;
+			background: transparent !important;
+		}
 		.phenom.mod-comment-type { border: none !important; }
 		.phenom-desc { margin-top: 10px; }
 		.inline-member { color: white; }

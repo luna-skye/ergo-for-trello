@@ -196,6 +196,8 @@ pre::-webkit-scrollbar-track-piece {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   color: #333333; }
+  .button-link .icon-sm {
+    color: rgba(255, 255, 255, 0.5); }
   .button-link:not(.js-simple-add-members):not(.fakefile):not(.setting) {
     color: rgba(255, 255, 255, 0.5); }
   .button-link:hover {
@@ -355,33 +357,63 @@ pre::-webkit-scrollbar-track-piece {
     .home-board-section-item a:active .home-board-tile-link-text-name, .home-board-section-item a:active .home-board-link-text {
       color: white !important; }
 
-.lellDz {
+.jTNqOr {
   background: transparent !important; }
-  .lellDz .dqjFjy {
+  .jTNqOr .llXCOA {
     background: rgba(255, 255, 255, 0.05) !important;
     border-radius: 0 !important; }
-    .lellDz .dqjFjy .hSzPNK {
-      color: white !important; }
-    .lellDz .dqjFjy .bxBUFS {
+    .jTNqOr .llXCOA .iAumev {
+      color: #b3b3b3 !important; }
+    .jTNqOr .llXCOA .kdyCzP {
+      color: rgba(255, 255, 255, 0.5) !important; }
+    .jTNqOr .llXCOA .kGkHeA {
       color: #999999 !important; }
-      .lellDz .dqjFjy .bxBUFS a {
+      .jTNqOr .llXCOA .kGkHeA a {
         color: #999999 !important; }
-      .lellDz .dqjFjy .bxBUFS a:hover {
+      .jTNqOr .llXCOA .kGkHeA a:hover {
         color: white !important; }
-  .lellDz .sc-kpOJdX {
+    .jTNqOr .llXCOA .eykGfP {
+      background: transparent !important; }
+      .jTNqOr .llXCOA .eykGfP .reaction-piles {
+        margin-left: 12px !important; }
+        .jTNqOr .llXCOA .eykGfP .reaction-piles .reactions-add-img {
+          border: 1px solid rgba(255, 255, 255, 0.2) !important; }
+    .jTNqOr .llXCOA .hide-comment-overlay {
+      background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#262626));
+      background: -webkit-linear-gradient(transparent, #262626);
+      background: -o-linear-gradient(transparent, #262626);
+      background: linear-gradient(transparent, #262626); }
+    .jTNqOr .llXCOA .show-full-comment-button {
+      color: rgba(255, 255, 255, 0.5) !important; }
+      .jTNqOr .llXCOA .show-full-comment-button:hover {
+        color: white !important; }
+    .jTNqOr .llXCOA .dIOqKq, .jTNqOr .llXCOA .dIOqKq .icon-lg {
+      color: rgba(255, 255, 255, 0.5); }
+  .jTNqOr .bANFgT {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-top: none !important;
     border-radius: 0 !important; }
-  .lellDz .deRXfE {
+    .jTNqOr .bANFgT .ZUsmH {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-radius: 0 !important;
+      border: none !important;
+      color: white !important; }
+  .jTNqOr .sc-kpOJdX {
+    border-radius: 0 !important; }
+  .jTNqOr .deRXfE {
     background: rgba(38, 38, 38, 0.9) !important;
     border-radius: 0 !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important; }
-    .lellDz .deRXfE:hover {
+    .jTNqOr .deRXfE:hover {
       background: rgba(51, 51, 51, 0.9) !important; }
-    .lellDz .deRXfE .jwdbeE {
+    .jTNqOr .deRXfE .ctdWLc {
       color: white !important; }
-  .lellDz .home-activity div[title] h1 {
+    .jTNqOr .deRXfE .cvcBcq, .jTNqOr .deRXfE .hEURDk {
+      border-radius: 0 !important; }
+  .jTNqOr .home-activity div[title] h1 {
     opacity: 0.7; }
-  .lellDz .home-activity div[title] h2 {
+  .jTNqOr .home-activity div[title] h2 {
     opacity: 0.5; }
 
 .show-more:hover {
@@ -507,6 +539,49 @@ pre::-webkit-scrollbar-track-piece {
 
 .boards-page-board-section-header-icon img {
   border-radius: 50%; }
+
+.tile__thumbnail__3-pqZ {
+  border-radius: 0 !important; }
+
+.tile__titleText__2TZbr, .tile__linkText__BCNab, .icon-sm, .section-header__text__1SpVs {
+  color: rgba(255, 255, 255, 0.5) !important; }
+
+.tile__tile__2tVYP {
+  border-radius: 0 !important; }
+
+.tile__link__3kNHQ {
+  border-radius: 0 !important; }
+  .tile__link__3kNHQ .tile__quietText__EHcBH {
+    color: rgba(255, 255, 255, 0.3) !important; }
+  .tile__link__3kNHQ:hover {
+    background: rgba(255, 255, 255, 0.1) !important; }
+    .tile__link__3kNHQ:hover .tile__titleText__2TZbr, .tile__link__3kNHQ:hover .tile__linkText__BCNab, .tile__link__3kNHQ:hover .icon-sm {
+      color: white !important; }
+
+.tile__buttonIcon__1qcR9 {
+  background: rgba(255, 255, 255, 0.1) !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important; }
+
+.tab__selected__1gsiC.tab__tabLink__3C9rw {
+  background: rgba(255, 255, 255, 0.1) !important; }
+  .tab__selected__1gsiC.tab__tabLink__3C9rw .icon-sm, .tab__selected__1gsiC.tab__tabLink__3C9rw .tab__tabText__212hs {
+    color: #964BE6 !important; }
+
+/*
+.llXCOA { background: transparent !important; }
+.iAumev { color: white !important; }
+.iZSWwI { color: hsla(0,0%,100%,0.6) !important; }
+.kGkHeA { color: hsla(0,0%,100%,0.5) !important; }
+*/
+.OBwZh {
+  color: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 0 !important;
+  background-color: rgba(255, 255, 255, 0.05); }
+  .OBwZh:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1) !important; }
 
 .board-tile {
   border-radius: 0;
@@ -684,6 +759,16 @@ pre::-webkit-scrollbar-track-piece {
   .list-card .list-card-composer-textarea {
     color: white; }
 
+.open-card-composer {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.5); }
+  .open-card-composer .icon-sm {
+    color: rgba(255, 255, 255, 0.5); }
+  .open-card-composer:hover {
+    color: white !important; }
+    .open-card-composer:hover .icon-sm {
+      color: white !important; }
+
 .badge.is-complete {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 0; }
@@ -724,6 +809,8 @@ pre::-webkit-scrollbar-track-piece {
   background: rgba(26, 26, 26, 0.95); }
   .window a:hover {
     color: white !important; }
+  .window .icon-sm, .window a {
+    color: rgba(255, 255, 255, 0.5) !important; }
   .window .dialog-close-button {
     color: #4d4d4d; }
   .window .card-detail-window .window-title {
@@ -828,7 +915,8 @@ pre::-webkit-scrollbar-track-piece {
   .window .card-detail-window .new-comment.is-focused .comment-frame {
     background: rgba(255, 255, 255, 0.1) !important; }
   .window .card-detail-window .comment-box-input {
-    color: white; }
+    color: white !important;
+    background: transparent !important; }
   .window .card-detail-window .phenom.mod-comment-type {
     border: none !important; }
   .window .card-detail-window .phenom-desc {
